@@ -1,0 +1,26 @@
+mod.id = "arcanearchives"
+mod.name = "Arcane Archives Recrafted"
+mod.group = "com.aranaira.arcanearchives"
+mod.version = "0.1.0"
+mod.license = "MIT"
+mod.authors = "Edvin"
+mod.description = "A faithful modern port of Arcane Archives; migration in progress."
+
+deps.fabric_loader = "0.17.2"
+loomx.loom_version = "1.17.12"
+
+[fabric."1.20.1"]
+mod.mc_compat = "=1.20.1"
+deps.fabric_api = "0.92.6+1.20.1"
+
+[forge."1.20.1"]
+mod.mc_compat = "[1.20.1]"
+deps.forge_loader = "47.3.39"
+
+[fabric."1.21.1"]
+mod.mc_compat = "=1.21.1"
+deps.fabric_api = "0.116.12+1.21.1"
+
+[neoforge."1.21.1"]
+mod.mc_compat = "[1.21.1]"
+deps.neoforge_loader = "21.1.234"

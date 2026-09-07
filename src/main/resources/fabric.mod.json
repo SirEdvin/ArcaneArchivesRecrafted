@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "${id}",
+  "version": "${version}",
+  "name": "${name}",
+  "description": "${description}",
+  "authors": ["${authors}"],
+  "license": "${license}",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.aranaira.arcanearchives.ArcaneArchivesFabric"]
+  },
+  "depends": {
+    "fabricloader": ">=0.17",
+    "minecraft": "${minecraft}",
+    "java": ">=${java}",
+    "fabric-api": "*"
+  }
+}
