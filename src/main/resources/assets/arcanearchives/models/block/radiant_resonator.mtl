@@ -1,0 +1,11 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 29.09.2018 06:38:37
+
+newmtl mat_ArcaneArchives_Master
+map_Kd arcanearchives:blocks/block_arcanearchives_master
+
+newmtl mat_minecraft_bars
+map_Kd minecraft:block/iron_bars
+
+newmtl mat_minecraft_water
+map_Kd minecraft:block/water_still

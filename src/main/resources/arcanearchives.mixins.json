@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8.5",
+  "package": "com.aranaira.arcanearchives.mixin",
+  "compatibilityLevel": "JAVA_${java}",
+  "client": ["TankItemRenderMixin"],
+  "mixins": [
+    "WritAnvilMixin",
+    "MindspindlePickupMixin",
+    "SlaughtergleamCountMixin",
+    "SlaughtergleamChanceMixin",
+    "SlaughtergleamEquipmentMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

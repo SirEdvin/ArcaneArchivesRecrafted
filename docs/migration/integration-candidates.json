@@ -1,0 +1,307 @@
+{
+  "scope": "Historical public Modrinth release metadata snapshot, not current approval or runtime status. Backend choices are now approved; see behavior-change records. Actual Patchouli Maven artifacts and runtime evidence are recorded separately in patchouli-resolved-artifacts.json and GUIDEBOOK_BACKEND.md.",
+  "candidates": [
+    {
+      "project": "patchouli",
+      "source_url": "https://github.com/VazkiiMods/Patchouli/",
+      "license": {
+        "id": "CC-BY-NC-SA-3.0",
+        "name": "Creative Commons Attribution Non Commercial Share Alike 3.0 Unported",
+        "url": null
+      },
+      "node": "1.20.1-fabric",
+      "candidate": {
+        "id": "nm6fiGRx",
+        "version_number": "1.20.1-85-fabric",
+        "date_published": "2026-03-08T21:08:39.875056Z",
+        "dependencies": [
+          {
+            "version_id": null,
+            "project_id": "P7dR8mSH",
+            "file_name": null,
+            "dependency_type": "required"
+          }
+        ],
+        "files": [
+          {
+            "id": "JYZWo6NL",
+            "hashes": {
+              "sha512": "b287e86e71865d7bb0caa2b7722c8940f51e72fd2a534e22c22c04dc9536e53137bacaada24f3cfd8a5133d3135bc6b5b235d4a42fb7e84924ca560df00d5c1e",
+              "sha1": "0a77a88d465f4b14c376cbafa5c393507a97fe21"
+            },
+            "url": "https://cdn.modrinth.com/data/nU0bVIaL/versions/nm6fiGRx/Patchouli-1.20.1-85-FABRIC.jar",
+            "filename": "Patchouli-1.20.1-85-FABRIC.jar",
+            "primary": true,
+            "size": 857123,
+            "file_type": null
+          }
+        ]
+      }
+    },
+    {
+      "project": "patchouli",
+      "source_url": "https://github.com/VazkiiMods/Patchouli/",
+      "license": {
+        "id": "CC-BY-NC-SA-3.0",
+        "name": "Creative Commons Attribution Non Commercial Share Alike 3.0 Unported",
+        "url": null
+      },
+      "node": "1.20.1-forge",
+      "candidate": {
+        "id": "94dtOLgZ",
+        "version_number": "1.20.1-85-forge",
+        "date_published": "2026-03-08T21:08:41.512166Z",
+        "dependencies": [],
+        "files": [
+          {
+            "id": "OnsUGqE4",
+            "hashes": {
+              "sha1": "d4614507d6e4c7cb464bba5eca891978272062ef",
+              "sha512": "15aedda4efcc553d5e3c83aa867b62554bc2fab298b43f55ed324e10507a3605f0ec2c59c01476e6d80b2a49275ef080142e43a6e663f9463b62f520960fc203"
+            },
+            "url": "https://cdn.modrinth.com/data/nU0bVIaL/versions/94dtOLgZ/Patchouli-1.20.1-85-FORGE.jar",
+            "filename": "Patchouli-1.20.1-85-FORGE.jar",
+            "primary": true,
+            "size": 642732,
+            "file_type": null
+          }
+        ]
+      }
+    },
+    {
+      "project": "patchouli",
+      "source_url": "https://github.com/VazkiiMods/Patchouli/",
+      "license": {
+        "id": "CC-BY-NC-SA-3.0",
+        "name": "Creative Commons Attribution Non Commercial Share Alike 3.0 Unported",
+        "url": null
+      },
+      "node": "1.21.1-fabric",
+      "candidate": {
+        "id": "XIjNwQkI",
+        "version_number": "1.21.1-93-fabric",
+        "date_published": "2026-03-08T20:49:50.066615Z",
+        "dependencies": [
+          {
+            "version_id": null,
+            "project_id": "P7dR8mSH",
+            "file_name": null,
+            "dependency_type": "required"
+          }
+        ],
+        "files": [
+          {
+            "id": "cj1lVjU0",
+            "hashes": {
+              "sha512": "a757d9a4db93ad7b7349ba0f4bec476202a988de05a03fa679f9b92ec9e3a7961e793bcd7c0ddfb7fe2239993d230fff812cf949ffad180a5cc4e31ce4dcc7a8",
+              "sha1": "693eb5235ccbcef67569bd62d6c5dd34c4d73459"
+            },
+            "url": "https://cdn.modrinth.com/data/nU0bVIaL/versions/XIjNwQkI/Patchouli-1.21.1-93-FABRIC.jar",
+            "filename": "Patchouli-1.21.1-93-FABRIC.jar",
+            "primary": true,
+            "size": 861256,
+            "file_type": null
+          }
+        ]
+      }
+    },
+    {
+      "project": "patchouli",
+      "source_url": "https://github.com/VazkiiMods/Patchouli/",
+      "license": {
+        "id": "CC-BY-NC-SA-3.0",
+        "name": "Creative Commons Attribution Non Commercial Share Alike 3.0 Unported",
+        "url": null
+      },
+      "node": "1.21.1-neoforge",
+      "candidate": {
+        "id": "BIogJv2D",
+        "version_number": "1.21.1-93-neoforge",
+        "date_published": "2026-03-08T20:49:51.469086Z",
+        "dependencies": [],
+        "files": [
+          {
+            "id": "MSXTA3HQ",
+            "hashes": {
+              "sha1": "5413bb9b8fc35ebe46b06b48bf9afafbd8471140",
+              "sha512": "0b5c172db9a6eeecb5ca44b359a83548c3a60be7ff313959acdfc1e5b8039736c18e57e947d435b52d06da31159d2d02ea36e5742668dbc826308a4c99e4039f"
+            },
+            "url": "https://cdn.modrinth.com/data/nU0bVIaL/versions/BIogJv2D/Patchouli-1.21.1-93-NEOFORGE.jar",
+            "filename": "Patchouli-1.21.1-93-NEOFORGE.jar",
+            "primary": true,
+            "size": 646777,
+            "file_type": null
+          }
+        ]
+      }
+    },
+    {
+      "project": "curios",
+      "source_url": "https://github.com/TheIllusiveC4/Curios",
+      "license": {
+        "id": "LGPL-3.0-or-later",
+        "name": "GNU Lesser General Public License v3.0 or later",
+        "url": null
+      },
+      "node": "1.20.1-forge",
+      "candidate": {
+        "id": "IPQlZkz1",
+        "version_number": "5.14.1+1.20.1",
+        "date_published": "2025-04-13T13:09:28.168539Z",
+        "dependencies": [],
+        "files": [
+          {
+            "id": "GysXk2hT",
+            "hashes": {
+              "sha512": "1373f95fd111c977db2f6adcef8e4eb486a2d926a3e17374692dee4ac3d65857de6446c16922b531aa5ace2c23c666a7fcc28c720b2917c1e04808d15648ba87",
+              "sha1": "452175b95ad3db6ff58bb8968f6bf7a9d1e0f480"
+            },
+            "url": "https://cdn.modrinth.com/data/vvuO3ImH/versions/IPQlZkz1/curios-forge-5.14.1%2B1.20.1.jar",
+            "filename": "curios-forge-5.14.1+1.20.1.jar",
+            "primary": true,
+            "size": 398066,
+            "file_type": null
+          },
+          {
+            "id": "kl5rSqaK",
+            "hashes": {
+              "sha512": "8e5d29d08b686ba619a912427c5bf43f331d51983e633074fe5e5dd1eaa317ca420bb0e2057eecd9ab12ee07925ffb62b04d9ea6c0d067d02b4399460205c013",
+              "sha1": "2fc2e9613f1ed896f2928b01e8f88d60d1862c2b"
+            },
+            "url": "https://cdn.modrinth.com/data/vvuO3ImH/versions/IPQlZkz1/curios-forge-5.14.1%2B1.20.1-api.jar",
+            "filename": "curios-forge-5.14.1+1.20.1-api.jar",
+            "primary": false,
+            "size": 107842,
+            "file_type": null
+          },
+          {
+            "id": "ihnIap6o",
+            "hashes": {
+              "sha1": "b30dbe254445060e7f510e31f32b2b3ef92961f9",
+              "sha512": "02b365411f4d429ae351660af2515fe4a05d2f59f0b3fc31b7930ceed5f34ceb3cef8aa6173a62b9f65b314e1080f694bb76f0c522f880bbc9a0af05ea52dc45"
+            },
+            "url": "https://cdn.modrinth.com/data/vvuO3ImH/versions/IPQlZkz1/curios-forge-5.14.1%2B1.20.1-sources.jar",
+            "filename": "curios-forge-5.14.1+1.20.1-sources.jar",
+            "primary": false,
+            "size": 181829,
+            "file_type": null
+          }
+        ]
+      }
+    },
+    {
+      "project": "curios",
+      "source_url": "https://github.com/TheIllusiveC4/Curios",
+      "license": {
+        "id": "LGPL-3.0-or-later",
+        "name": "GNU Lesser General Public License v3.0 or later",
+        "url": null
+      },
+      "node": "1.21.1-neoforge",
+      "candidate": {
+        "id": "yohfFbgD",
+        "version_number": "9.5.1+1.21.1",
+        "date_published": "2025-05-14T13:34:47.415840Z",
+        "dependencies": [],
+        "files": [
+          {
+            "id": "b2ffV495",
+            "hashes": {
+              "sha512": "5981a267686b744e7e3c227f78cbcd5267c14ac6979a28e814695f4589273998563147207fef4a5cdb7cdbdc39797cd95d9e4abadb55869f18e02a38d0654ae5",
+              "sha1": "418fcd42e3a7844c9bdc71c9b6401fdb3894e0c4"
+            },
+            "url": "https://cdn.modrinth.com/data/vvuO3ImH/versions/yohfFbgD/curios-neoforge-9.5.1%2B1.21.1.jar",
+            "filename": "curios-neoforge-9.5.1+1.21.1.jar",
+            "primary": true,
+            "size": 410690,
+            "file_type": null
+          },
+          {
+            "id": "R6dgxr86",
+            "hashes": {
+              "sha1": "cb1f24ce0b444608e635057bf0821cc56d455ef0",
+              "sha512": "bcd38309de015d46ff84d23bcbe19dd87ee3d9dd9208c2d696cbc0366d2b6ad5c52c49b6651bf72df897c2bc175078a2427651ebab5849c19f5be12342bf1e20"
+            },
+            "url": "https://cdn.modrinth.com/data/vvuO3ImH/versions/yohfFbgD/curios-neoforge-9.5.1%2B1.21.1-api.jar",
+            "filename": "curios-neoforge-9.5.1+1.21.1-api.jar",
+            "primary": false,
+            "size": 131888,
+            "file_type": null
+          },
+          {
+            "id": "Lvyc9Kw0",
+            "hashes": {
+              "sha512": "590b29cd2db0beccc6b116c91128b861cd837d2f91dd6f0a7619541b3cc06e69ac9f15c920063b2645385f2e1d82ad05f8a978c2688e04cf3b0e5fbf15272e26",
+              "sha1": "6182eb01cbfb2c235ff4b12024b9270d16866ddf"
+            },
+            "url": "https://cdn.modrinth.com/data/vvuO3ImH/versions/yohfFbgD/curios-neoforge-9.5.1%2B1.21.1-sources.jar",
+            "filename": "curios-neoforge-9.5.1+1.21.1-sources.jar",
+            "primary": false,
+            "size": 265975,
+            "file_type": null
+          }
+        ]
+      }
+    },
+    {
+      "project": "trinkets",
+      "source_url": "https://github.com/emilyalexandra/trinkets",
+      "license": {
+        "id": "MIT",
+        "name": "MIT License",
+        "url": null
+      },
+      "node": "1.20.1-fabric",
+      "candidate": {
+        "id": "AHxQGtuC",
+        "version_number": "3.7.2",
+        "date_published": "2024-03-11T04:25:11.224830Z",
+        "dependencies": [],
+        "files": [
+          {
+            "id": "sNuyW6m9",
+            "hashes": {
+              "sha1": "d58cc8759587f03f320f188972ca66baa788d008",
+              "sha512": "bedf97c87c5e556416410267108ad358b32806448be24ef8ae1a79ac63b78b48b9c851c00c845b8aedfc7805601385420716b9e65326fdab21340e8ba3cc4274"
+            },
+            "url": "https://cdn.modrinth.com/data/5aaWibi9/versions/AHxQGtuC/trinkets-3.7.2.jar",
+            "filename": "trinkets-3.7.2.jar",
+            "primary": true,
+            "size": 238532,
+            "file_type": null
+          }
+        ]
+      }
+    },
+    {
+      "project": "trinkets",
+      "source_url": "https://github.com/emilyalexandra/trinkets",
+      "license": {
+        "id": "MIT",
+        "name": "MIT License",
+        "url": null
+      },
+      "node": "1.21.1-fabric",
+      "candidate": {
+        "id": "JagCscwi",
+        "version_number": "3.10.0",
+        "date_published": "2024-07-15T11:03:14.206207Z",
+        "dependencies": [],
+        "files": [
+          {
+            "id": "BDcLJ0iu",
+            "hashes": {
+              "sha512": "3ea846c945a0559696501ff65b373c8ee8fd9b394604e9910b4ed710c3e07cadc674a615a2c3b385951a42253a418201975df951b3100053ed39afadc70221c9",
+              "sha1": "f54756f938c7c273713b9f97d4a987eec551e892"
+            },
+            "url": "https://cdn.modrinth.com/data/5aaWibi9/versions/JagCscwi/trinkets-3.10.0.jar",
+            "filename": "trinkets-3.10.0.jar",
+            "primary": true,
+            "size": 272944,
+            "file_type": null
+          }
+        ]
+      }
+    }
+  ]
+}

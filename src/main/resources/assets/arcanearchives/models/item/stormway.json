@@ -1,0 +1,24 @@
+{
+  "parent": "arcanearchives:item/gems/trillion/yellow",
+  "overrides": [
+    {
+      "predicate": {
+        "arcanearchives:colourblind": 1
+      },
+      "model": "arcanearchives:item/gems/accessibility/trillion/yellow"
+    },
+    {
+      "predicate": {
+        "arcanearchives:gem_empty": 1
+      },
+      "model": "arcanearchives:item/gems/trillion/dun"
+    },
+    {
+      "predicate": {
+        "arcanearchives:gem_empty": 1,
+        "arcanearchives:colourblind": 1
+      },
+      "model": "arcanearchives:item/gems/accessibility/trillion/dun"
+    }
+  ]
+}

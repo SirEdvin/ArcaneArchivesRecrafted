@@ -1,0 +1,22 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 12,
+  "inputs": [
+    {
+      "item": "arcanearchives:shaped_quartz",
+      "count": 1
+    },
+    {
+      "tag": "arcanearchives:ingredients/nugget_gold",
+      "count": 2
+    },
+    {
+      "tag": "arcanearchives:ingredients/stick_wood",
+      "count": 4
+    }
+  ],
+  "result": {
+    "item": "arcanearchives:monitoring_crystal",
+    "count": 1
+  }
+}

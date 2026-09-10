@@ -1,0 +1,11 @@
+{
+  "loader": "${obj_loader}:obj",
+  "model": "arcanearchives:models/block/quartz_sliver.obj",
+  "flip_v": true,
+  "automatic_culling": false,
+  "shade_quads": true,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "arcanearchives:blocks/block_storage_rawquartz"
+  }
+}

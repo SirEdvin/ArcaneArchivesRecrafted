@@ -1,0 +1,83 @@
+{
+  "loader": "${obj_loader}:obj",
+  "model": "arcanearchives:models/block/makeshift_resonator.obj",
+  "flip_v": true,
+  "automatic_culling": false,
+  "shade_quads": true,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "arcanearchives:blocks/radiant_resonator"
+  },
+  "display": {
+    "firstperson_lefthand": {},
+    "thirdperson_lefthand": {},
+    "firstperson_righthand": {
+      "rotation": [
+        -0.0,
+        44.99999999999999,
+        -0.0
+      ],
+      "translation": [
+        0,
+        0.4,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        90.0,
+        0.0,
+        -0.0
+      ],
+      "translation": [
+        0.0,
+        2.4,
+        0.0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "gui": {
+      "rotation": [
+        27.236313475170725,
+        41.64114326790979,
+        1.1182787690931366
+      ],
+      "translation": [
+        0.32,
+        0.0,
+        0
+      ],
+      "scale": [
+        0.65,
+        0.65,
+        0.65
+      ]
+    },
+    "ground": {
+      "rotation": [
+        -0.0,
+        0.0,
+        -0.0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    }
+  }
+}

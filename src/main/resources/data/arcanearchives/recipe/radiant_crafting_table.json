@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {"item": "arcanearchives:raw_quartz"},
+    {"tag": "arcanearchives:ingredients/workbenches"}
+  ],
+  "result": {"${result_key}": "arcanearchives:radiant_crafting_table", "count": 1}
+}

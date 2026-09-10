@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "${result_key}": "arcanearchives:quartz_sliver"
+    },
+    "title": {
+      "translate": "advancement.arcanearchives.sliver"
+    },
+    "description": {
+      "translate": "advancement.arcanearchives.sliver.desc"
+    }
+  },
+  "parent": "arcanearchives:raw_quartz",
+  "criteria": {
+    "book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "arcanearchives:quartz_sliver"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

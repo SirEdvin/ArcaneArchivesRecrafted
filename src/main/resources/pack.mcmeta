@@ -1,0 +1,10 @@
+{
+  "pack": {
+    "description": "Arcane Archives Recrafted resources",
+    "pack_format": ${pack_resource},
+    "supported_formats": {
+      "min_inclusive": ${pack_resource},
+      "max_inclusive": ${pack_data}
+    }
+  }
+}

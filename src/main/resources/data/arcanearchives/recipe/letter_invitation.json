@@ -1,0 +1,11 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "record_creator": true,
+  "hive": "invitation",
+  "inputs": [
+    {"tag": "arcanearchives:ingredients/paper", "count": 3},
+    {"item": "arcanearchives:radiant_dust", "count": 1},
+    {"tag": "arcanearchives:ingredients/dye_light_blue", "count": 1}
+  ],
+  "result": {"item": "arcanearchives:letter_invitation", "count": 1}
+}

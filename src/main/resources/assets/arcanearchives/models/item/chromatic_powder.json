@@ -1,0 +1,65 @@
+{
+  "parent": "arcanearchives:item/gems/powder/white",
+  "overrides": [
+    {
+      "predicate": {
+        "arcanearchives:powder_color": 0.1
+      },
+      "model": "arcanearchives:item/gems/powder/red"
+    },
+    {
+      "predicate": {
+        "arcanearchives:powder_color": 0.2
+      },
+      "model": "arcanearchives:item/gems/powder/orange"
+    },
+    {
+      "predicate": {
+        "arcanearchives:powder_color": 0.3
+      },
+      "model": "arcanearchives:item/gems/powder/yellow"
+    },
+    {
+      "predicate": {
+        "arcanearchives:powder_color": 0.4
+      },
+      "model": "arcanearchives:item/gems/powder/green"
+    },
+    {
+      "predicate": {
+        "arcanearchives:powder_color": 0.5
+      },
+      "model": "arcanearchives:item/gems/powder/cyan"
+    },
+    {
+      "predicate": {
+        "arcanearchives:powder_color": 0.6
+      },
+      "model": "arcanearchives:item/gems/powder/blue"
+    },
+    {
+      "predicate": {
+        "arcanearchives:powder_color": 0.7
+      },
+      "model": "arcanearchives:item/gems/powder/purple"
+    },
+    {
+      "predicate": {
+        "arcanearchives:powder_color": 0.8
+      },
+      "model": "arcanearchives:item/gems/powder/pink"
+    },
+    {
+      "predicate": {
+        "arcanearchives:powder_color": 0.9
+      },
+      "model": "arcanearchives:item/gems/powder/black"
+    },
+    {
+      "predicate": {
+        "arcanearchives:powder_color": 1.0
+      },
+      "model": "arcanearchives:item/gems/powder/white"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "components": [
+    {
+      "type": "patchouli:custom",
+      "class": "com.aranaira.arcanearchives.client.GemCutterBookComponent",
+      "x": 4,
+      "y": 20,
+      "output": "#output"
+    }
+  ]
+}

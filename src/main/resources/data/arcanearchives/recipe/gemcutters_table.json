@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DGP",
+    "WCW",
+    "QWQ"
+  ],
+  "key": {
+    "D": {
+      "tag": "arcanearchives:ingredients/diorite_or_marble"
+    },
+    "G": {
+      "tag": "arcanearchives:ingredients/glass_panes"
+    },
+    "P": {
+      "tag": "arcanearchives:ingredients/paper"
+    },
+    "C": {
+      "tag": "arcanearchives:ingredients/workbenches"
+    },
+    "W": {
+      "tag": "arcanearchives:ingredients/logs"
+    },
+    "Q": {
+      "item": "arcanearchives:raw_quartz"
+    }
+  },
+  "result": {
+    "${result_key}": "arcanearchives:gemcutters_table",
+    "count": 1
+  }
+}

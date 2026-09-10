@@ -1,0 +1,8 @@
+{
+  "parent": "arcanearchives:item/gems/pendeloque/blue",
+  "overrides": [
+    {"predicate": {"arcanearchives:colourblind": 1}, "model": "arcanearchives:item/gems/accessibility/pendeloque/blue"},
+    {"predicate": {"arcanearchives:gem_empty": 1}, "model": "arcanearchives:item/gems/pendeloque/dun"},
+    {"predicate": {"arcanearchives:gem_empty": 1, "arcanearchives:colourblind": 1}, "model": "arcanearchives:item/gems/accessibility/pendeloque/dun"}
+  ]
+}

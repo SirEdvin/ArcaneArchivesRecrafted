@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "size": 1,
+  "operation": "SET",
+  "order": 1000,
+  "add_cosmetic": false,
+  "render_toggle": false,
+  "validators": [
+    "arcanearchives:gemsocket"
+  ]
+}

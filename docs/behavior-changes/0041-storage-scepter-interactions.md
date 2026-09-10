@@ -1,0 +1,17 @@
+# Native storage scepter interactions
+
+Status: partial scepter migration under the previously recorded delegated behavior-decision authority, on all four targets. Not full scepter/gameplay acceptance.
+
+Original source: release `bb99accf48ed583e29b0efae56e28c963407b8df`, `items/ScepterRevelationItem.java`, `items/ScepterManipulationItem.java`, Trove/Tank `handleManipulationInterface`, Resonator `getPercentageComplete`/`canTick`, the Revelation shaped recipe and Manipulation Gem Cutter recipe. Both items have stack limit one. Revelation reports device state through player messages; Manipulation opens Trove/Tank upgrade interfaces. Other upstream devices and manipulation actions remain part of the unfinished migration.
+
+Implemented: original Revelation acquisition (diagonal raw quartz/gold nugget/wooden stick) and Manipulation acquisition (Revelation plus shaped quartz), native registrations/creative entries, original PNGs and item display transforms. `scripts/port_scepter_assets.py` recovers the pinned assets and maps textures into the native item atlas directory without substitute art. English and Portuguese release strings are retained, including incomplete upstream translations; numeric placeholders adapt from `%d` to the modern component-supported `%s`.
+
+Revelation reports Chest names/free slots, Trove identity/count/capacity/installed size-upgrade quantity, Tank fluid name/count/capacity, and Resonator percentage/colored operating status. Fabric fluid quantities are displayed in whole millibuckets, flooring sub-millibucket droplets only in the message; storage remains unchanged. Native fluid-variant names preserve loader-specific fluid metadata. Optional-upgrade count is currently zero because those upgrades are not yet implemented.
+
+Manipulation connects to the existing capacity menu on Troves/Tanks. Native item sneak-use and explicit storage block dispatch prevent ordinary container/deposit actions from swallowing these supported interactions. There is no global interception hook suppressing arbitrary vanilla/third-party block interactions. This is scoped native routing, not universal parity with legacy onItemUseFirst. Server operations check live device/range and native interaction permission; spectator requests do not reveal/change device state. Existing capacity-menu validation remains authoritative.
+
+Reason: complete the reachable inspection/upgrade-tool path using existing storage/menu code instead of another tool framework. The additional empty-handed menu access from 0040 remains available. No library dependencies, new packets, network ownership model or item/fluid mutation is introduced by inspection.
+
+Open scope: optional upgrades and combined menu row, Chest manipulation/renaming/settings, crafting-storage/monitoring reports, other scepter types, Trove attack/spill interactions and remaining network/device manipulation. Existing device ownership/network limitations are not resolved by adding the scepters.
+
+Verification: `./gradlew assemble --no-daemon` under the bounded full-log wrapper passed all four compile/assemble leaves, exit 0, 19s; `build/scepter-integration-20260908-185009.log`. `git diff --check` passed. No unit/gameplay/visual tests or optimization campaign. Actual acquisition, live messages, all hand/click modes, protected regions, concurrent players and rendered art remain for post-implementation acceptance. Artifact class inventory updated but full verifier not rerun.

@@ -1,0 +1,12 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 14,
+  "arsenal": true,
+  "inputs": [
+    {"item": "arcanearchives:shaped_quartz", "count": 1},
+    {"item": "minecraft:sugar", "count": 4},
+    {"item": "minecraft:water_bucket", "count": 1},
+    {"tag": "arcanearchives:ingredients/dye_blue", "count": 4}
+  ],
+  "result": {"item": "arcanearchives:rivertear", "count": 1}
+}

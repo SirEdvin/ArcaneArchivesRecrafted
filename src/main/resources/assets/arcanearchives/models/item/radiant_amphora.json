@@ -1,0 +1,17 @@
+{
+  "parent": "arcanearchives:item/radiant_amphora_unlinked",
+  "overrides": [
+    {
+      "predicate": {
+        "arcanearchives:amphora_state": 0.5
+      },
+      "model": "arcanearchives:item/radiant_amphora_fill"
+    },
+    {
+      "predicate": {
+        "arcanearchives:amphora_state": 1
+      },
+      "model": "arcanearchives:item/radiant_amphora_empty"
+    }
+  ]
+}

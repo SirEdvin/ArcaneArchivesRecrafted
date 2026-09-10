@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:block",
+  "pools": [{
+    "rolls": 1,
+    "entries": [{
+      "type": "minecraft:alternatives",
+      "children": [
+        {"type": "minecraft:item", "name": "arcanearchives:raw_quartz_cluster", "conditions": [
+          {"condition": "minecraft:match_tool", "predicate": "@SILK_PREDICATE@"}
+        ]},
+        {"type": "minecraft:item", "name": "arcanearchives:raw_quartz"}
+      ]
+    }],
+    "conditions": [{"condition": "minecraft:survives_explosion"}]
+  }]
+}

@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "accessor=false,facing=west": {
+      "model": "arcanearchives:block/gemcutters_table",
+      "y": 0
+    },
+    "accessor=false,facing=north": {
+      "model": "arcanearchives:block/gemcutters_table",
+      "y": 90
+    },
+    "accessor=false,facing=east": {
+      "model": "arcanearchives:block/gemcutters_table",
+      "y": 180
+    },
+    "accessor=false,facing=south": {
+      "model": "arcanearchives:block/gemcutters_table",
+      "y": 270
+    },
+    "accessor=true,facing=west": {
+      "model": "arcanearchives:block/gemcutters_table_accessor",
+      "y": 0
+    },
+    "accessor=true,facing=north": {
+      "model": "arcanearchives:block/gemcutters_table_accessor",
+      "y": 90
+    },
+    "accessor=true,facing=east": {
+      "model": "arcanearchives:block/gemcutters_table_accessor",
+      "y": 180
+    },
+    "accessor=true,facing=south": {
+      "model": "arcanearchives:block/gemcutters_table_accessor",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 12,
+  "inputs": [
+    {
+      "item": "minecraft:terracotta",
+      "count": 1
+    },
+    {
+      "tag": "arcanearchives:ingredients/nugget_gold",
+      "count": 2
+    },
+    {
+      "item": "arcanearchives:shaped_quartz",
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "arcanearchives:obstruction_charm",
+    "count": 4
+  }
+}

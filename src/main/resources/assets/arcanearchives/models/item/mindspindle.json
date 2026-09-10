@@ -1,0 +1,8 @@
+{
+  "parent": "arcanearchives:item/gems/pampel/green",
+  "overrides": [
+    {"predicate": {"arcanearchives:colourblind": 1}, "model": "arcanearchives:item/gems/accessibility/pampel/green"},
+    {"predicate": {"arcanearchives:gem_empty": 1}, "model": "arcanearchives:item/gems/pampel/dun"},
+    {"predicate": {"arcanearchives:gem_empty": 1, "arcanearchives:colourblind": 1}, "model": "arcanearchives:item/gems/accessibility/pampel/dun"}
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "${result_key}": "arcanearchives:scepter_revelation"
+    },
+    "title": {
+      "translate": "advancement.arcanearchives.revelation"
+    },
+    "description": {
+      "translate": "advancement.arcanearchives.revelation.desc"
+    }
+  },
+  "parent": "arcanearchives:raw_quartz",
+  "criteria": {
+    "book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "arcanearchives:scepter_revelation"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

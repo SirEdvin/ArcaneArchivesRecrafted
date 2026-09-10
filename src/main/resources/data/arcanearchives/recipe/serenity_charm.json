@@ -1,0 +1,22 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 12,
+  "inputs": [
+    {
+      "tag": "arcanearchives:ingredients/nugget_gold",
+      "count": 3
+    },
+    {
+      "tag": "minecraft:wool",
+      "count": 1
+    },
+    {
+      "item": "arcanearchives:radiant_dust",
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "arcanearchives:serenity_charm",
+    "count": 4
+  }
+}

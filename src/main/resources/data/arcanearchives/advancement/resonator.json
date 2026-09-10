@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "${result_key}": "arcanearchives:radiant_resonator"
+    },
+    "title": {
+      "translate": "advancement.arcanearchives.resonator"
+    },
+    "description": {
+      "translate": "advancement.arcanearchives.resonator.desc"
+    }
+  },
+  "parent": "arcanearchives:root",
+  "criteria": {
+    "book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "arcanearchives:radiant_resonator"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

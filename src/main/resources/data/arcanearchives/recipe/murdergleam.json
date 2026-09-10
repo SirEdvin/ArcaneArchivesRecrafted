@@ -1,0 +1,27 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 26,
+  "arsenal": true,
+  "inputs": [
+    {
+      "item": "arcanearchives:shaped_quartz",
+      "count": 1
+    },
+    {
+      "tag": "arcanearchives:ingredients/dye_yellow",
+      "count": 4
+    },
+    {
+      "item": "minecraft:diamond_sword",
+      "count": 1
+    },
+    {
+      "item": "minecraft:blaze_powder",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "arcanearchives:murdergleam",
+    "count": 1
+  }
+}

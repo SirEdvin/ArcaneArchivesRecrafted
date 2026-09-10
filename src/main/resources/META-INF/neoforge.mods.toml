@@ -2,6 +2,9 @@ modLoader="javafml"
 loaderVersion="[1,)"
 license="${license}"
 
+[[mixins]]
+config="arcanearchives.mixins.json"
+
 [[mods]]
 modId="${id}"
 version="${version}"
@@ -21,4 +24,11 @@ modId="minecraft"
 type="required"
 versionRange="${minecraft}"
 ordering="NONE"
+side="BOTH"
+
+[[dependencies."${id}"]]
+modId="patchouli"
+type="required"
+versionRange="[${patchouli}]"
+ordering="AFTER"
 side="BOTH"

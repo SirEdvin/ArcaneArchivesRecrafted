@@ -1,0 +1,115 @@
+{
+  "loader": "${obj_loader}:obj",
+  "model": "arcanearchives:models/block/echoing_reverberation_chamber.obj",
+  "flip_v": true,
+  "automatic_culling": false,
+  "shade_quads": true,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "arcanearchives:blocks/echoing_reverberation_chamber"
+  },
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [
+        -0.0,
+        -75.0,
+        -0.0
+      ],
+      "translation": [
+        1.6,
+        0.4,
+        -1.6
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        -0.0,
+        -70.0,
+        -0.0
+      ],
+      "translation": [
+        4.0,
+        0.4,
+        3.52
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        29.999999999999996,
+        0.0,
+        -0.0
+      ],
+      "translation": [
+        -2.8,
+        2.4,
+        0.0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        29.999999999999996,
+        0.0,
+        -0.0
+      ],
+      "translation": [
+        2.8,
+        2.4,
+        0.0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "gui": {
+      "rotation": [
+        27.236313475170725,
+        41.64114326790979,
+        1.1182787690931366
+      ],
+      "translation": [
+        -0.0,
+        -4.32,
+        0
+      ],
+      "scale": [
+        0.32,
+        0.32,
+        0.32
+      ]
+    },
+    "ground": {
+      "rotation": [
+        -0.0,
+        0.0,
+        -0.0
+      ],
+      "translation": [
+        -2.0,
+        0,
+        2.0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    }
+  }
+}

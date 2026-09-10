@@ -1,0 +1,56 @@
+{
+  "repository": "https://github.com/AranaiRa/ArcaneArchives",
+  "branch": "release/0.2.0.25-mixins8",
+  "commit": "bb99accf48ed583e29b0efae56e28c963407b8df",
+  "scope": "Original Gem Cutter assets for runtime port; legacy JSON is reference, not modern runtime-ready data. Existing master-based evidence is not globally rebased.",
+  "assets": [
+    {
+      "path": "src/main/resources/assets/arcanearchives/models/block/gemcutters_table.obj",
+      "sha256": "39efbb8585cf0cea23cb941b084b197b1db45a167caa36996d064183e926d107"
+    },
+    {
+      "path": "src/main/resources/assets/arcanearchives/models/block/gemcutters_table.mtl",
+      "sha256": "526e3427bede83d60ec5cdb97a740f3c1574d7a93677e1b979374e7f0659055b"
+    },
+    {
+      "path": "src/main/resources/assets/arcanearchives/models/item/gemcutters_table.json",
+      "sha256": "74565358640d926c4fefe05a112bc6c2eb98fc354e41bf41ecc53cc6746bbd45"
+    },
+    {
+      "path": "src/main/resources/assets/arcanearchives/blockstates/gemcutters_table.json",
+      "sha256": "71c4e659549472aa15c215b5d1f24955e65c95644b260f638aae1c0af1a71717"
+    },
+    {
+      "path": "src/main/resources/assets/arcanearchives/textures/blocks/block_arcanearchives_master.png",
+      "sha256": "34f845b8091f36cadc122eba1c5787dd205d76366fe73bb34fc360caadda1379"
+    },
+    {
+      "path": "src/main/resources/assets/arcanearchives/textures/blocks/block_gemcutterstable.png",
+      "sha256": "283ab7be648f4c745bad3f791205776883f9c79d9bf9b9cf7f02d70b79001142"
+    },
+    {
+      "path": "src/main/resources/assets/arcanearchives/textures/blocks/block_lensglass.png",
+      "sha256": "f1943a32382cf72ceda7d3db8581b470a31fff68b60f73713ce89d5af31116a4"
+    },
+    {
+      "path": "src/main/resources/assets/arcanearchives/textures/blocks/block_gemcutterstable_tools.png",
+      "sha256": "285e3c6a45901aebae469129eb34872750106df60ae474f27d7a6df376d463c1"
+    },
+    {
+      "path": "src/main/resources/assets/arcanearchives/textures/blocks/block_gemcutterstable_scroll.png",
+      "sha256": "5dc21168e3263a99d0e2aa6682d340d6b5e7d5025e2c76642aa297e9b464441b"
+    },
+    {
+      "path": "src/main/resources/assets/arcanearchives/textures/gui/gemcutterstable.png",
+      "sha256": "ca0b3c2c9ff74af4f38718812c42c73ee1e42fb27f1e45f181c6237592129de9"
+    },
+    {
+      "path": "src/main/resources/assets/arcanearchives/textures/gui/simple/gemcutterstable.png",
+      "sha256": "90d38d5e73605016c8afd602899d69ce0ecd612c1ee30b005048d6bb5c2da818"
+    },
+    {
+      "path": "src/main/resources/assets/arcanearchives/recipes/gemcutters_table.json",
+      "sha256": "c2d3810fb44e58c76f0e57e2b4051944675bbc3ff07e881cd0a7fbb4141459e6"
+    }
+  ]
+}

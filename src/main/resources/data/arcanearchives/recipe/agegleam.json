@@ -1,0 +1,13 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 15,
+  "arsenal": true,
+  "inputs": [
+    {"item": "arcanearchives:shaped_quartz", "count": 1},
+    {"tag": "arcanearchives:ingredients/dye_green", "count": 4},
+    {"item": "minecraft:wheat", "count": 9},
+    {"item": "minecraft:carrot", "count": 9},
+    {"item": "minecraft:wheat_seeds", "count": 9}
+  ],
+  "result": {"item": "arcanearchives:agegleam", "count": 1}
+}

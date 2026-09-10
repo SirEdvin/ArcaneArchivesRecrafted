@@ -1,0 +1,18 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 9,
+  "inputs": [
+    {
+      "item": "arcanearchives:scepter_revelation",
+      "count": 1
+    },
+    {
+      "item": "arcanearchives:shaped_quartz",
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "arcanearchives:scepter_manipulation",
+    "count": 1
+  }
+}

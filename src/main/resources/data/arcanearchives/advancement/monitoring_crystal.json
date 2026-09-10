@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "${result_key}": "arcanearchives:monitoring_crystal"
+    },
+    "title": {
+      "translate": "advancement.arcanearchives.monitoring_crystal"
+    },
+    "description": {
+      "translate": "advancement.arcanearchives.monitoring_crystal.desc"
+    }
+  },
+  "parent": "arcanearchives:gemcutters_table",
+  "criteria": {
+    "book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "arcanearchives:monitoring_crystal"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

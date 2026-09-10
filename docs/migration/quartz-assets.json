@@ -1,0 +1,41 @@
+{
+  "baseline": "80944ce45c6559243d8928cc4b305bf379388652",
+  "license": "MIT; upstream root LICENSE; no third-party material from CREDITS.md used in this slice",
+  "unchanged_files": [
+    {
+      "source": "src/main/resources/assets/arcanearchives/models/item/shaped_quartz.json",
+      "destination": "src/main/resources/assets/arcanearchives/models/item/shaped_quartz.json",
+      "sha256": "95692b7bf2b6cb37b039957634dc08f7ae338c748d25fecc81caa71652472980"
+    },
+    {
+      "source": "src/main/resources/assets/arcanearchives/models/item/storage_shaped_quartz.json",
+      "destination": "src/main/resources/assets/arcanearchives/models/item/storage_shaped_quartz.json",
+      "sha256": "93711494ba001516f867aa23eb57f7a000e08abcafbee88583302added2bda32"
+    },
+    {
+      "source": "src/main/resources/assets/arcanearchives/models/block/storage_cut_quartz.json",
+      "destination": "src/main/resources/assets/arcanearchives/models/block/storage_cut_quartz.json",
+      "sha256": "36f5a4e795e2beced6d6310a339385631c07f6417b196f306467004488034ca4"
+    },
+    {
+      "source": "src/main/resources/assets/arcanearchives/textures/items/item_cutquartz.png.mcmeta",
+      "destination": "src/main/resources/assets/arcanearchives/textures/items/item_cutquartz.png.mcmeta",
+      "sha256": "355f5731ba1d5c05146cca1888fcf53d3759fc38c0c66a6c1d7212947becc11a"
+    },
+    {
+      "source": "src/main/resources/assets/arcanearchives/textures/blocks/block_storage_cutquartz.png.mcmeta",
+      "destination": "src/main/resources/assets/arcanearchives/textures/blocks/block_storage_cutquartz.png.mcmeta",
+      "sha256": "355f5731ba1d5c05146cca1888fcf53d3759fc38c0c66a6c1d7212947becc11a"
+    },
+    {
+      "source": "src/main/resources/assets/arcanearchives/textures/items/item_cutquartz.png",
+      "destination": "src/main/resources/assets/arcanearchives/textures/items/item_cutquartz.png",
+      "sha256": "859ff4266b16012f1557e821baa56e20a52251fd63855b8efde2292411b8995f"
+    },
+    {
+      "source": "src/main/resources/assets/arcanearchives/textures/blocks/block_storage_cutquartz.png",
+      "destination": "src/main/resources/assets/arcanearchives/textures/blocks/block_storage_cutquartz.png",
+      "sha256": "a86cbfe3864a3851b5163a46e32dc82d3e70231da11791d7cf60a03d2f424d64"
+    }
+  ]
+}

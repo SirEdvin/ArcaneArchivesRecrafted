@@ -1,0 +1,8 @@
+{
+  "parent": "arcanearchives:item/gems/asscher/green",
+  "overrides": [
+    {"predicate": {"arcanearchives:colourblind": 1}, "model": "arcanearchives:item/gems/accessibility/asscher/green"},
+    {"predicate": {"arcanearchives:gem_empty": 1}, "model": "arcanearchives:item/gems/asscher/dun"},
+    {"predicate": {"arcanearchives:gem_empty": 1, "arcanearchives:colourblind": 1}, "model": "arcanearchives:item/gems/accessibility/asscher/dun"}
+  ]
+}

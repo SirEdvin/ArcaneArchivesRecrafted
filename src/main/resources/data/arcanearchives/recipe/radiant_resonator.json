@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": ["GIG", "WBW", "W W"],
+  "key": {
+    "G": {"tag": "arcanearchives:ingredients/ingot_gold"},
+    "I": {"item": "minecraft:iron_bars"},
+    "B": {"item": "minecraft:water_bucket"},
+    "W": {"tag": "arcanearchives:ingredients/logs"}
+  },
+  "result": {"${result_key}": "arcanearchives:radiant_resonator", "count": 1}
+}

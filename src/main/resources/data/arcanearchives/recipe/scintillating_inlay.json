@@ -1,0 +1,26 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 2,
+  "inputs": [
+    {
+      "item": "arcanearchives:radiant_dust",
+      "count": 6
+    },
+    {
+      "tag": "arcanearchives:ingredients/dust_redstone",
+      "count": 12
+    },
+    {
+      "tag": "arcanearchives:ingredients/ingot_gold",
+      "count": 1
+    },
+    {
+      "tag": "arcanearchives:ingredients/nugget_gold",
+      "count": 6
+    }
+  ],
+  "result": {
+    "item": "arcanearchives:scintillating_inlay",
+    "count": 1
+  }
+}

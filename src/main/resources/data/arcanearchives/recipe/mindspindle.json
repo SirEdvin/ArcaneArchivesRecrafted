@@ -1,0 +1,27 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 17,
+  "arsenal": true,
+  "inputs": [
+    {
+      "item": "arcanearchives:shaped_quartz",
+      "count": 1
+    },
+    {
+      "tag": "arcanearchives:ingredients/dye_green",
+      "count": 4
+    },
+    {
+      "item": "minecraft:enchanted_book",
+      "count": 1
+    },
+    {
+      "item": "minecraft:emerald",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "arcanearchives:mindspindle",
+    "count": 1
+  }
+}

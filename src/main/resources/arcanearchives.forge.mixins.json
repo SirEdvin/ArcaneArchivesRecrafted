@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8.5",
+  "package": "com.aranaira.arcanearchives.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": ["TankItemRenderMixin"],
+  "mixins": [
+    "WritAnvilMixin",
+    "MindspindlePickupMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "arcanearchives.refmap.json"
+}

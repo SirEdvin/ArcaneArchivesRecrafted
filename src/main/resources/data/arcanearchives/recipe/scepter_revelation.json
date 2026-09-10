@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  R",
+    " G ",
+    "S  "
+  ],
+  "key": {
+    "R": {
+      "item": "arcanearchives:raw_quartz"
+    },
+    "G": {
+      "tag": "arcanearchives:ingredients/nugget_gold"
+    },
+    "S": {
+      "tag": "arcanearchives:ingredients/stick_wood"
+    }
+  },
+  "result": {
+    "${result_key}": "arcanearchives:scepter_revelation",
+    "count": 1
+  }
+}

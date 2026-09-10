@@ -1,0 +1,12 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 19,
+  "arsenal": true,
+  "inputs": [
+    {"item": "arcanearchives:shaped_quartz", "count": 1},
+    {"tag": "arcanearchives:ingredients/dye_blue", "count": 4},
+    {"item": "minecraft:poisonous_potato", "count": 1},
+    {"item": "minecraft:milk_bucket", "count": 1}
+  ],
+  "result": {"item": "arcanearchives:cleansegleam", "count": 1}
+}

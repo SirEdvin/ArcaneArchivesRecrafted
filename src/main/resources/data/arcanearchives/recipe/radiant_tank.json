@@ -1,0 +1,10 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 8,
+  "inputs": [
+    {"item": "arcanearchives:shaped_quartz", "count": 2},
+    {"item": "arcanearchives:containment_field", "count": 1},
+    {"tag": "arcanearchives:ingredients/ingot_gold", "count": 1}
+  ],
+  "result": {"item": "arcanearchives:radiant_tank", "count": 4}
+}

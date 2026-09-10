@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:diorite",
+    {
+      "id": "#c:stones/marble",
+      "required": false
+    },
+    {
+      "id": "#c:storage_blocks/marble",
+      "required": false
+    },
+    {
+      "id": "#forge:stone/marble",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/marble",
+      "required": false
+    }
+  ]
+}

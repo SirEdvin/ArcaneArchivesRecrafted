@@ -6,4 +6,6 @@
 .vscode/
 *.iml
 *.log
+**/logs/
 .env
+__pycache__/

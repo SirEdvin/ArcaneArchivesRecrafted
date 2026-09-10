@@ -1,0 +1,31 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 16,
+  "arsenal": true,
+  "inputs": [
+    {
+      "item": "arcanearchives:shaped_quartz",
+      "count": 1
+    },
+    {
+      "tag": "arcanearchives:ingredients/dye_pink",
+      "count": 4
+    },
+    {
+      "item": "minecraft:golden_apple",
+      "count": 1
+    },
+    {
+      "item": "minecraft:glistering_melon_slice",
+      "count": 1
+    },
+    {
+      "item": "minecraft:golden_carrot",
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "arcanearchives:salvegleam",
+    "count": 1
+  }
+}

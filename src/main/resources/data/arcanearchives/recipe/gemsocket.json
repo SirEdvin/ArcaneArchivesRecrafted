@@ -1,0 +1,12 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 28,
+  "arsenal": true,
+  "inputs": [
+    {"item": "arcanearchives:scintillating_inlay", "count": 1},
+    {"item": "minecraft:gold_nugget", "count": 4},
+    {"item": "minecraft:bowl", "count": 1},
+    {"item": "minecraft:leather", "count": 1}
+  ],
+  "result": {"item": "arcanearchives:gemsocket", "count": 1}
+}

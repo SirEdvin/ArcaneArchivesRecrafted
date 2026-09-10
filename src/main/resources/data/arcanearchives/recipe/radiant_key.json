@@ -1,0 +1,10 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 12,
+  "inputs": [
+    {"tag": "arcanearchives:ingredients/ingot_gold", "count": 1},
+    {"tag": "arcanearchives:ingredients/nugget_gold", "count": 3},
+    {"item": "arcanearchives:shaped_quartz", "count": 1}
+  ],
+  "result": {"item": "arcanearchives:radiant_key", "count": 4}
+}

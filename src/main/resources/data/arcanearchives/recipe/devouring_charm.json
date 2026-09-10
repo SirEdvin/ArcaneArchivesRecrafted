@@ -1,0 +1,10 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 11,
+  "inputs": [
+    {"tag": "arcanearchives:ingredients/ingot_gold", "count": 1},
+    {"item": "minecraft:obsidian", "count": 2},
+    {"item": "minecraft:flint_and_steel", "count": 1}
+  ],
+  "result": {"item": "arcanearchives:devouring_charm", "count": 4}
+}

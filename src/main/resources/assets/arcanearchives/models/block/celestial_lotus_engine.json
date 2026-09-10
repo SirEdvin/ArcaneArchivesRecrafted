@@ -1,0 +1,83 @@
+{
+  "loader": "${obj_loader}:obj",
+  "model": "arcanearchives:models/block/celestial_lotus_engine.obj",
+  "flip_v": true,
+  "automatic_culling": false,
+  "shade_quads": true,
+  "render_type": "minecraft:solid",
+  "textures": {
+    "particle": "arcanearchives:blocks/block_arcanearchives_master"
+  },
+  "display": {
+    "firstperson_lefthand": {},
+    "thirdperson_lefthand": {},
+    "firstperson_righthand": {
+      "rotation": [
+        -0.0,
+        44.99999999999999,
+        -0.0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        90.0,
+        0.0,
+        -0.0
+      ],
+      "translation": [
+        0.32,
+        0.8,
+        -0.8
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "gui": {
+      "rotation": [
+        27.236313475170725,
+        41.64114326790979,
+        1.1182787690931366
+      ],
+      "translation": [
+        0.0,
+        -4.0,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "ground": {
+      "rotation": [
+        -0.0,
+        0.0,
+        -0.0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    }
+  }
+}

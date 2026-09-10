@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:crafting_table",
+    {
+      "id": "#c:workbenches",
+      "required": false
+    },
+    {
+      "id": "#forge:workbenches",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 9,
+  "inputs": [
+    {"item": "arcanearchives:scepter_revelation", "count": 1},
+    {"item": "arcanearchives:material_interface", "count": 1}
+  ],
+  "result": {"item": "arcanearchives:scepter_translocation", "count": 1}
+}

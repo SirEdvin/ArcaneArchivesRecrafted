@@ -1,0 +1,14 @@
+{
+  "resonator.complete": {
+    "sounds": [
+      "arcanearchives:radiant_resonator_make1",
+      "arcanearchives:radiant_resonator_make2",
+      "arcanearchives:radiant_resonator_make3"
+    ]
+  },
+  "resonator.loop": {
+    "sounds": [
+      "arcanearchives:radiant_resonator_loop_v1"
+    ]
+  }
+}

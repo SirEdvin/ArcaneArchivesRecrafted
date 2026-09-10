@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:logs",
+    {
+      "id": "#c:logs",
+      "required": false
+    },
+    {
+      "id": "#forge:logs",
+      "required": false
+    }
+  ]
+}

@@ -22,3 +22,10 @@ mandatory=true
 versionRange="${minecraft}"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies."${id}"]]
+modId="patchouli"
+mandatory=true
+versionRange="[${patchouli}]"
+ordering="AFTER"
+side="BOTH"

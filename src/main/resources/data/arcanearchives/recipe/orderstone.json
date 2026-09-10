@@ -1,0 +1,27 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 18,
+  "arsenal": true,
+  "inputs": [
+    {
+      "item": "arcanearchives:shaped_quartz",
+      "count": 1
+    },
+    {
+      "tag": "arcanearchives:ingredients/dye_pink",
+      "count": 4
+    },
+    {
+      "item": "minecraft:anvil",
+      "count": 1
+    },
+    {
+      "item": "minecraft:oak_sign",
+      "count": 30
+    }
+  ],
+  "result": {
+    "item": "arcanearchives:orderstone",
+    "count": 1
+  }
+}

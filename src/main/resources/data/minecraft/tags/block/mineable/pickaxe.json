@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "arcanearchives:verdant_censer",
+    "arcanearchives:celestial_lotus_engine",
+    "arcanearchives:spellbook_library",
+    "arcanearchives:immanent_incubator",
+    "arcanearchives:echoing_conformance_chamber",
+    "arcanearchives:echoing_reverberation_chamber",
+    "arcanearchives:raw_quartz_cluster",
+    "arcanearchives:monitoring_crystal",
+    "arcanearchives:radiant_resonator",
+    "arcanearchives:wonky_resonator",
+    "arcanearchives:radiant_chest",
+    "arcanearchives:radiant_trove",
+    "arcanearchives:radiant_tank",
+    "arcanearchives:radiant_crafting_table",
+    "arcanearchives:radiant_lantern",
+    "arcanearchives:storage_raw_quartz",
+    "arcanearchives:storage_shaped_quartz"
+  ]
+}

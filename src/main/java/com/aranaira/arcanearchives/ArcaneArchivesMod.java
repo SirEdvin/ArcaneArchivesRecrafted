@@ -12,6 +12,7 @@ public final class ArcaneArchivesMod {
     }
 
     public static void initialize(String loader) {
+        com.aranaira.arcanearchives.events.HiveCommands.initialize();
         LOGGER.info("Arcane Archives Recrafted bootstrap initialized on {}", loader);
     }
 

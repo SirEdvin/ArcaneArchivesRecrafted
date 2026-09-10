@@ -1,0 +1,22 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 10,
+  "inputs": [
+    {
+      "item": "arcanearchives:radiant_dust",
+      "count": 4
+    },
+    {
+      "item": "minecraft:clay_ball",
+      "count": 4
+    },
+    {
+      "item": "minecraft:gold_nugget",
+      "count": 4
+    }
+  ],
+  "result": {
+    "item": "arcanearchives:radiant_amphora",
+    "count": 1
+  }
+}

@@ -1,0 +1,11 @@
+# Raw Radiant Quartz storage block
+
+Implemented on all four targets: `storage_raw_quartz` block/item/creative entry, original cube models and static texture, gold decorative tooltip, pickaxe mining tag, native self-drop loot, and reversible shapeless packing (nine raw quartz → one block → nine raw quartz).
+
+Pinned source: release `release/0.2.0.25-mixins8`, `bb99accf48ed583e29b0efae56e28c963407b8df`: `blocks/StorageRawQuartz.java`, `blocks/templates/BlockTemplate.java`, and original `recipes/storage_raw_quartz.json` / `recipes/destorage_rawquartz.json`. The block has hardness 1.7, full light, minimum pickaxe tier, and no block entity, inventory or upgrade role. The port reuses the existing shaped-storage implementation pattern rather than adding a storage framework. No intentional gameplay deviation or new dependency.
+
+The item model, block model and PNG are copied byte-identically; SHA-256 checks are in `scripts/verify_quartz_resources.py`. Legacy Forge blockstate metadata becomes a native empty variant pointing to the same cube model. A single atlas source retains the original texture path. Original EN/PT block names and supplied decorative tooltip text are retained. Native resource/result-key expansion handles both Minecraft versions. No legacy-save conversion is provided.
+
+Verification: `build/raw-storage-20260908-112546.log`, exit 0 in 32s. Fabric leaves each execute 157 tests; NeoForge executes 161, no failures/errors/skips. Forge compiles test sources only. The loader-aware native-recipe fixture checks both exact outputs, insufficient-input rejection, light 15, hardness 1.7, required tool and absence of a block entity. Four artifact/resource contracts pass. Four dedicated servers load/reload, place the block, resolve the mining tag and wooden-pickaxe loot into a fixture chest, then remove fixtures and save/stop. `build/raw-storage-servers-20260908-112639.log`, exit 0. Consolidated evidence: `build/raw-storage-verification.json`.
+
+These are native-recipe/property tests and command-based server checks, not connected-player mining/crafting, rendering or restart acceptance. Vision remains deferred. Natural quartz production and Radiant conversion remain unfinished. The Resonator source requires a valid owner network and an online player before growth; no bypass or substitute producer was introduced.

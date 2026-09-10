@@ -1,0 +1,18 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 6,
+  "inputs": [
+    {
+      "item": "arcanearchives:raw_quartz",
+      "count": 2
+    },
+    {
+      "tag": "arcanearchives:ingredients/nugget_gold",
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "arcanearchives:radiant_lantern",
+    "count": 4
+  }
+}

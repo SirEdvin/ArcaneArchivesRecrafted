@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:purple_dye",
+    {
+      "id": "#c:dyes/purple",
+      "required": false
+    },
+    {
+      "id": "#c:purple_dyes",
+      "required": false
+    },
+    {
+      "id": "#forge:dyes/purple",
+      "required": false
+    }
+  ]
+}

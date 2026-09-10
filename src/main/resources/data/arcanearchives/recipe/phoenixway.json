@@ -1,0 +1,27 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 23,
+  "arsenal": true,
+  "inputs": [
+    {
+      "item": "arcanearchives:shaped_quartz",
+      "count": 1
+    },
+    {
+      "item": "minecraft:blaze_powder",
+      "count": 4
+    },
+    {
+      "item": "minecraft:coal",
+      "count": 4
+    },
+    {
+      "item": "minecraft:flint_and_steel",
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "arcanearchives:phoenixway",
+    "count": 1
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 25,
+  "arsenal": true,
+  "inputs": [
+    {
+      "item": "arcanearchives:shaped_quartz",
+      "count": 1
+    },
+    {
+      "tag": "arcanearchives:ingredients/dye_orange",
+      "count": 4
+    },
+    {
+      "item": "minecraft:magma_block",
+      "count": 4
+    },
+    {
+      "item": "minecraft:lava_bucket",
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "arcanearchives:mountaintear",
+    "count": 1
+  }
+}

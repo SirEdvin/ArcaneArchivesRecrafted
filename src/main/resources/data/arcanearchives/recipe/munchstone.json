@@ -1,0 +1,27 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 20,
+  "arsenal": true,
+  "inputs": [
+    {
+      "item": "arcanearchives:shaped_quartz",
+      "count": 1
+    },
+    {
+      "tag": "arcanearchives:ingredients/dye_black",
+      "count": 4
+    },
+    {
+      "item": "minecraft:cake",
+      "count": 1
+    },
+    {
+      "item": "minecraft:glistering_melon_slice",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "arcanearchives:munchstone",
+    "count": 1
+  }
+}

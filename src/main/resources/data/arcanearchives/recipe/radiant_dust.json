@@ -1,0 +1,14 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 0,
+  "inputs": [
+    {
+      "item": "arcanearchives:raw_quartz",
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "arcanearchives:radiant_dust",
+    "count": 2
+  }
+}

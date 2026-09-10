@@ -1,0 +1,25 @@
+{
+  "scope": "Compile-only original Modrinth artifacts resolved by Gradle; not remapped production byte hashes or runtime acceptance. CCA base is separately compile-only; Trinkets distributes its runtime CCA dependencies.",
+  "artifacts": [
+    {
+      "artifact": "maven.modrinth:trinkets:3.7.2",
+      "filename": "trinkets-3.7.2.jar",
+      "sha512": "bedf97c87c5e556416410267108ad358b32806448be24ef8ae1a79ac63b78b48b9c851c00c845b8aedfc7805601385420716b9e65326fdab21340e8ba3cc4274"
+    },
+    {
+      "artifact": "maven.modrinth:trinkets:3.10.0",
+      "filename": "trinkets-3.10.0.jar",
+      "sha512": "3ea846c945a0559696501ff65b373c8ee8fd9b394604e9910b4ed710c3e07cadc674a615a2c3b385951a42253a418201975df951b3100053ed39afadc70221c9"
+    },
+    {
+      "artifact": "maven.modrinth:curios:5.14.1+1.20.1",
+      "filename": "curios-5.14.1+1.20.1.jar",
+      "sha512": "1373f95fd111c977db2f6adcef8e4eb486a2d926a3e17374692dee4ac3d65857de6446c16922b531aa5ace2c23c666a7fcc28c720b2917c1e04808d15648ba87"
+    },
+    {
+      "artifact": "maven.modrinth:curios:9.5.1+1.21.1",
+      "filename": "curios-9.5.1+1.21.1.jar",
+      "sha512": "5981a267686b744e7e3c227f78cbcd5267c14ac6979a28e814695f4589273998563147207fef4a5cdb7cdbdc39797cd95d9e4abadb55869f18e02a38d0654ae5"
+    }
+  ]
+}

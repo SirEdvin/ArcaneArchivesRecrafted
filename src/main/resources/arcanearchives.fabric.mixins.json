@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "minVersion": "0.8.5",
+  "package": "com.aranaira.arcanearchives.mixin",
+  "compatibilityLevel": "JAVA_${java}",
+  "mixins": ["DevouringCharmPickupMixin", "RivertearRechargeMixin", "SwitchgleamTeleportMixin", "ElixirspindleUseMixin", "StormwayLightningMixin", "MurdergleamCriticalMixin", "SlaughtergleamDeathMixin", "TroveRemovalMixin", "ScepterSneakUseMixin"],
+  "client": ["ScepterSneakUseClientMixin"],
+  "injectors": {"defaultRequire": 1}
+}

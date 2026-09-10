@@ -1,0 +1,18 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 4,
+  "inputs": [
+    {
+      "item": "arcanearchives:scintillating_inlay",
+      "count": 1
+    },
+    {
+      "tag": "arcanearchives:ingredients/ingot_gold",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "arcanearchives:matrix_brace",
+    "count": 1
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "${result_key}": "arcanearchives:raw_quartz_cluster"
+    },
+    "title": {
+      "translate": "advancement.arcanearchives.raw_quartz_cluster"
+    },
+    "description": {
+      "translate": "advancement.arcanearchives.raw_quartz_cluster.desc"
+    }
+  },
+  "parent": "arcanearchives:raw_quartz",
+  "criteria": {
+    "book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "arcanearchives:raw_quartz_cluster"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

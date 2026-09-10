@@ -1,0 +1,12 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 13,
+  "arsenal": true,
+  "inputs": [
+    {"item": "arcanearchives:shaped_quartz", "count": 1},
+    {"tag": "arcanearchives:ingredients/dye_black", "count": 4},
+    {"item": "minecraft:terracotta", "count": 4},
+    {"item": "minecraft:dead_bush", "count": 4}
+  ],
+  "result": {"item": "arcanearchives:parchtear", "count": 1}
+}

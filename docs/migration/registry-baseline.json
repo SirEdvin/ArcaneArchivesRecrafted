@@ -1,0 +1,702 @@
+{
+  "baseline": "80944ce45c6559243d8928cc4b305bf379388652",
+  "blocks": [
+    {
+      "symbol": "MATRIX_CRYSTAL_CORE",
+      "class": "MatrixCrystalCore",
+      "id": "arcanearchives:matrix_crystal_core",
+      "source": "blocks/MatrixCrystalCore.java"
+    },
+    {
+      "symbol": "MATRIX_REPOSITORY",
+      "class": "MatrixRepository",
+      "id": "arcanearchives:matrix_repository",
+      "source": "blocks/MatrixRepository.java"
+    },
+    {
+      "symbol": "MATRIX_RESERVOIR",
+      "class": "MatrixReservoir",
+      "id": "arcanearchives:matrix_reservoir",
+      "source": "blocks/MatrixReservoir.java"
+    },
+    {
+      "symbol": "MATRIX_STORAGE",
+      "class": "MatrixStorage",
+      "id": "arcanearchives:matrix_storage",
+      "source": "blocks/MatrixStorage.java"
+    },
+    {
+      "symbol": "MATRIX_DISTILLATE",
+      "class": "MatrixDistillate",
+      "id": "arcanearchives:matrix_distillate",
+      "source": "blocks/MatrixDistillate.java"
+    },
+    {
+      "symbol": "QUARTZ_SLIVER",
+      "class": "QuartzSliver",
+      "id": "arcanearchives:quartz_sliver",
+      "source": "blocks/QuartzSliver.java"
+    },
+    {
+      "symbol": "STORAGE_RAW_QUARTZ",
+      "class": "StorageRawQuartz",
+      "id": "arcanearchives:storage_raw_quartz",
+      "source": "blocks/StorageRawQuartz.java"
+    },
+    {
+      "symbol": "STORAGE_SHAPED_QUARTZ",
+      "class": "StorageShapedQuartz",
+      "id": "arcanearchives:storage_shaped_quartz",
+      "source": "blocks/StorageShapedQuartz.java"
+    },
+    {
+      "symbol": "RADIANT_CHEST",
+      "class": "RadiantChest",
+      "id": "arcanearchives:radiant_chest",
+      "source": "blocks/RadiantChest.java"
+    },
+    {
+      "symbol": "RADIANT_CRAFTING_TABLE",
+      "class": "RadiantCraftingTable",
+      "id": "arcanearchives:radiant_crafting_table",
+      "source": "blocks/RadiantCraftingTable.java"
+    },
+    {
+      "symbol": "RADIANT_FURNACE",
+      "class": "RadiantFurnace",
+      "id": "arcanearchives:radiant_furnace",
+      "source": "blocks/RadiantFurnace.java"
+    },
+    {
+      "symbol": "RADIANT_LANTERN",
+      "class": "RadiantLantern",
+      "id": "arcanearchives:radiant_lantern",
+      "source": "blocks/RadiantLantern.java"
+    },
+    {
+      "symbol": "RADIANT_RESONATOR",
+      "class": "RadiantResonator",
+      "id": "arcanearchives:radiant_resonator",
+      "source": "blocks/RadiantResonator.java"
+    },
+    {
+      "symbol": "RAW_QUARTZ",
+      "class": "RawQuartzCluster",
+      "id": "arcanearchives:raw_quartz_cluster",
+      "source": "blocks/RawQuartzCluster.java"
+    },
+    {
+      "symbol": "LECTERN_MANIFEST",
+      "class": "LecternManifest",
+      "id": "arcanearchives:lectern_manifest",
+      "source": "blocks/LecternManifest.java"
+    },
+    {
+      "symbol": "GEMCUTTERS_TABLE",
+      "class": "GemCuttersTable",
+      "id": "arcanearchives:gemcutters_table",
+      "source": "blocks/GemCuttersTable.java"
+    },
+    {
+      "symbol": "RADIANT_TROVE",
+      "class": "RadiantTrove",
+      "id": "arcanearchives:radiant_trove",
+      "source": "blocks/RadiantTrove.java"
+    },
+    {
+      "symbol": "MONITORING_CRYSTAL",
+      "class": "MonitoringCrystal",
+      "id": "arcanearchives:monitoring_crystal",
+      "source": "blocks/MonitoringCrystal.java"
+    },
+    {
+      "symbol": "RADIANT_TANK",
+      "class": "RadiantTank",
+      "id": "arcanearchives:radiant_tank",
+      "source": "blocks/RadiantTank.java"
+    },
+    {
+      "symbol": "BRAZIER_OF_HOARDING",
+      "class": "Brazier",
+      "id": "arcanearchives:brazier_of_hoarding",
+      "source": "blocks/Brazier.java"
+    },
+    {
+      "symbol": "FAKE_AIR",
+      "class": "FakeAir",
+      "id": "arcanearchives:fake_air",
+      "source": "blocks/FakeAir.java"
+    },
+    {
+      "symbol": "BRAZIER_FIRE",
+      "class": "BrazierFire",
+      "id": "arcanearchives:brazier_of_hoarding_fire",
+      "source": "blocks/modelparts/brazier/BrazierFire.java"
+    },
+    {
+      "symbol": "IMMANENT_INCUBATOR",
+      "class": "ImmanentIncubator",
+      "id": "arcanearchives:immanent_incubator",
+      "source": "blocks/ImmanentIncubator.java"
+    },
+    {
+      "symbol": "ECHOING_CONFORMANCE_CHAMBER",
+      "class": "EchoingConformanceChamber",
+      "id": "arcanearchives:echoing_conformance_chamber",
+      "source": "blocks/EchoingConformanceChamber.java"
+    },
+    {
+      "symbol": "ECHOING_REVERBERATION_CHAMBER",
+      "class": "EchoingReverberationChamber",
+      "id": "arcanearchives:echoing_reverberation_chamber",
+      "source": "blocks/EchoingReverberationChamber.java"
+    },
+    {
+      "symbol": "DRUIDIC_CENSER",
+      "class": "VerdantCenser",
+      "id": "arcanearchives:verdant_censer",
+      "source": "blocks/VerdantCenser.java"
+    },
+    {
+      "symbol": "SPELLBOOK_LIBRARY",
+      "class": "SpellbookLibrary",
+      "id": "arcanearchives:spellbook_library",
+      "source": "blocks/SpellbookLibrary.java"
+    },
+    {
+      "symbol": "CELESTIAL_LOTUS_ENGINE",
+      "class": "CelestialLotusEngine",
+      "id": "arcanearchives:celestial_lotus_engine",
+      "source": "blocks/CelestialLotusEngine.java"
+    },
+    {
+      "symbol": "WONKY_RESONATOR",
+      "class": "WonkyResonator",
+      "id": "arcanearchives:wonky_resonator",
+      "source": "blocks/WonkyResonator.java"
+    }
+  ],
+  "items": [
+    {
+      "symbol": "RAW_RADIANT_QUARTZ",
+      "class": "RawQuartzItem",
+      "id": "arcanearchives:raw_quartz",
+      "source": "items/RawQuartzItem.java"
+    },
+    {
+      "symbol": "SHAPED_RADIANT_QUARTZ",
+      "class": "ShapedQuartzItem",
+      "id": "arcanearchives:shaped_quartz",
+      "source": "items/ShapedQuartzItem.java"
+    },
+    {
+      "symbol": "EMPOWERED_RADIANT_QUARTZ",
+      "class": "EmpoweredQuartzItem",
+      "id": "arcanearchives:empowered_quartz",
+      "source": "items/EmpoweredQuartzItem.java"
+    },
+    {
+      "symbol": "DEBUG_ORB",
+      "class": "DebugOrbItem",
+      "id": "arcanearchives:debugorb",
+      "source": "items/DebugOrbItem.java"
+    },
+    {
+      "symbol": "MANIFEST",
+      "class": "ManifestItem",
+      "id": "arcanearchives:manifest",
+      "source": "items/ManifestItem.java"
+    },
+    {
+      "symbol": "TOME_OF_ARCANA",
+      "class": "TomeOfArcanaItem",
+      "id": "arcanearchives:tome_arcana",
+      "source": "items/TomeOfArcanaItem.java"
+    },
+    {
+      "symbol": "LETTER_OF_INVITATION",
+      "class": "LetterOfInvitationItem",
+      "id": "arcanearchives:letter_invitation",
+      "source": "items/LetterOfInvitationItem.java"
+    },
+    {
+      "symbol": "LETTER_OF_RESIGNATION",
+      "class": "LetterOfResignationItem",
+      "id": "arcanearchives:letter_resignation",
+      "source": "items/LetterOfResignationItem.java"
+    },
+    {
+      "symbol": "WRIT_OF_EXPULSION",
+      "class": "WritOfExpulsionItem",
+      "id": "arcanearchives:writ_expulsion",
+      "source": "items/WritOfExpulsionItem.java"
+    },
+    {
+      "symbol": "RADIANT_AMPHORA",
+      "class": "RadiantAmphoraItem",
+      "id": "arcanearchives:radiant_amphora",
+      "source": "items/RadiantAmphoraItem.java"
+    },
+    {
+      "symbol": "COMPONENT_CONTAINMENTFIELD",
+      "class": "ContainmentFieldItem",
+      "id": "arcanearchives:containment_field",
+      "source": "items/ContainmentFieldItem.java"
+    },
+    {
+      "symbol": "COMPONENT_MATRIXBRACE",
+      "class": "MatrixBraceItem",
+      "id": "arcanearchives:matrix_brace",
+      "source": "items/MatrixBraceItem.java"
+    },
+    {
+      "symbol": "COMPONENT_MATERIALINTERFACE",
+      "class": "MaterialInterfaceItem",
+      "id": "arcanearchives:material_interface",
+      "source": "items/MaterialInterfaceItem.java"
+    },
+    {
+      "symbol": "COMPONENT_RADIANTDUST",
+      "class": "RadiantDustItem",
+      "id": "arcanearchives:radiant_dust",
+      "source": "items/RadiantDustItem.java"
+    },
+    {
+      "symbol": "COMPONENT_SCINTILLATINGINLAY",
+      "class": "ScintillatingInlayItem",
+      "id": "arcanearchives:scintillating_inlay",
+      "source": "items/ScintillatingInlayItem.java"
+    },
+    {
+      "symbol": "DEVOURING_CHARM",
+      "class": "DevouringCharmItem",
+      "id": "arcanearchives:devouring_charm",
+      "source": "items/DevouringCharmItem.java"
+    },
+    {
+      "symbol": "OBSTRUCTION_CHARM",
+      "class": "ObstructionCharmItem",
+      "id": "arcanearchives:obstruction_charm",
+      "source": "items/ObstructionCharmItem.java"
+    },
+    {
+      "symbol": "SERENITY_CHARM",
+      "class": "SerenityCharmItem",
+      "id": "arcanearchives:serenity_charm",
+      "source": "items/SerenityCharmItem.java"
+    },
+    {
+      "symbol": "SCEPTER_REVELATION",
+      "class": "ScepterRevelationItem",
+      "id": "arcanearchives:scepter_revelation",
+      "source": "items/ScepterRevelationItem.java"
+    },
+    {
+      "symbol": "SCEPTER_MANIPULATION",
+      "class": "ScepterManipulationItem",
+      "id": "arcanearchives:scepter_manipulation",
+      "source": "items/ScepterManipulationItem.java"
+    },
+    {
+      "symbol": "SCEPTER_TRANSLOCATION",
+      "class": "ScepterTranslocation",
+      "id": "arcanearchives:scepter_translocation",
+      "source": "items/ScepterTranslocation.java"
+    },
+    {
+      "symbol": "ECHO",
+      "class": "EchoItem",
+      "id": "arcanearchives:echo",
+      "source": "items/EchoItem.java"
+    },
+    {
+      "symbol": "BAUBLE_GEMSOCKET",
+      "class": "GemSocket",
+      "id": "arcanearchives:gemsocket",
+      "source": "items/GemSocket.java"
+    },
+    {
+      "symbol": "SLAUGHTERGLEAM",
+      "class": "Slaughtergleam",
+      "id": "arcanearchives:slaughtergleam",
+      "source": "items/gems/asscher/Slaughtergleam.java"
+    },
+    {
+      "symbol": "MURDERGLEAM",
+      "class": "MurdergleamItem",
+      "id": "arcanearchives:murdergleam",
+      "source": "items/gems/asscher/MurdergleamItem.java"
+    },
+    {
+      "symbol": "AGEGLEAM",
+      "class": "AgegleamItem",
+      "id": "arcanearchives:agegleam",
+      "source": "items/gems/asscher/AgegleamItem.java"
+    },
+    {
+      "symbol": "CLEANSEGLEAM",
+      "class": "CleansegleamItem",
+      "id": "arcanearchives:cleansegleam",
+      "source": "items/gems/asscher/CleansegleamItem.java"
+    },
+    {
+      "symbol": "SWITCHGLEAM",
+      "class": "SwitchgleamItem",
+      "id": "arcanearchives:switchgleam",
+      "source": "items/gems/asscher/SwitchgleamItem.java"
+    },
+    {
+      "symbol": "SALVEGLEAM",
+      "class": "SalvegleamItem",
+      "id": "arcanearchives:salvegleam",
+      "source": "items/gems/asscher/SalvegleamItem.java"
+    },
+    {
+      "symbol": "MUNCHSTONE",
+      "class": "MunchstoneItem",
+      "id": "arcanearchives:munchstone",
+      "source": "items/gems/oval/MunchstoneItem.java"
+    },
+    {
+      "symbol": "ORDERSTONE",
+      "class": "OrderstoneItem",
+      "id": "arcanearchives:orderstone",
+      "source": "items/gems/oval/OrderstoneItem.java"
+    },
+    {
+      "symbol": "MINDSPINDLE",
+      "class": "MindspindleItem",
+      "id": "arcanearchives:mindspindle",
+      "source": "items/gems/pampel/MindspindleItem.java"
+    },
+    {
+      "symbol": "ELIXIRSPINDLE",
+      "class": "Elixirspindle",
+      "id": "arcanearchives:elixirspindle",
+      "source": "items/gems/pampel/Elixirspindle.java"
+    },
+    {
+      "symbol": "MOUNTAINTEAR",
+      "class": "MountaintearItem",
+      "id": "arcanearchives:mountaintear",
+      "source": "items/gems/pendeloque/MountaintearItem.java"
+    },
+    {
+      "symbol": "RIVERTEAR",
+      "class": "RivertearItem",
+      "id": "arcanearchives:rivertear",
+      "source": "items/gems/pendeloque/RivertearItem.java"
+    },
+    {
+      "symbol": "PARCHTEAR",
+      "class": "ParchtearItem",
+      "id": "arcanearchives:parchtear",
+      "source": "items/gems/pendeloque/ParchtearItem.java"
+    },
+    {
+      "symbol": "PHOENIXWAY",
+      "class": "PhoenixwayItem",
+      "id": "arcanearchives:phoenixway",
+      "source": "items/gems/trillion/PhoenixwayItem.java"
+    },
+    {
+      "symbol": "STORMWAY",
+      "class": "StormwayItem",
+      "id": "arcanearchives:stormway",
+      "source": "items/gems/trillion/StormwayItem.java"
+    },
+    {
+      "symbol": "CHROMATIC_POWDER",
+      "class": "GemRechargePowder",
+      "id": "arcanearchives:chromatic_powder",
+      "source": "items/gems/GemRechargePowder.java"
+    },
+    {
+      "symbol": "RAINBOW_CHROMATIC_POWDER",
+      "class": "GemRechargePowderRainbow",
+      "id": "arcanearchives:full_spectrum_chromatic_powder",
+      "source": "items/gems/GemRechargePowderRainbow.java"
+    },
+    {
+      "symbol": "RADIANT_KEY",
+      "class": "RadiantKeyItem",
+      "id": "arcanearchives:radiant_key",
+      "source": "items/RadiantKeyItem.java"
+    }
+  ],
+  "block_items": [
+    {
+      "symbol": "MATRIX_CRYSTAL_CORE",
+      "class": "MatrixCrystalCore",
+      "id": "arcanearchives:matrix_crystal_core",
+      "source": "blocks/MatrixCrystalCore.java"
+    },
+    {
+      "symbol": "MATRIX_REPOSITORY",
+      "class": "MatrixRepository",
+      "id": "arcanearchives:matrix_repository",
+      "source": "blocks/MatrixRepository.java"
+    },
+    {
+      "symbol": "MATRIX_RESERVOIR",
+      "class": "MatrixReservoir",
+      "id": "arcanearchives:matrix_reservoir",
+      "source": "blocks/MatrixReservoir.java"
+    },
+    {
+      "symbol": "MATRIX_STORAGE",
+      "class": "MatrixStorage",
+      "id": "arcanearchives:matrix_storage",
+      "source": "blocks/MatrixStorage.java"
+    },
+    {
+      "symbol": "MATRIX_DISTILLATE",
+      "class": "MatrixDistillate",
+      "id": "arcanearchives:matrix_distillate",
+      "source": "blocks/MatrixDistillate.java"
+    },
+    {
+      "symbol": "QUARTZ_SLIVER",
+      "class": "QuartzSliver",
+      "id": "arcanearchives:quartz_sliver",
+      "source": "blocks/QuartzSliver.java"
+    },
+    {
+      "symbol": "STORAGE_RAW_QUARTZ",
+      "class": "StorageRawQuartz",
+      "id": "arcanearchives:storage_raw_quartz",
+      "source": "blocks/StorageRawQuartz.java"
+    },
+    {
+      "symbol": "STORAGE_SHAPED_QUARTZ",
+      "class": "StorageShapedQuartz",
+      "id": "arcanearchives:storage_shaped_quartz",
+      "source": "blocks/StorageShapedQuartz.java"
+    },
+    {
+      "symbol": "RADIANT_CHEST",
+      "class": "RadiantChest",
+      "id": "arcanearchives:radiant_chest",
+      "source": "blocks/RadiantChest.java"
+    },
+    {
+      "symbol": "RADIANT_CRAFTING_TABLE",
+      "class": "RadiantCraftingTable",
+      "id": "arcanearchives:radiant_crafting_table",
+      "source": "blocks/RadiantCraftingTable.java"
+    },
+    {
+      "symbol": "RADIANT_FURNACE",
+      "class": "RadiantFurnace",
+      "id": "arcanearchives:radiant_furnace",
+      "source": "blocks/RadiantFurnace.java"
+    },
+    {
+      "symbol": "RADIANT_LANTERN",
+      "class": "RadiantLantern",
+      "id": "arcanearchives:radiant_lantern",
+      "source": "blocks/RadiantLantern.java"
+    },
+    {
+      "symbol": "RADIANT_RESONATOR",
+      "class": "RadiantResonator",
+      "id": "arcanearchives:radiant_resonator",
+      "source": "blocks/RadiantResonator.java"
+    },
+    {
+      "symbol": "RAW_QUARTZ",
+      "class": "RawQuartzCluster",
+      "id": "arcanearchives:raw_quartz_cluster",
+      "source": "blocks/RawQuartzCluster.java"
+    },
+    {
+      "symbol": "LECTERN_MANIFEST",
+      "class": "LecternManifest",
+      "id": "arcanearchives:lectern_manifest",
+      "source": "blocks/LecternManifest.java"
+    },
+    {
+      "symbol": "GEMCUTTERS_TABLE",
+      "class": "GemCuttersTable",
+      "id": "arcanearchives:gemcutters_table",
+      "source": "blocks/GemCuttersTable.java"
+    },
+    {
+      "symbol": "RADIANT_TROVE",
+      "class": "RadiantTrove",
+      "id": "arcanearchives:radiant_trove",
+      "source": "blocks/RadiantTrove.java"
+    },
+    {
+      "symbol": "MONITORING_CRYSTAL",
+      "class": "MonitoringCrystal",
+      "id": "arcanearchives:monitoring_crystal",
+      "source": "blocks/MonitoringCrystal.java"
+    },
+    {
+      "symbol": "RADIANT_TANK",
+      "class": "RadiantTank",
+      "id": "arcanearchives:radiant_tank",
+      "source": "blocks/RadiantTank.java"
+    },
+    {
+      "symbol": "BRAZIER_OF_HOARDING",
+      "class": "Brazier",
+      "id": "arcanearchives:brazier_of_hoarding",
+      "source": "blocks/Brazier.java"
+    },
+    {
+      "symbol": "IMMANENT_INCUBATOR",
+      "class": "ImmanentIncubator",
+      "id": "arcanearchives:immanent_incubator",
+      "source": "blocks/ImmanentIncubator.java"
+    },
+    {
+      "symbol": "ECHOING_CONFORMANCE_CHAMBER",
+      "class": "EchoingConformanceChamber",
+      "id": "arcanearchives:echoing_conformance_chamber",
+      "source": "blocks/EchoingConformanceChamber.java"
+    },
+    {
+      "symbol": "ECHOING_REVERBERATION_CHAMBER",
+      "class": "EchoingReverberationChamber",
+      "id": "arcanearchives:echoing_reverberation_chamber",
+      "source": "blocks/EchoingReverberationChamber.java"
+    },
+    {
+      "symbol": "DRUIDIC_CENSER",
+      "class": "VerdantCenser",
+      "id": "arcanearchives:verdant_censer",
+      "source": "blocks/VerdantCenser.java"
+    },
+    {
+      "symbol": "SPELLBOOK_LIBRARY",
+      "class": "SpellbookLibrary",
+      "id": "arcanearchives:spellbook_library",
+      "source": "blocks/SpellbookLibrary.java"
+    },
+    {
+      "symbol": "CELESTIAL_LOTUS_ENGINE",
+      "class": "CelestialLotusEngine",
+      "id": "arcanearchives:celestial_lotus_engine",
+      "source": "blocks/CelestialLotusEngine.java"
+    },
+    {
+      "symbol": "WONKY_RESONATOR",
+      "class": "WonkyResonator",
+      "id": "arcanearchives:wonky_resonator",
+      "source": "blocks/WonkyResonator.java"
+    }
+  ],
+  "conditional_items": [
+    {
+      "symbol": "GBOOK_ARSENAL_CONDITION",
+      "class": "GBookArsenalConditionItem",
+      "id": "arcanearchives:gbook_arsenal_condition",
+      "source": "items/GBookArsenalConditionItem.java",
+      "condition": "ConfigHandler.ArsenalConfig.EnableArsenal == true (default false)"
+    }
+  ],
+  "tile_entity_registration_calls": [
+    "RADIANT_RESONATOR_TILE_ENTITY",
+    "RADIANT_CHEST_TILE_ENTITY",
+    "GEMCUTTERS_TABLE_TILE_ENTITY",
+    "RADIANT_CRAFTING_TABLE_TILE_ENTITY",
+    "RADIANT_TROVE_TILE_ENTITY",
+    "MONITORING_CRYSTAL_TILE_ENTITY",
+    "RADIANT_TANK_TILE_ENTITY",
+    "BRAZIER_OF_HOARDING_TILE_ENTITY",
+    "FAKE_AIR_TILE_ENTITY",
+    "WONKY_RESONATOR_TILE_ENTITY",
+    "WONKY_RESONATOR_TILE_ENTITY"
+  ],
+  "tile_entity_duplicates": {
+    "WONKY_RESONATOR_TILE_ENTITY": 2
+  },
+  "legacy_item_aliases": {
+    "arcanearchives:bauble_gemsocket": "arcanearchives:gemsocket",
+    "arcanearchives:item_component_containmentfield": "arcanearchives:containment_field",
+    "arcanearchives:item_component_materialinterface": "arcanearchives:material_interface",
+    "arcanearchives:item_component_matrixbrace": "arcanearchives:matrix_brace",
+    "arcanearchives:item_component_radiantdust": "arcanearchives:radiant_dust",
+    "arcanearchives:item_component_scintillatinginlay": "arcanearchives:scintillating_inlay",
+    "arcanearchives:item_murdergleam": "arcanearchives:murdergleam",
+    "arcanearchives:item_munchstone": "arcanearchives:munchstone",
+    "arcanearchives:item_mindspindle": "arcanearchives:mindspindle",
+    "arcanearchives:item_mountaintear": "arcanearchives:mountaintear",
+    "arcanearchives:item_rivertear": "arcanearchives:rivertear",
+    "arcanearchives:item_phoenixway": "arcanearchives:phoenixway",
+    "arcanearchives:item_letterofinvitation": "arcanearchives:letter_invitation",
+    "arcanearchives:item_letterofresignation": "arcanearchives:letter_resignation",
+    "arcanearchives:item_manifest": "arcanearchives:manifest",
+    "arcanearchives:item_rawquartz": "arcanearchives:raw_quartz",
+    "arcanearchives:item_sceptermanipulation": "arcanearchives:scepter_manipulation",
+    "arcanearchives:item_scepterrevelation": "arcanearchives:scepter_revelation",
+    "arcanearchives:item_cutquartz": "arcanearchives:shaped_quartz",
+    "arcanearchives:item_tomeofarcana": "arcanearchives:tome_arcana",
+    "arcanearchives:item_writofexpulsion": "arcanearchives:writ_expulsion"
+  },
+  "legacy_block_aliases": {
+    "arcanearchives:raw_quartz": "arcanearchives:raw_quartz_cluster",
+    "arcanearchives:storage_cut_quartz": "arcanearchives:storage_shaped_quartz"
+  },
+  "external_item_aliases": {
+    "gbook:guidebook": "gbook_snapshot:guidebook"
+  },
+  "ignored_missing_items": [
+    "arcanearchives:gbook_arsenal_condition"
+  ],
+  "sounds": [
+    "arcanearchives:resonator.complete",
+    "arcanearchives:resonator.loop",
+    "arcanearchives:brazier.absorb"
+  ],
+  "entities": [
+    {
+      "id": "arcanearchives:weight",
+      "class": "EntityWeight",
+      "tracking_range": 64,
+      "update_frequency": 10,
+      "send_velocity_updates": false,
+      "source": "proxy/CommonProxy.java:35"
+    }
+  ],
+  "instantiated_but_not_registered": [
+    {
+      "symbol": "FABRIAL",
+      "class": "FabrialItem"
+    },
+    {
+      "symbol": "TRANSFERSTONE",
+      "class": "TransferstoneItem"
+    },
+    {
+      "symbol": "MATRIX_CORE_TILE_ENTITY",
+      "class": "MatrixCoreTileEntity"
+    },
+    {
+      "symbol": "MATRIX_REPOSITORY_TILE_ENTITY",
+      "class": "MatrixRepositoryTileEntity"
+    },
+    {
+      "symbol": "MATRIX_STORAGE_TILE_ENTITY",
+      "class": "MatrixStorageTileEntity"
+    },
+    {
+      "symbol": "RADIANT_FURNACE_TILE_ENTITY",
+      "class": "RadiantFurnaceTileEntity"
+    },
+    {
+      "symbol": "RADIANT_FURNACE_ACCESSOR_TILE_ENTITY",
+      "class": "RadiantFurnaceAccessorTileEntity"
+    }
+  ],
+  "notes": [
+    "Fresh worlds only: legacy/external aliases and ignored missing mappings are historical evidence, not data migration or implementation requirements.",
+    "Static source registration inventory, not a successful upstream runtime trace or completion claim.",
+    "Block items share their block registry IDs; this list does not yet encode metadata variants.",
+    "Arsenal gems remain registered when EnableArsenal=false; crafting and visibility are gated elsewhere.",
+    "Tile list preserves duplicate registration calls rather than silently deduplicating the source.",
+    "Recipes, asset variants, complete configuration and tile IDs require further audit."
+  ]
+}

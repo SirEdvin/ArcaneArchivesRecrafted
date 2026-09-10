@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "${result_key}": "arcanearchives:radiant_chest"
+    },
+    "title": {
+      "translate": "advancement.arcanearchives.chest"
+    },
+    "description": {
+      "translate": "advancement.arcanearchives.chest.desc"
+    }
+  },
+  "parent": "arcanearchives:raw_quartz",
+  "criteria": {
+    "book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "arcanearchives:radiant_chest"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

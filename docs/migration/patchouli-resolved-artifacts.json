@@ -1,0 +1,71 @@
+{
+  "scope": "Actually resolved Maven runtime binaries, matched against publisher URLs. Modrinth distribution binaries are NOT claimed byte-identical or runtime-tested by these runs.",
+  "artifacts": [
+    {
+      "node": "1.20.1-fabric",
+      "coordinate": "vazkii.patchouli:Patchouli:1.20.1-85-FABRIC",
+      "url": "https://maven.blamejared.com/vazkii/patchouli/Patchouli/1.20.1-85-FABRIC/Patchouli-1.20.1-85-FABRIC.jar",
+      "sha512": "e9d62585bcae789467592929cbf5157c4d5e3a8fee009211a871ec4aa5f58fb72de8323d1959aa95b8b5c63a05d30927f76664accba593151f87eea3e581fcc4",
+      "modrinth_version_id": "nm6fiGRx",
+      "byte_identical_to_modrinth": false,
+      "different_zip_entries": [
+        "vazkii/patchouli/client/book/BookContentsBuilder.class",
+        "vazkii/patchouli/client/book/page/PageMultiblock.class",
+        "vazkii/patchouli/client/book/page/PageRelations.class",
+        "vazkii/patchouli/client/book/template/BookTemplate.class",
+        "vazkii/patchouli/client/book/template/TemplateInclusion.class",
+        "vazkii/patchouli/client/book/template/test/RecipeTestProcessor.class",
+        "vazkii/patchouli/client/book/text/BookTextParser.class",
+        "vazkii/patchouli/common/base/PatchouliAPIImpl.class",
+        "vazkii/patchouli/common/item/ItemModBook.class",
+        "vazkii/patchouli/common/multiblock/DenseMultiblock.class",
+        "vazkii/patchouli/common/multiblock/MultiblockRegistry.class",
+        "vazkii/patchouli/common/multiblock/SerializedMultiblock.class",
+        "vazkii/patchouli/common/recipe/BookRecipeSerializer.class",
+        "vazkii/patchouli/common/util/ItemStackUtil.class"
+      ]
+    },
+    {
+      "node": "1.20.1-forge",
+      "coordinate": "vazkii.patchouli:Patchouli:1.20.1-85-FORGE",
+      "url": "https://maven.blamejared.com/vazkii/patchouli/Patchouli/1.20.1-85-FORGE/Patchouli-1.20.1-85-FORGE.jar",
+      "sha512": "d4912f99f07d830aef78a915b5ef0a23953c86273d1b6a535fdb6bb1435375979828ade84ccc8bff9758fbcc4a401a4804860b1655cf197890b176fd4395ae68",
+      "modrinth_version_id": "94dtOLgZ",
+      "byte_identical_to_modrinth": false,
+      "different_zip_entries": [
+        "vazkii/patchouli/client/book/BookContentsBuilder.class",
+        "vazkii/patchouli/client/book/page/PageMultiblock.class",
+        "vazkii/patchouli/client/book/page/PageRelations.class",
+        "vazkii/patchouli/client/book/template/BookTemplate.class",
+        "vazkii/patchouli/client/book/template/TemplateInclusion.class",
+        "vazkii/patchouli/client/book/template/test/RecipeTestProcessor.class",
+        "vazkii/patchouli/client/book/text/BookTextParser.class",
+        "vazkii/patchouli/common/base/PatchouliAPIImpl.class",
+        "vazkii/patchouli/common/item/ItemModBook.class",
+        "vazkii/patchouli/common/multiblock/DenseMultiblock.class",
+        "vazkii/patchouli/common/multiblock/MultiblockRegistry.class",
+        "vazkii/patchouli/common/multiblock/SerializedMultiblock.class",
+        "vazkii/patchouli/common/recipe/BookRecipeSerializer.class",
+        "vazkii/patchouli/common/util/ItemStackUtil.class"
+      ]
+    },
+    {
+      "node": "1.21.1-fabric",
+      "coordinate": "vazkii.patchouli:Patchouli:1.21.1-93-FABRIC",
+      "url": "https://maven.blamejared.com/vazkii/patchouli/Patchouli/1.21.1-93-FABRIC/Patchouli-1.21.1-93-FABRIC.jar",
+      "sha512": "a757d9a4db93ad7b7349ba0f4bec476202a988de05a03fa679f9b92ec9e3a7961e793bcd7c0ddfb7fe2239993d230fff812cf949ffad180a5cc4e31ce4dcc7a8",
+      "modrinth_version_id": "XIjNwQkI",
+      "byte_identical_to_modrinth": true,
+      "different_zip_entries": []
+    },
+    {
+      "node": "1.21.1-neoforge",
+      "coordinate": "vazkii.patchouli:Patchouli:1.21.1-93-NEOFORGE",
+      "url": "https://maven.blamejared.com/vazkii/patchouli/Patchouli/1.21.1-93-NEOFORGE/Patchouli-1.21.1-93-NEOFORGE.jar",
+      "sha512": "4f5521817a9004b0e2e2b6dc1c2d87dfbcd4d37035683f37d59feae568fd9c64d012852f89d4fc1fa02e3ed4a9519c17d11b9c4854491008589f9c5bafbebe3d",
+      "modrinth_version_id": "BIogJv2D",
+      "byte_identical_to_modrinth": false,
+      "different_zip_entries": []
+    }
+  ]
+}

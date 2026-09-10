@@ -1,0 +1,27 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 21,
+  "arsenal": true,
+  "inputs": [
+    {
+      "item": "arcanearchives:shaped_quartz",
+      "count": 1
+    },
+    {
+      "tag": "arcanearchives:ingredients/dye_purple",
+      "count": 4
+    },
+    {
+      "item": "minecraft:tripwire_hook",
+      "count": 1
+    },
+    {
+      "item": "minecraft:ender_pearl",
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "arcanearchives:switchgleam",
+    "count": 1
+  }
+}
