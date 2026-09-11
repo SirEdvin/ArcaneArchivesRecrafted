@@ -51,10 +51,10 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
-    // These fixtures do not bootstrap Minecraft. All shared fixtures also run in the GameTest server.
+    // These fixtures do not load Minecraft classes. All shared fixtures also run in the GameTest server.
+    // SliverSmashingTest needs Forge's loader even though it only calls the roll helper.
     include("**/MathUtilsTest.class", "**/IngredientAllocationTest.class", "**/ClientConfigTest.class",
-        "**/ServerSideConfigTest.class", "**/PlayerSaveDataTest.class", "**/HiveCraftingConditionsTest.class",
-        "**/SliverSmashingTest.class")
+        "**/ServerSideConfigTest.class", "**/PlayerSaveDataTest.class", "**/HiveCraftingConditionsTest.class")
 }
 tasks.named("check") { dependsOn("runGameTestServer") }
 
