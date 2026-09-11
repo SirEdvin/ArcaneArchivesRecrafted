@@ -37,6 +37,8 @@ Publishing plugins use Gradle Project APIs at execution time: pass `--no-configu
 
 The task publishes four production JARs, four source JARs and SHA256SUMS. Overwriting or appending to an existing release is disabled. The task requires a clean tree and a pushed tag identifying HEAD.
 
+GitHub's `target_commitish` is the full HEAD commit SHA, not the version tag name. The first 0.0.1 create request was rejected with HTTP 422 before creating a release; publication succeeded using a read-only Gradle init-script override to the already-tagged SHA. The tag and release artifacts were not rewritten. The publisher now derives the SHA directly for future releases.
+
 `-PpublishingDryRun=true` enables the plugin's no-write mode and an offline artifact preflight. The GitHub plugin still performs authenticated read requests, so a valid `GITHUB_TOKEN` is required even in dry-run mode. Do not confuse a dry run with a published release.
 
 ## CurseForge and Modrinth

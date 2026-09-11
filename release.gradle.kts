@@ -44,7 +44,7 @@ configure<GithubReleaseExtension> {
     repo.set("ArcaneArchivesRecrafted")
     tagName.set(releaseVersion)
     releaseName.set("Arcane Archives Recrafted $releaseVersion")
-    targetCommitish.set(releaseVersion)
+    targetCommitish.set(providers.exec { commandLine("git", "rev-parse", "HEAD") }.standardOutput.asText.map { it.trim() })
     setToken(providers.environmentVariable("GITHUB_TOKEN"))
     body.set(releaseBody)
     draft.set(false)
