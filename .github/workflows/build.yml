@@ -1,0 +1,70 @@
+name: Build and verify all targets
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: |
+            17
+            21
+      # Deliberately no Gradle cache: every hosted run checks fresh resolution.
+      - name: Build all four leaves and run native suites
+        shell: bash
+        run: |
+          mkdir -p build
+          LOG="build/ci-gradle-$(date +%Y%m%d-%H%M%S).log"
+          START=$SECONDS
+          status=0
+          timeout --foreground 10m ./gradlew build --continue --no-daemon >"$LOG" 2>&1 || status=$?
+          printf 'exit=%s duration=%ss log=%s\n' "$status" "$((SECONDS-START))" "$LOG"
+          exit "$status"
+      - name: Verify all production and source artifacts
+        shell: bash
+        run: |
+          LOG="build/ci-artifacts.log"
+          START=$SECONDS
+          status=0
+          timeout --foreground 60s python3 scripts/verify_artifacts.py >"$LOG" 2>&1 || status=$?
+          printf 'exit=%s duration=%ss log=%s\n' "$status" "$((SECONDS-START))" "$LOG"
+          exit "$status"
+      - name: Preserve build logs and test reports
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: verification-reports
+          archive: true
+          if-no-files-found: warn
+          retention-days: 14
+          include-hidden-files: false
+          path: |
+            build/ci-*.log
+            versions/*/build/test-results/**/*.xml
+            versions/*/build/gametest-run/results.xml
+      - name: Preserve verified production and source jars
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: verified-mod-jars
+          archive: true
+          if-no-files-found: error
+          retention-days: 14
+          include-hidden-files: false
+          path: versions/*/build/libs/*.jar

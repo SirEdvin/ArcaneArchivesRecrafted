@@ -56,27 +56,27 @@ class GemCuttersTableCraftingTest {
         var f = new Fixture(live::get);
         f.state.setInput(0, new ItemStack(Items.DIAMOND, 6));
         f.menu.broadcastChanges();
-        assertTrue(f.menu.getSlot(0).getItem().is(Items.PAPER));
+        assertTrue(f.menu.getSlot(62).getItem().is(Items.PAPER));
         live.set(reloaded("gold_ingot", 2, true));
         f.pickup(); // A click first discovering a changed definition only refreshes presentation.
-        assertTrue(f.menu.getCarried().isEmpty());
+        assertTrue(f.state.getOutput().isEmpty());
         assertEquals(6, f.state.getInput(0).getCount());
-        assertTrue(f.menu.getSlot(0).getItem().is(Items.GOLD_INGOT));
+        assertTrue(f.menu.getSlot(62).getItem().is(Items.GOLD_INGOT));
         f.pickup();
         assertEquals(4, f.state.getInput(0).getCount());
-        assertTrue(f.menu.getCarried().is(Items.GOLD_INGOT));
-        assertEquals(2, f.menu.getCarried().getCount());
+        assertTrue(f.state.getOutput().is(Items.GOLD_INGOT));
+        assertEquals(2, f.state.getOutput().getCount());
         live.set(reloaded("gold_ingot", 2, false));
         f.menu.broadcastChanges();
         f.pickup();
-        assertTrue(f.menu.getSlot(0).getItem().isEmpty());
+        assertTrue(f.menu.getSlot(62).getItem().isEmpty());
         assertEquals(4, f.state.getInput(0).getCount());
         live.set(List.of());
         f.menu.broadcastChanges();
         assertTrue(f.menu.getSlot(61).getItem().isEmpty());
         f.pickup();
         assertEquals(4, f.state.getInput(0).getCount());
-        assertEquals(2, f.menu.getCarried().getCount());
+        assertEquals(2, f.state.getOutput().getCount());
     }
 
     @Test
@@ -90,12 +90,12 @@ class GemCuttersTableCraftingTest {
             return true;
         };
         f.pickup();
-        assertTrue(f.menu.getCarried().isEmpty());
+        assertTrue(f.state.getOutput().isEmpty());
         assertEquals(4, f.state.getInput(0).getCount());
         f.access = () -> true;
         f.pickup();
         assertEquals(1, f.state.getInput(0).getCount());
-        assertEquals(2, f.menu.getCarried().getCount());
+        assertEquals(2, f.state.getOutput().getCount());
     }
 
     @Test
@@ -104,85 +104,95 @@ class GemCuttersTableCraftingTest {
         f.state.setInput(0, new ItemStack(Items.DIAMOND, 2));
         f.player.setItem(40, new ItemStack(Items.DIAMOND));
         f.pickup();
-        assertTrue(f.menu.getCarried().isEmpty());
+        assertTrue(f.state.getOutput().isEmpty());
         assertEquals(2, f.state.getInput(0).getCount());
         f.player.setItem(8, new ItemStack(Items.DIAMOND));
         f.pickup();
-        assertEquals(2, f.menu.getCarried().getCount());
-        assertTrue(f.menu.getCarried().is(Items.PAPER));
+        assertEquals(2, f.state.getOutput().getCount());
+        assertTrue(f.state.getOutput().is(Items.PAPER));
         assertTrue(f.state.getInput(0).isEmpty());
         assertTrue(f.player.getItem(8).isEmpty());
         assertEquals(1, f.player.getItem(40).getCount());
         assertEquals(1, f.inputs.dirty);
-        assertTrue(f.state.pendingResult().isEmpty());
+        assertEquals(2, f.state.getOutput().getCount());
         f.pickup();
-        assertEquals(2, f.menu.getCarried().getCount());
+        assertEquals(2, f.state.getOutput().getCount());
         assertEquals(1, f.inputs.dirty);
     }
 
     @Test
-    void fullOrDifferentCursorRejectsEntireCraftAndRightClickTakesWholeOutput() {
+    void fullOrDifferentOutputRejectsEntireCraft() {
         var f = new Fixture(recipe(new IngredientStack(Items.DIAMOND, 3)));
         f.state.setInput(17, new ItemStack(Items.DIAMOND, 6));
         for (ItemStack cursor : List.of(new ItemStack(Items.GOLD_INGOT), new ItemStack(Items.PAPER, 63))) {
-            f.menu.setCarried(cursor);
+            f.state.setOutput(cursor);
             f.pickup();
             assertEquals(6, f.state.getInput(17).getCount());
-            assertEquals(cursor.getCount(), f.menu.getCarried().getCount());
+            assertEquals(cursor.getCount(), f.state.getOutput().getCount());
         }
-        f.menu.setCarried(new ItemStack(Items.PAPER, 62));
-        f.menu.clicked(0, 1, ClickType.PICKUP, null);
-        assertEquals(64, f.menu.getCarried().getCount());
+        f.state.setOutput(new ItemStack(Items.PAPER, 62));
+        f.pickup();
+        assertEquals(64, f.state.getOutput().getCount());
         assertEquals(3, f.state.getInput(17).getCount());
         f.pickup();
         assertEquals(3, f.state.getInput(17).getCount());
     }
 
     @Test
-    void shiftCraftUsesSpaceFreedByPaymentAndPreservesCursor() {
+    void extractionUsesSpaceFreedByPaymentAndPreservesCursor() {
         var f = new Fixture(recipe(new IngredientStack(Items.DIAMOND, 3)));
         for (int slot = 0; slot < 36; slot++) f.player.setItem(slot, new ItemStack(Items.COBBLESTONE, 64));
         f.state.setInput(0, new ItemStack(Items.DIAMOND, 2));
         f.player.setItem(8, new ItemStack(Items.DIAMOND));
         f.menu.setCarried(new ItemStack(Items.GOLD_INGOT, 7));
-        f.menu.clicked(0, 0, ClickType.QUICK_MOVE, null);
-        assertTrue(f.state.getInput(0).isEmpty());
+        f.pickup();
+        assertEquals(2, f.state.getOutput().getCount());
+        assertTrue(f.player.getItem(8).isEmpty());
+        assertEquals(2, f.menu.quickMoveStack(null, 0).getCount());
+        assertTrue(f.state.getOutput().isEmpty());
         assertTrue(f.player.getItem(8).is(Items.PAPER));
         assertEquals(2, f.player.getItem(8).getCount());
         assertEquals(7, f.menu.getCarried().getCount());
-        for (int slot = 0; slot < 36; slot++) if (slot != 8) assertEquals(64, f.player.getItem(slot).getCount());
+        assertTrue(f.menu.quickMoveStack(null, 0).isEmpty());
     }
 
     @Test
-    void shiftCraftNeverDeliversPartialOutputOrConsumesForInsufficientRoom() {
+    void partialExtractionLeavesRemainderAndNeverCrafts() {
         var f = new Fixture(recipe(new IngredientStack(Items.DIAMOND, 3)));
         f.state.setInput(0, new ItemStack(Items.DIAMOND, 6));
         for (int slot = 0; slot < 36; slot++) f.player.setItem(slot, new ItemStack(Items.COBBLESTONE, 64));
-        f.player.setItem(8, new ItemStack(Items.PAPER, 63));
-        assertTrue(f.menu.quickMoveStack(null, 0).isEmpty());
-        assertEquals(63, f.player.getItem(8).getCount());
-        assertEquals(6, f.state.getInput(0).getCount());
-        f.player.setItem(8, new ItemStack(Items.PAPER, 62));
-        assertEquals(2, f.menu.quickMoveStack(null, 0).getCount());
-        assertEquals(64, f.player.getItem(8).getCount());
+        f.pickup();
         assertEquals(3, f.state.getInput(0).getCount());
-        assertTrue(f.menu.getCarried().isEmpty());
+        assertEquals(2, f.state.getOutput().getCount());
+        assertTrue(f.menu.quickMoveStack(null, 0).isEmpty());
+        f.player.setItem(8, new ItemStack(Items.PAPER, 63));
+        f.menu.quickMoveStack(null, 0);
+        assertEquals(64, f.player.getItem(8).getCount());
+        assertEquals(1, f.state.getOutput().getCount());
+        assertEquals(3, f.state.getInput(0).getCount());
+        f.player.setItem(8, ItemStack.EMPTY);
+        f.menu.quickMoveStack(null, 0);
+        assertTrue(f.state.getOutput().isEmpty());
+        assertEquals(1, f.player.getItem(8).getCount());
+        assertEquals(3, f.state.getInput(0).getCount());
     }
 
     @Test
-    void unsupportedClicksCannotGrantOutputEvenWithPaidBackend() {
+    void outputInsertionAndExtractionCannotStartCrafting() {
         var f = new Fixture(recipe(new IngredientStack(Items.DIAMOND, 3)));
         f.state.setInput(0, new ItemStack(Items.DIAMOND, 6));
-        for (ClickType type : ClickType.values()) {
-            for (int button : new int[]{0, 1, 2, 40, Integer.MAX_VALUE}) {
-                if ((type == ClickType.PICKUP || type == ClickType.QUICK_MOVE) && button < 2) continue;
-                f.menu.clicked(0, button, type, null);
-            }
-        }
+        assertFalse(f.menu.getSlot(0).mayPlace(new ItemStack(Items.PAPER)));
+        assertEquals(2, f.menu.getSlot(0).safeInsert(new ItemStack(Items.PAPER, 2)).getCount());
+        assertTrue(f.menu.quickMoveStack(null, 0).isEmpty());
+        assertFalse(f.menu.clickMenuButton(null, 99));
         assertEquals(6, f.state.getInput(0).getCount());
-        assertTrue(f.menu.getCarried().isEmpty());
-        assertTrue(f.player.isEmpty());
-        assertFalse(f.menu.getSlot(0).mayPickup(null));
+        assertTrue(f.state.getOutput().isEmpty());
+        f.pickup();
+        assertEquals(2, f.menu.getSlot(0).safeInsert(new ItemStack(Items.PAPER, 2)).getCount());
+        assertEquals(2, f.state.getOutput().getCount());
+        f.inputs.valid = false;
+        assertTrue(f.menu.quickMoveStack(null, 0).isEmpty());
+        assertEquals(2, f.state.getOutput().getCount());
     }
 
     @Test
@@ -194,16 +204,16 @@ class GemCuttersTableCraftingTest {
         f.pickup();
         assertEquals(2, calls[0]);
         assertEquals(3, f.state.getInput(0).getCount());
-        assertTrue(f.menu.getCarried().isEmpty());
+        assertTrue(f.state.getOutput().isEmpty());
         calls[0] = 0;
         f.access = () -> { if (++calls[0] == 2) throw new IllegalStateException("lookup failed"); return true; };
         assertThrows(IllegalStateException.class, f::pickup);
         assertEquals(3, f.state.getInput(0).getCount());
-        assertTrue(f.menu.getCarried().isEmpty());
+        assertTrue(f.state.getOutput().isEmpty());
         f.access = () -> true;
         f.pickup();
         assertTrue(f.state.getInput(0).isEmpty());
-        assertEquals(2, f.menu.getCarried().getCount());
+        assertEquals(2, f.state.getOutput().getCount());
     }
 
     @Test
@@ -223,7 +233,7 @@ class GemCuttersTableCraftingTest {
             f.pickup();
             assertEquals(2, f.state.getInput(0).getCount());
             assertEquals(1, f.player.getItem(0).getCount());
-            assertTrue(f.menu.getCarried().isEmpty());
+            assertTrue(f.state.getOutput().isEmpty());
             assertEquals(0, f.inputs.dirty);
         }
     }
@@ -247,17 +257,17 @@ class GemCuttersTableCraftingTest {
         armed[0] = true;
         f.pickup();
         assertEquals(3, f.state.getInput(0).getCount());
-        assertTrue(f.menu.getCarried().isEmpty());
+        assertTrue(f.state.getOutput().isEmpty());
         f.pickup();
         assertTrue(f.state.getInput(0).isEmpty());
-        assertEquals(2, f.menu.getCarried().getCount());
+        assertEquals(2, f.state.getOutput().getCount());
     }
 
     @Test
     void reentrantMenuCraftTransferAndNavigationCannotDuplicatePayment() {
         Fixture[] fixture = {null};
         var f = fixture[0] = new Fixture(recipe(new IngredientStack(Ingredient.of(Items.DIAMOND), 3, candidate -> {
-            fixture[0].menu.clicked(0, 0, ClickType.PICKUP, null);
+            fixture[0].menu.clickMenuButton(null, 2);
             assertTrue(fixture[0].menu.quickMoveStack(null, 0).isEmpty());
             assertTrue(fixture[0].menu.quickMoveStack(null, 37).isEmpty());
             assertFalse(fixture[0].menu.clickMenuButton(null, 0));
@@ -265,21 +275,21 @@ class GemCuttersTableCraftingTest {
         })));
         f.state.setInput(0, new ItemStack(Items.DIAMOND, 3));
         // Call the output bridge directly: clicked also refreshes previews after the guarded craft.
-        assertEquals(2, f.menu.quickMoveStack(null, 0).getCount());
+        assertTrue(f.menu.clickMenuButton(null, 2));
         assertTrue(f.state.getInput(0).isEmpty());
-        assertEquals(2, f.player.getItem(8).getCount());
+        assertEquals(2, f.state.getOutput().getCount());
         assertEquals(1, f.inputs.dirty);
     }
 
     @Test
-    void stagedResultBlocksImmediateCraftAndStateReplacementCannotUseOldInputs() {
+    void incompatibleOutputBlocksCraftAndStateReplacementCannotUseOldInputs() {
         var f = new Fixture(recipe(new IngredientStack(Items.DIAMOND, 3)));
         f.state.setInput(0, new ItemStack(Items.DIAMOND, 6));
-        assertTrue(f.state.craft(f.catalog, ResourceLocation.tryParse("arcanearchives:paid"), new UUID(0, 1), "Crafter", () -> true));
+        f.state.setOutput(new ItemStack(Items.GOLD_INGOT, 2));
         f.pickup();
-        assertEquals(3, f.state.getInput(0).getCount());
-        assertTrue(f.menu.getCarried().isEmpty());
-        assertEquals(2, f.state.pendingResult().orElseThrow().output().getCount());
+        assertEquals(6, f.state.getInput(0).getCount());
+        assertTrue(f.state.getOutput().is(Items.GOLD_INGOT));
+        assertEquals(2, f.state.getOutput().getCount());
         f.state = new GemCutterCraftingState();
         f.state.setInput(0, new ItemStack(Items.DIAMOND, 3));
         GemCutterCraftingState old = f.state;
@@ -294,12 +304,12 @@ class GemCuttersTableCraftingTest {
         f.pickup();
         assertEquals(3, old.getInput(0).getCount());
         assertEquals(3, f.state.getInput(0).getCount());
-        assertTrue(f.menu.getCarried().isEmpty());
+        assertTrue(f.state.getOutput().isEmpty());
         f.access = () -> true;
         f.pickup();
         assertTrue(f.state.getInput(0).isEmpty());
         assertEquals(3, old.getInput(0).getCount());
-        assertEquals(2, f.menu.getCarried().getCount());
+        assertEquals(2, f.state.getOutput().getCount());
     }
 
     @Test
@@ -314,7 +324,7 @@ class GemCuttersTableCraftingTest {
             assertEquals(1, f.state.getInput(1).getDamageValue());
             assertTrue(f.state.getInput(17).isEmpty());
             assertEquals(1, f.state.getInput(0).getCount());
-            assertEquals(2, f.menu.getCarried().getCount());
+            assertEquals(2, f.state.getOutput().getCount());
             assertEquals(1, f.inputs.dirty);
         }
     }
@@ -327,22 +337,22 @@ class GemCuttersTableCraftingTest {
             offered.setDamageValue(10);
             f.state.setInput(0, offered);
             f.player.setItem(8, offered.copy());
-            f.menu.setCarried(new ItemStack(Items.PAPER, 64));
+            f.state.setOutput(new ItemStack(Items.PAPER, 64));
             f.pickup();
             assertEquals(10, f.state.getInput(0).getDamageValue());
             assertEquals(10, f.player.getItem(8).getDamageValue());
             assertEquals(0, f.inputs.dirty);
-            f.menu.setCarried(ItemStack.EMPTY);
+            f.state.setOutput(ItemStack.EMPTY);
             f.pickup();
             assertTrue(f.state.getInput(0).isEmpty());
             assertTrue(f.player.getItem(8).isEmpty());
-            assertEquals(2, f.menu.getCarried().getCount());
-            assertTrue(f.menu.getCarried().is(Items.PAPER));
+            assertEquals(2, f.state.getOutput().getCount());
+            assertTrue(f.state.getOutput().is(Items.PAPER));
             assertEquals(1, f.inputs.dirty);
             assertEquals(1, offered.getCount());
             assertEquals(10, offered.getDamageValue());
             f.pickup();
-            assertEquals(2, f.menu.getCarried().getCount());
+            assertEquals(2, f.state.getOutput().getCount());
         }
     }
 
@@ -354,25 +364,25 @@ class GemCuttersTableCraftingTest {
             int damage = finalUse ? tool.getMaxDamage() - 1 : 10;
             tool.setDamageValue(damage);
             f.player.setItem(8, tool.copy());
-            f.menu.setCarried(new ItemStack(Items.PAPER, 64));
+            f.state.setOutput(new ItemStack(Items.PAPER, 64));
             f.pickup();
             assertEquals(damage, f.player.getItem(8).getDamageValue());
             assertEquals(0, f.inputs.dirty);
-            f.menu.setCarried(ItemStack.EMPTY);
+            f.state.setOutput(ItemStack.EMPTY);
             int[] calls = {0};
             f.access = () -> ++calls[0] < 2;
             f.pickup();
             assertEquals(damage, f.player.getItem(8).getDamageValue());
-            assertTrue(f.menu.getCarried().isEmpty());
+            assertTrue(f.state.getOutput().isEmpty());
             f.access = () -> true;
             f.pickup();
             assertTrue(f.player.isEmpty());
-            assertEquals(2, f.menu.getCarried().getCount());
+            assertEquals(2, f.state.getOutput().getCount());
             assertEquals(damage, tool.getDamageValue());
             if (finalUse) {
                 assertEquals(18, f.state.countEmptyInputs());
                 f.pickup();
-                assertEquals(2, f.menu.getCarried().getCount());
+                assertEquals(2, f.state.getOutput().getCount());
             } else {
                 assertTrue(f.state.getInput(0).is(Items.FLINT_AND_STEEL));
                 assertEquals(damage + 1, f.state.getInput(0).getDamageValue());
@@ -417,7 +427,7 @@ class GemCuttersTableCraftingTest {
         var f = new Fixture(recipe(new IngredientStack(Items.FLINT_AND_STEEL, 1)));
         f.state.setInput(0, tool);
         f.pickup();
-        assertTrue(f.menu.getCarried().isEmpty());
+        assertTrue(f.state.getOutput().isEmpty());
         assertTrue(f.state.getInput(0).isEnchanted());
         assertEquals(0, f.state.getInput(0).getDamageValue());
         assertEquals(0, f.inputs.dirty);
@@ -429,22 +439,22 @@ class GemCuttersTableCraftingTest {
         f.state.setInput(17, new ItemStack(Items.WATER_BUCKET));
         f.state.setInput(4, new ItemStack(Items.BUCKET, 15));
         f.player.setItem(8, new ItemStack(Items.LAVA_BUCKET));
-        f.menu.setCarried(new ItemStack(Items.PAPER, 64));
+        f.state.setOutput(new ItemStack(Items.PAPER, 64));
         f.pickup();
         assertTrue(f.state.getInput(17).is(Items.WATER_BUCKET));
         assertTrue(f.player.getItem(8).is(Items.LAVA_BUCKET));
         assertEquals(15, f.state.getInput(4).getCount());
         assertEquals(0, f.inputs.dirty);
-        f.menu.setCarried(ItemStack.EMPTY);
+        f.state.setOutput(ItemStack.EMPTY);
         f.pickup();
         assertTrue(f.state.getInput(17).isEmpty());
         assertTrue(f.player.isEmpty());
         assertEquals(16, f.state.getInput(4).getCount());
         assertTrue(f.state.getInput(0).is(Items.BUCKET));
         assertEquals(1, f.state.getInput(0).getCount());
-        assertEquals(2, f.menu.getCarried().getCount());
+        assertEquals(2, f.state.getOutput().getCount());
         f.pickup();
-        assertEquals(2, f.menu.getCarried().getCount());
+        assertEquals(2, f.state.getOutput().getCount());
         assertEquals(1, f.inputs.dirty);
     }
 
@@ -460,7 +470,7 @@ class GemCuttersTableCraftingTest {
         f.pickup();
         assertTrue(f.player.getItem(8).is(Items.BUCKET));
         assertEquals(1, f.player.getItem(8).getCount());
-        assertEquals(2, f.menu.getCarried().getCount());
+        assertEquals(2, f.state.getOutput().getCount());
         for (int slot = 0; slot < 18; slot++) assertEquals(64, f.state.getInput(slot).getCount());
     }
 
@@ -472,13 +482,13 @@ class GemCuttersTableCraftingTest {
         f.access = () -> ++calls[0] < 2;
         f.pickup();
         assertTrue(f.state.getInput(0).is(Items.WATER_BUCKET));
-        assertTrue(f.menu.getCarried().isEmpty());
+        assertTrue(f.state.getOutput().isEmpty());
         assertTrue(f.player.isEmpty());
         assertEquals(0, f.inputs.dirty);
         f.access = () -> true;
         f.pickup();
         assertTrue(f.state.getInput(0).is(Items.BUCKET));
-        assertEquals(2, f.menu.getCarried().getCount());
+        assertEquals(2, f.state.getOutput().getCount());
     }
 
     @Test
@@ -495,13 +505,13 @@ class GemCuttersTableCraftingTest {
                 return java.util.Optional.of(new ItemStack(Items.BUCKET));
             });
         state.setInput(0, new ItemStack(Items.WATER_BUCKET));
-        assertThrows(IllegalStateException.class, () -> menu.clicked(0, 0, ClickType.PICKUP, null));
+        assertThrows(IllegalStateException.class, () -> menu.clickMenuButton(null, 2));
         assertTrue(state.getInput(0).is(Items.WATER_BUCKET));
-        assertTrue(menu.getCarried().isEmpty());
+        assertTrue(state.getOutput().isEmpty());
         assertEquals(0, inputs.dirty);
-        menu.clicked(0, 0, ClickType.PICKUP, null);
+        menu.clickMenuButton(null, 2);
         assertTrue(state.getInput(0).is(Items.BUCKET));
-        assertEquals(2, menu.getCarried().getCount());
+        assertEquals(2, state.getOutput().getCount());
     }
 
     @Test
@@ -524,30 +534,30 @@ class GemCuttersTableCraftingTest {
         state.setInput(0, new ItemStack(Items.HONEY_BOTTLE, 5));
         for (int slot = 1; slot < 18; slot++) state.setInput(slot, new ItemStack(Items.DIAMOND, 64));
         for (int slot = 0; slot < 36; slot++) player.setItem(slot, new ItemStack(Items.DIAMOND, 64));
-        menu.clicked(0, 0, ClickType.PICKUP, null);
+        menu.clickMenuButton(null, 2);
         assertEquals(2, calls[0]);
         assertEquals(5, state.getInput(0).getCount());
         assertEquals(0, inputs.dirty);
         fail[0] = false;
         calls[0] = 0;
-        menu.clicked(0, 0, ClickType.PICKUP, null);
+        menu.clickMenuButton(null, 2);
         assertEquals(3, calls[0]);
         assertEquals(5, state.getInput(0).getCount());
-        assertTrue(menu.getCarried().isEmpty());
+        assertTrue(state.getOutput().isEmpty());
         assertEquals(0, inputs.dirty);
         state.setInput(17, ItemStack.EMPTY);
         calls[0] = 0;
-        menu.clicked(0, 0, ClickType.PICKUP, null);
+        menu.clickMenuButton(null, 2);
         assertEquals(3, calls[0]);
         assertTrue(state.getInput(0).is(Items.HONEY_BOTTLE));
         assertEquals(2, state.getInput(0).getCount());
         assertTrue(state.getInput(17).is(Items.GLASS_BOTTLE));
         assertEquals(3, state.getInput(17).getCount());
-        assertEquals(2, menu.getCarried().getCount());
+        assertEquals(2, state.getOutput().getCount());
         assertEquals(1, inputs.dirty);
-        menu.clicked(0, 0, ClickType.PICKUP, null);
+        menu.clickMenuButton(null, 2);
         assertEquals(3, calls[0]);
-        assertEquals(2, menu.getCarried().getCount());
+        assertEquals(2, state.getOutput().getCount());
     }
 
     @Test
@@ -573,7 +583,7 @@ class GemCuttersTableCraftingTest {
             f.pickup();
             assertEquals(1, f.state.getInput(0).getCount());
             assertEquals(1, f.player.getItem(0).getCount());
-            assertTrue(f.menu.getCarried().isEmpty());
+            assertTrue(f.state.getOutput().isEmpty());
             assertEquals(0, f.inputs.dirty);
         } finally {
             original.putIfAbsent(tag, List.of());
@@ -597,7 +607,12 @@ class GemCuttersTableCraftingTest {
             assertTrue(offered.is(item));
             assertTrue(com.aranaira.arcanearchives.recipe.gct.GemCutterFluidRemainders.prepare(new ItemStack(item, 2)).isEmpty());
         }
-        for (var item : List.of(Items.PAPER, Items.BUCKET, Items.FLINT_AND_STEEL))
+        var emptyBucket = new ItemStack(Items.BUCKET);
+        var returnedBucket = com.aranaira.arcanearchives.recipe.gct.GemCutterFluidRemainders.prepare(emptyBucket).orElseThrow();
+        assertTrue(returnedBucket.is(Items.BUCKET));
+        assertEquals(1, returnedBucket.getCount());
+        assertNotSame(emptyBucket, returnedBucket);
+        for (var item : List.of(Items.PAPER, Items.FLINT_AND_STEEL))
             assertTrue(com.aranaira.arcanearchives.recipe.gct.GemCutterFluidRemainders.prepare(new ItemStack(item)).isEmpty());
     }
 
@@ -640,20 +655,20 @@ class GemCuttersTableCraftingTest {
             var f = new Fixture(packagedRecipe(name));
             f.state.setInput(0, new ItemStack(Items.QUARTZ, cost));
             f.pickup();
-            assertTrue(f.menu.getCarried().isEmpty());
+            assertTrue(f.state.getOutput().isEmpty());
             assertEquals(cost, f.state.getInput(0).getCount());
             f.state.setInput(0, new ItemStack(ContentRegistry.RAW_QUARTZ.get(), cost - 1));
             f.pickup();
-            assertTrue(f.menu.getCarried().isEmpty());
+            assertTrue(f.state.getOutput().isEmpty());
             f.state.setInput(0, new ItemStack(ContentRegistry.RAW_QUARTZ.get()));
             f.player.setItem(8, new ItemStack(ContentRegistry.RAW_QUARTZ.get(), cost - 1));
             f.pickup();
-            assertTrue(f.menu.getCarried().is(output));
-            assertEquals(count, f.menu.getCarried().getCount());
+            assertTrue(f.state.getOutput().is(output));
+            assertEquals(count, f.state.getOutput().getCount());
             assertEquals(18, f.state.countEmptyInputs());
             assertTrue(f.player.isEmpty());
             f.pickup();
-            assertEquals(count, f.menu.getCarried().getCount());
+            assertEquals(count, f.state.getOutput().getCount());
         }
     }
 
@@ -664,12 +679,12 @@ class GemCuttersTableCraftingTest {
         f.player.setItem(8, new ItemStack(ContentRegistry.RAW_QUARTZ.get(), 9));
         for (int craft = 1; craft <= 9; craft++) {
             f.pickup();
-            assertTrue(f.menu.getCarried().is(ContentRegistry.SHAPED_QUARTZ.get()));
-            assertEquals(craft, f.menu.getCarried().getCount());
+            assertTrue(f.state.getOutput().is(ContentRegistry.SHAPED_QUARTZ.get()));
+            assertEquals(craft, f.state.getOutput().getCount());
             assertEquals(18 - 2 * craft, f.state.getInput(0).getCount() + f.player.getItem(8).getCount());
         }
         f.pickup();
-        assertEquals(9, f.menu.getCarried().getCount());
+        assertEquals(9, f.state.getOutput().getCount());
         assertEquals(18, f.state.countEmptyInputs());
         assertTrue(f.player.isEmpty());
 
@@ -685,7 +700,7 @@ class GemCuttersTableCraftingTest {
         }
         var packing = recipes.get("storage_shaped_quartz");
         var unpacking = recipes.get("destorage_shapedquartz");
-        var quartz = f.menu.getCarried().copy();
+        var quartz = f.state.getOutput().copy();
         for (int cycle = 0; cycle < 20; cycle++) {
             var grid = new java.util.ArrayList<ItemStack>();
             for (int slot = 0; slot < 9; slot++) grid.add(quartz.split(1));
@@ -771,27 +786,27 @@ class GemCuttersTableCraftingTest {
             f.player.setItem(6, new ItemStack(Items.GOLD_INGOT));
             f.state.setInput(17, new ItemStack(Items.GOLD_NUGGET, 6));
             f.pickup();
-            assertTrue(f.menu.getCarried().is(ContentRegistry.SCINTILLATING_INLAY.get()));
-            assertEquals(1, f.menu.getCarried().getCount());
+            assertTrue(f.state.getOutput().is(ContentRegistry.SCINTILLATING_INLAY.get()));
+            assertEquals(1, f.state.getOutput().getCount());
             assertEquals(18, f.state.countEmptyInputs());
             assertTrue(f.player.isEmpty());
             assertEquals(1, f.inputs.dirty);
             f.pickup();
-            assertEquals(1, f.menu.getCarried().getCount());
+            assertEquals(1, f.state.getOutput().getCount());
             var lantern = new Fixture(packagedRecipe("radiant_lantern"));
             lantern.state.setInput(0, new ItemStack(ContentRegistry.RAW_QUARTZ.get()));
             lantern.player.setItem(8, new ItemStack(ContentRegistry.RAW_QUARTZ.get()));
             lantern.pickup();
-            assertTrue(lantern.menu.getCarried().isEmpty());
+            assertTrue(lantern.state.getOutput().isEmpty());
             assertEquals(1, lantern.state.getInput(0).getCount());
             lantern.player.setItem(7, new ItemStack(Items.GOLD_NUGGET));
             lantern.pickup();
-            assertTrue(lantern.menu.getCarried().is(ContentRegistry.RADIANT_LANTERN_ITEM.get()));
-            assertEquals(4, lantern.menu.getCarried().getCount());
+            assertTrue(lantern.state.getOutput().is(ContentRegistry.RADIANT_LANTERN_ITEM.get()));
+            assertEquals(4, lantern.state.getOutput().getCount());
             assertTrue(lantern.player.isEmpty());
             assertEquals(18, lantern.state.countEmptyInputs());
             lantern.pickup();
-            assertEquals(4, lantern.menu.getCarried().getCount());
+            assertEquals(4, lantern.state.getOutput().getCount());
             for (String name : List.of("material_interface", "containment_field", "matrix_brace")) {
                 int amount = name.equals("material_interface") ? 1 : 2;
                 Item result = switch (name) {
@@ -807,6 +822,7 @@ class GemCuttersTableCraftingTest {
                 assertTrue(component.menu.getCarried().isEmpty());
                 assertEquals(1, component.state.getInput(17).getCount());
                 component.player.setItem(7, new ItemStack(Items.GOLD_INGOT, amount));
+                assertTrue(component.menu.clickMenuButton(null, 2));
                 assertTrue(component.menu.quickMoveStack(null, 0).is(result));
                 assertEquals(18, component.state.countEmptyInputs());
                 assertTrue(component.player.getItem(8).is(result));
@@ -833,20 +849,20 @@ class GemCuttersTableCraftingTest {
         f.state.setInput(0, new ItemStack(Items.DIAMOND, 8));
         f.pickup();
         assertEquals(7, f.state.getInput(0).getCount());
-        assertEquals(2, f.menu.getCarried().getCount());
+        assertEquals(2, f.state.getOutput().getCount());
         var second = reloaded("paper", 3, true).get(0);
         manager.replaceRecipes(List.of(new net.minecraft.world.item.crafting.RecipeHolder<>(second.name(), second.recipe())));
         f.pickup();
         assertEquals(7, f.state.getInput(0).getCount());
         f.pickup();
         assertEquals(4, f.state.getInput(0).getCount());
-        assertEquals(4, f.menu.getCarried().getCount());
+        assertEquals(4, f.state.getOutput().getCount());
         manager.replaceRecipes(List.of());
         f.menu.broadcastChanges();
         f.pickup();
-        assertTrue(f.menu.getSlot(0).getItem().isEmpty());
+        assertTrue(f.menu.getSlot(62).getItem().isEmpty());
         assertEquals(4, f.state.getInput(0).getCount());
-        assertEquals(4, f.menu.getCarried().getCount());
+        assertEquals(4, f.state.getOutput().getCount());
     }
 
     private static GCTRecipe packagedRecipe(String name) {
@@ -897,7 +913,7 @@ class GemCuttersTableCraftingTest {
             *///?}
         }
 
-        void pickup() { menu.clicked(0, 0, ClickType.PICKUP, null); }
+        void pickup() { menu.clickMenuButton(null, 2); }
     }
 
     private static final class Inputs extends SimpleContainer {

@@ -46,7 +46,7 @@ public final class RadiantResonator extends Block implements EntityBlock {
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return level.isClientSide || type != ContentRegistry.RADIANT_RESONATOR_ENTITY.get() ? null
+        return type != ContentRegistry.RADIANT_RESONATOR_ENTITY.get() ? null
             : (world, pos, block, entity) -> RadiantResonatorBlockEntity.tick(world, pos, block, (RadiantResonatorBlockEntity) entity);
     }
 

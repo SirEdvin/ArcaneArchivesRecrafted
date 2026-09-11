@@ -7,6 +7,7 @@ base.archivesName = "${property("mod.id")}-forge"
 
 // Test-only mod: reuse the shared assertions inside Forge's transformed server runtime.
 val gameTest = sourceSets.create("gameTest") {
+    java.srcDir(rootProject.file("src/sharedGameTest/java"))
     java.srcDir(rootProject.file("src/forgeGameTest/java"))
     resources.srcDir(rootProject.file("src/forgeGameTest/resources"))
     compileClasspath += sourceSets.main.get().output + sourceSets.test.get().output
@@ -21,6 +22,21 @@ repositories {
 }
 
 dependencies {
+    // Development-only opt-in; never bundled or required in player metadata.
+    val optionalIntegrationMods = providers.gradleProperty("optionalIntegrationMods").orElse("").get()
+        .split(',').map { it.trim() }.filter { it.isNotEmpty() }.toSet()
+    require(optionalIntegrationMods.all { it in setOf("jade", "jei", "emi", "kubejs") }) {
+        "optionalIntegrationMods supports jade,jei,emi,kubejs only"
+    }
+    optionalIntegrationMods.forEach { mod -> add("modRuntimeOnly", "maven.modrinth:$mod:${property("deps.$mod")}") }
+    if ("kubejs" in optionalIntegrationMods) {
+        add("modRuntimeOnly", "maven.modrinth:rhino:${property("deps.rhino")}")
+        add("modRuntimeOnly", "maven.modrinth:architectury-api:${property("deps.architectury")}")
+    }
+    add("modCompileOnly", "maven.modrinth:jade:${property("deps.jade")}")
+    add("modCompileOnly", "maven.modrinth:jei:${property("deps.jei")}")
+    add("modCompileOnly", "maven.modrinth:emi:${property("deps.emi")}")
+    add("modCompileOnly", "maven.modrinth:kubejs:${property("deps.kubejs")}")
     add("modCompileOnly", "maven.modrinth:curios:${property("deps.curios")}")
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
     add("modCompileOnly", "vazkii.patchouli:Patchouli:${property("deps.patchouli")}:api")
@@ -116,6 +132,8 @@ tasks.processResources {
     filesMatching("assets/arcanearchives/models/block/gemcutters_table.json") { expand(props) }
     filesMatching("assets/arcanearchives/models/block/wonky_resonator.json") { expand(props) }
     filesMatching("assets/arcanearchives/models/block/celestial_lotus_engine.json") { expand(props) }
+    filesMatching("assets/arcanearchives/models/block/matrix_reservoir.json") { expand(props) }
+    filesMatching("assets/arcanearchives/models/block/matrix_distillate.json") { expand(props) }
     filesMatching(listOf("verdant_censer", "echoing_conformance_chamber", "echoing_reverberation_chamber").map { "assets/arcanearchives/models/block/$it.json" }) { expand(props) }
     filesMatching("assets/arcanearchives/models/block/radiant_lantern.json") { expand(props) }
     filesMatching("assets/arcanearchives/models/block/monitoring_crystal.json") { expand(props) }

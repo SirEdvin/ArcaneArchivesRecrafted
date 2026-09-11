@@ -6,6 +6,7 @@ import struct
 import tomllib
 from zipfile import ZipFile
 from port_unimplemented_device_assets import NAMES as DEVICE_NAMES, OBJ_NAMES as DEVICE_OBJ_NAMES
+DEVICE_TEXTURES = tuple(name for name in DEVICE_OBJ_NAMES if not name.startswith("matrix_")) + ("glass_edge", "placeholder", "block_arcanearchives_master")
 from port_lotus_assets import NAME as LOTUS, TEXTURES as LOTUS_TEXTURES
 from port_tome_recipe_assets import TEXTURE as TOME_RECIPE_TEXTURE, TEMPLATES as TOME_RECIPE_TEMPLATES, COMPONENT as TOME_RECIPE_COMPONENT
 
@@ -42,6 +43,9 @@ for minecraft, loader, entrypoint, major, metadata in TARGETS:
         names = jar.namelist()
         require_no_test_content(names, node)
         require(len(names) == len(set(names)), f"{node}: duplicate ZIP entries")
+        require(hashlib.sha256(jar.read("assets/arcanearchives/textures/gui/jei/radiant_resonator.png")).hexdigest()
+                == "f4998ffbe729d418d94b890ef2902d573d4ab4c068f24215c4cb34412677e5de",
+                f"{node}: changed pinned Resonator viewer artwork")
         require(METADATA.intersection(names) == {metadata}, f"{node}: wrong loader metadata")
         require("LICENSE" in names and "META-INF/upstream/LICENSE" in names, f"{node}: missing notices")
         require(not any(name.startswith(("vazkii/", "assets/patchouli/", "data/patchouli/")) or name.endswith(".jar") for name in names),
@@ -74,10 +78,10 @@ for minecraft, loader, entrypoint, major, metadata in TARGETS:
             require("arcanearchives:" + device in json.loads(jar.read(f"data/minecraft/tags/{tag_root}/mineable/pickaxe.json"))["values"],
                     f"{node}: missing prototype pickaxe tag {device}")
         for resource in ([f"models/block/{device}.{ext}" for device in DEVICE_OBJ_NAMES for ext in ("obj", "mtl")]
-                         + [f"textures/blocks/{texture}.png" for texture in (*DEVICE_OBJ_NAMES, "glass_edge", "placeholder")]):
+                         + [f"textures/blocks/{texture}.png" for texture in DEVICE_TEXTURES]):
             require(jar.read("assets/arcanearchives/" + resource) == (ROOT / "src/main/resources/assets/arcanearchives" / resource).read_bytes(),
                     f"{node}: changed prototype artwork {resource}")
-        for texture in (*DEVICE_OBJ_NAMES, "glass_edge", "placeholder"):
+        for texture in DEVICE_TEXTURES:
             require({"type": "minecraft:single", "resource": "arcanearchives:blocks/" + texture} in
                     json.loads(jar.read("assets/minecraft/atlases/blocks.json"))["sources"], f"{node}: missing prototype atlas entry {texture}")
         wonky = json.loads(jar.read("assets/arcanearchives/models/block/wonky_resonator.json"))
@@ -157,6 +161,17 @@ for minecraft, loader, entrypoint, major, metadata in TARGETS:
                 "ArcaneArchivesFabricClient", "GemCutterFabricModel",
             ))
         expected_classes.add(PACKAGE + "util/MathUtils.class")
+        expected_classes.update(PACKAGE + name + ".class" for name in ("blocks/MatrixReservoir", "items/MatrixReservoirItem"))
+        expected_classes.update(PACKAGE + name + ".class" for name in ("blocks/MatrixDistillate", "items/MatrixDistillateItem",
+            "tileentities/MatrixPartBlockEntity"))
+        expected_classes.update(PACKAGE + "integration/jei/" + name + ".class" for name in (
+            "ArcaneArchivesJei", "ArcaneArchivesJei$Category", "ArcaneArchivesJei$ResonatorCategory"))
+        expected_classes.update(PACKAGE + "integration/emi/" + name + ".class" for name in (
+            "ArcaneArchivesEmi", "ArcaneArchivesEmi$1", "ArcaneArchivesEmi$Display", "ArcaneArchivesEmi$CraftingTransfer", "ArcaneArchivesEmi$Resonating"))
+        expected_classes.add(PACKAGE + "integration/ResonatorDisplay.class")
+        expected_classes.add(PACKAGE + "integration/ViewerHiddenItems.class")
+        expected_classes.update(PACKAGE + "integration/jade/" + name + ".class" for name in (
+            "ArcaneArchivesJade", "ArcaneArchivesJade$Provider"))
         expected_classes.update(PACKAGE + name + ".class" for name in (
             "integration/patchouli/GemCutterBookRecipes", "client/GemCutterBookComponent"))
         expected_classes.add(PACKAGE + "items/RadiantTroveItem.class")
@@ -164,7 +179,7 @@ for minecraft, loader, entrypoint, major, metadata in TARGETS:
         expected_classes.update(PACKAGE + name + ".class" for name in (
             "data/HiveSaveData", "items/LetterOfInvitationItem", "events/HiveCommands", "items/LetterItem", "items/LetterOfResignationItem"))
         expected_classes.update(PACKAGE + name + ".class" for name in (
-            "events/GemSound", "events/GemSound$Effect", "client/GemSoundClient", "client/GemSoundClient$1"))
+            "events/GemSound", "events/GemSound$Effect", "client/GemSoundClient", "client/GemSoundClient$1", "client/ResonatorLoopSound"))
         expected_classes.update(PACKAGE + name + ".class" for name in (
             "blocks/RadiantChest", "blocks/RadiantResonator", "items/RadiantResonatorItem",
             "tileentities/RadiantResonatorBlockEntity", "data/ResonatorSaveData",
@@ -249,7 +264,7 @@ for minecraft, loader, entrypoint, major, metadata in TARGETS:
             expected_classes.add(PACKAGE + "client/ArcaneArchivesModClient.class")
         expected_classes.update(PACKAGE + name + ".class" for name in (
             "client/GemCuttersTableScreen", "inventory/GemCuttersTableMenu",
-            "inventory/GemCuttersTableMenu$UnavailableSlot", "tileentities/GemCuttersTableBlockEntity$MenuInputs",
+            "inventory/GemCuttersTableMenu$UnavailableSlot", "inventory/GemCuttersTableMenu$OutputSlot", "tileentities/GemCuttersTableBlockEntity$MenuInputs",
         ))
         expected_classes.add(PACKAGE + "recipe/gct/GCTCraftingResult.class")
         expected_classes.update(PACKAGE + "recipe/gct/GemCutterDataRecipe" + suffix + ".class"
@@ -264,6 +279,7 @@ for minecraft, loader, entrypoint, major, metadata in TARGETS:
         expected_classes.update(PACKAGE + name + ".class" for name in ("blocks/QuartzSliver", "events/SliverSmashing", "events/SliverSmashing$Outcome"))
         expected_classes.update(PACKAGE + name + ".class" for name in (
             "blocks/GemCuttersTable", "tileentities/GemCuttersTableBlockEntity",
+            "tileentities/NetworkOwnedBlockEntity",
             "items/EmpoweredQuartzItem",
             "items/ScintillatingInlayItem",
             "recipe/gct/HiveCraftingConditions",
@@ -456,6 +472,7 @@ for minecraft, loader, entrypoint, major, metadata in TARGETS:
             require(PACKAGE + name + ".java" in jar.namelist(), f"{node}: missing sliver source")
         for name in ("init/ContentRegistry", "items/ShapedQuartzItem", "blocks/StorageShapedQuartz", "config/ServerSideConfig", "data/PlayerSaveData",
                      "blocks/GemCuttersTable", "tileentities/GemCuttersTableBlockEntity",
+                     "tileentities/NetworkOwnedBlockEntity",
                      "items/EmpoweredQuartzItem",
                      "items/ScintillatingInlayItem",
                      "recipe/gct/HiveCraftingConditions",

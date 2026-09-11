@@ -26,6 +26,39 @@ class ServerSideConfigTest {
     }
 
     @Test
+    void completionSoundSwitchesDefaultOnAndRoundTripIndependently() {
+        var defaults = ServerSideConfig.fromProperties(new Properties());
+        assertTrue(defaults.useSounds());
+        assertTrue(defaults.resonatorComplete());
+        for (boolean sounds : new boolean[]{false, true}) {
+            for (boolean completion : new boolean[]{false, true}) {
+                Properties values = new Properties();
+                values.setProperty("UseSounds", Boolean.toString(sounds));
+                values.setProperty("ResonatorComplete", Boolean.toString(completion));
+                var configured = ServerSideConfig.fromProperties(values);
+                assertEquals(sounds, configured.useSounds());
+                assertEquals(completion, configured.resonatorComplete());
+                assertEquals(configured, ServerSideConfig.fromProperties(configured.toProperties()));
+                assertEquals(defaults.resonatorTickTime(), configured.resonatorTickTime());
+            }
+        }
+    }
+
+    @Test
+    void invalidSoundSwitchesPreserveFileAndPreviousSnapshot() throws Exception {
+        ServerSideConfig.initialize(directory);
+        var before = ServerSideConfig.current();
+        Path file = directory.resolve("arcanearchives/server.properties");
+        for (String key : new String[]{"UseSounds", "ResonatorComplete"}) {
+            String invalid = key + "=perhaps\n";
+            Files.writeString(file, invalid);
+            assertThrows(IllegalStateException.class, () -> ServerSideConfig.initialize(directory));
+            assertEquals(invalid, Files.readString(file));
+            assertEquals(before, ServerSideConfig.current());
+        }
+    }
+
+    @Test
     void createsDefaultsThenLoadsExistingSettingsWithoutRewritingThem() throws Exception {
         ServerSideConfig.initialize(directory);
         Path file = directory.resolve("arcanearchives/server.properties");

@@ -23,6 +23,7 @@ public final class ArcaneArchivesModClient {
     public static void initialize(FMLClientSetupEvent event) {
         com.aranaira.arcanearchives.config.ClientConfig.initialize(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get());
         EchoColorCache.initialize(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get());
+        event.enqueueWork(ResonatorLoopSound::initialize);
         event.enqueueWork(AmphoraClient::initialize);
         event.enqueueWork(ArsenalClient::initialize);
         event.enqueueWork(() -> MenuScreens.register(ContentRegistry.GEMCUTTERS_TABLE_MENU.get(), GemCuttersTableScreen::new));
@@ -66,6 +67,7 @@ public final class ArcaneArchivesModClient {
     public static void initialize(net.neoforged.fml.event.lifecycle.FMLClientSetupEvent event) {
         com.aranaira.arcanearchives.config.ClientConfig.initialize(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get());
         EchoColorCache.initialize(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get());
+        event.enqueueWork(ResonatorLoopSound::initialize);
         event.enqueueWork(AmphoraClient::initialize);
         event.enqueueWork(ArsenalClient::initialize);
     }

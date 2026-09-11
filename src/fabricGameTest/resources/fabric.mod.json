@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "arcanearchives_test",
+  "version": "1.0.0",
+  "name": "Arcane Archives native runtime fixtures",
+  "environment": "server",
+  "license": "MIT",
+  "entrypoints": {
+    "main": [
+      "com.aranaira.arcanearchives.gametest.FabricRuntimeTests"
+    ],
+    "fabric-gametest": [
+      "com.aranaira.arcanearchives.gametest.FabricRuntimeTests"
+    ]
+  },
+  "depends": {
+    "arcanearchives": "*",
+    "fabric-gametest-api-v1": "*"
+  }
+}

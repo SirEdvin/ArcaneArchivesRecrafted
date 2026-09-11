@@ -10,6 +10,12 @@ deps.fabric_loader = "0.17.2"
 loomx.loom_version = "1.17.12"
 
 [fabric."1.20.1"]
+deps.jei = "jJOr2rUn" # 15.20.0.134; approved beta compatible with existing Fabric pins
+deps.emi = "YbXDHf8W" # 1.1.24+1.20.1+fabric
+deps.kubejs = "Pu0Ygbq6" # 2001.6.5-build.26+fabric
+deps.rhino = "MLIu0Tct" # 2001.2.3-build.10+fabric
+deps.architectury = "WbL7MStR" # 9.2.14+fabric
+deps.jade = "ahavHbAT" # 11.13.3+fabric; immutable Modrinth release ID
 mod.mc_compat = "=1.20.1"
 deps.fabric_api = "0.92.6+1.20.1"
 deps.patchouli = "1.20.1-85-FABRIC"
@@ -18,12 +24,22 @@ deps.cca_group = "dev.onyxstudios.cardinal-components-api"
 deps.cca = "5.2.0"
 
 [forge."1.20.1"]
+deps.jei = "9jqubC9n" # 15.56.0.205
+deps.emi = "Axuu9I9R" # 1.1.24+1.20.1+forge
+deps.kubejs = "hVR2xUSr" # 2001.6.5-build.26+forge
+deps.rhino = "uNALdylI" # 2001.2.3-build.10+forge
+deps.architectury = "1MKTLiiG" # 9.2.14+forge
+deps.jade = "xJQHCmWJ" # 11.13.3+forge
 mod.mc_compat = "[1.20.1]"
 deps.forge_loader = "47.3.39"
 deps.patchouli = "1.20.1-85-FORGE"
 deps.curios = "5.14.1+1.20.1"
 
 [fabric."1.21.1"]
+deps.jei = "EO4u1E2G" # 19.51.0.418
+deps.emi = "on5GT1qh" # 1.1.24+1.21.1+fabric
+# KubeJS intentionally excluded on this leaf by user approval.
+deps.jade = "adpNvTZS" # 15.10.6+fabric
 mod.mc_compat = "=1.21.1"
 deps.fabric_api = "0.116.12+1.21.1"
 deps.patchouli = "1.21.1-93-FABRIC"
@@ -32,6 +48,11 @@ deps.cca_group = "org.ladysnake.cardinal-components-api"
 deps.cca = "6.1.0"
 
 [neoforge."1.21.1"]
+deps.jei = "UJRXzDfp" # 19.25.1.334; approved older beta, meets KubeJS JEI minimum
+deps.emi = "5sIPA1To" # 1.1.24+1.21.1+neoforge
+deps.kubejs = "THIGFPwf" # 2101.7.2-build.377
+deps.rhino = "cQ4POTah" # 2101.2.7-build.85
+deps.jade = "eYz2YBGT" # 15.10.6+neoforge
 mod.mc_compat = "[1.21.1]"
 deps.neoforge_loader = "21.1.234"
 deps.patchouli = "1.21.1-93-NEOFORGE"

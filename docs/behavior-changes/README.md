@@ -1,5 +1,30 @@
 # Gameplay and logic change register
 
+- [JEI/EMI tag-recipe collisions](0130-jei-emi-tag-recipe-collisions.md): user chose to ignore the observed collisions as a known limitation. Repair excluded, not implemented; retain pins, both viewers, tag categories and diagnostics. Combined Fabric 1.21.1 occupied-grid transfer/payment passed. No approval blocker remains; broader integration acceptance stays separate.
+
+- [Gem Cutter small-window layout](0129-gem-cutter-small-window-layout.md): user selected retaining upstream sizing. Adaptive fit-down is not adopted; undersized/high-GUI-scale clipping is excluded, not repaired. No production change or approval blocker.
+
+- [Gem Cutter inventory output](0128-gem-cutter-inventory-output.md): approved and implemented. Explicit Craft button commits payment/returns into a saved extraction-only output slot; no pending journal or pre-release compatibility layer. All four builds/native suites, artifact pairs and eight real-process restart sessions pass. Connected-client appearance/multiplayer remain separate acceptance.
+
+- [Malformed Gem Cutter carriers](0127-gem-cutter-malformed-carriers.md): superseded/not adopted under 0128. The obsolete carrier fixture was removed with the journal; malformed custom item-data placement is not claimed fixed.
+
+- [Gem Cutter accessor entity collision](0126-gem-cutter-accessor-collision.md): approved and implemented. Native accessor collision preflight rejects the whole placement; parent/accessor obstruction and unobstructed controls pass in all orientations on every target. Full build and all artifact pairs pass.
+
+- [Isolated Matrix block-state edits](0125-matrix-isolated-state-edits.md): user-approved exclusion. Removed the unsupported isolated-state-edit fixture, without changing production logic or normal placement/removal safeguards. The demonstrated orphan-part case is excluded, not repaired.
+
+- [Matrix loaded-only cleanup](0124-matrix-loaded-only-cleanup.md): user-approved and implemented; removed deferred cleanup, event hooks and unloaded-case tests. All four native suites and production/source artifact pairs pass. 0121 deferred scope is superseded, 0122 native notifications retained, and 0123 polling not adopted.
+
+
+- [Gem Cutter empty-fluid-container returns](0120-gem-cutter-empty-fluid-returns.md): approved and implemented; all four native Reservoir acquisition regressions now pass, preserving upstream returned tanks and item data. Full build/artifacts are green; connected acceptance remains open.
+
+- [Matrix footprint placement repair](0119-matrix-placement-repair.md): approved repair of invalid upstream accessor-state/type handling while preserving declared footprints and leaving unfinished mechanics inactive; implementation and acceptance pending.
+
+- [Brazier horizontal radius](0114-brazier-horizontal-radius.md): approved XZ correction; implementation pending.
+- [Manifest monitored-inventory deduplication](0115-manifest-monitor-deduplication.md): approved duplicate/double-chest suppression; implementation pending.
+- [Ownerless network devices](0116-ownerless-network-devices.md): placer ownership and persistence implemented for Gem Cutters/Monitoring Crystals; ownerless/fake-player cases remain unlinked, item-supplied owners cannot claim devices, and local behavior is unchanged. All four native suites/artifact pairs pass. Full network integration and connected/restart acceptance remain open.
+
+- [Integration scope revision](0113-integration-scope.md): user-approved KubeJS instead of Crafting Tweaks/CraftTweaker, JEI plus EMI, and exclusion of Astral Sorcery/Thaumcraft hooks. Implementation and per-target compatibility verification remain pending; supersedes historical integration backlog notes.
+
 - [Tome Gem Cutter recipe-display adapter](0112-tome-gem-cutter-recipe-display.md): approved-backend API component, counted native previews, original artwork and templates; matrix tests/builds/startups pass. Complete Tome integration and connected rendering remain open.
 
 - [Tome automatic-grant failure safety](0111-tome-grant-failure-safety-proposal.md): not adopted; user accepts crafting as fallback. Preserve original grant ordering. No approval blocker; Tome implementation remains pending.

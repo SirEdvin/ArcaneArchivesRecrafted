@@ -1,0 +1,115 @@
+{
+  "loader": "${obj_loader}:obj",
+  "model": "arcanearchives:models/block/matrix_reservoir.obj",
+  "flip_v": true,
+  "automatic_culling": false,
+  "shade_quads": true,
+  "render_type": "minecraft:solid",
+  "textures": {
+    "particle": "arcanearchives:blocks/block_arcanearchives_master"
+  },
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [
+        -0.0,
+        -75.0,
+        -0.0
+      ],
+      "translation": [
+        1.6,
+        -0.8,
+        2.08
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        -0.0,
+        -70.0,
+        -0.0
+      ],
+      "translation": [
+        4.0,
+        -0.8,
+        0.16
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        29.999999999999996,
+        0.0,
+        -0.0
+      ],
+      "translation": [
+        0.0,
+        2.4,
+        0.0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        29.999999999999996,
+        0.0,
+        -0.0
+      ],
+      "translation": [
+        0.0,
+        2.4,
+        0.0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "gui": {
+      "rotation": [
+        27.236313475170725,
+        41.64114326790979,
+        1.1182787690931366
+      ],
+      "translation": [
+        0.0,
+        -4.16,
+        0
+      ],
+      "scale": [
+        0.3,
+        0.3,
+        0.3
+      ]
+    },
+    "ground": {
+      "rotation": [
+        -0.0,
+        0.0,
+        -0.0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    }
+  }
+}

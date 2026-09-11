@@ -14,6 +14,24 @@ repositories {
 }
 
 dependencies {
+    // Development-only opt-in; never bundled or required in player metadata.
+    val optionalIntegrationMods = providers.gradleProperty("optionalIntegrationMods").orElse("").get()
+        .split(',').map { it.trim() }.filter { it.isNotEmpty() }.toSet()
+    require(optionalIntegrationMods.all { it in setOf("jade", "jei", "emi", "kubejs") }) {
+        "optionalIntegrationMods supports jade,jei,emi,kubejs only"
+    }
+    // Gradle configures every leaf: the approved 1.21 Fabric exception applies here too.
+    optionalIntegrationMods.filter { it != "kubejs" || sc.current.parsed < "1.21" }
+        .forEach { mod -> modRuntimeOnly("maven.modrinth:$mod:${property("deps.$mod")}") }
+    if ("kubejs" in optionalIntegrationMods && sc.current.parsed < "1.21") {
+        // KubeJS injects Rhino interfaces into vanilla classes in Loom's compile view.
+        modImplementation("maven.modrinth:rhino:${property("deps.rhino")}")
+        modRuntimeOnly("maven.modrinth:architectury-api:${property("deps.architectury")}")
+    }
+    modCompileOnly("maven.modrinth:jade:${property("deps.jade")}")
+    modCompileOnly("maven.modrinth:jei:${property("deps.jei")}")
+    modCompileOnly("maven.modrinth:emi:${property("deps.emi")}")
+    if (sc.current.parsed < "1.21") modCompileOnly("maven.modrinth:kubejs:${property("deps.kubejs")}")
     modCompileOnly("maven.modrinth:trinkets:${property("deps.trinkets")}")
     modCompileOnly("${property("deps.cca_group")}:cardinal-components-base:${property("deps.cca")}")
     minecraft("com.mojang:minecraft:${sc.current.version}")
@@ -28,6 +46,39 @@ dependencies {
 
 tasks.test { useJUnitPlatform() }
 
+fabricApi.configureTests {
+    createSourceSet = true
+    modId = "arcanearchives_test"
+    enableGameTests = true
+    enableClientGameTests = false
+    eula = false
+    clearRunDirectory = false
+}
+sourceSets.named("gametest") {
+    java.srcDir(rootProject.file("src/sharedGameTest/java"))
+    java.srcDir(rootProject.file("src/fabricGameTest/java"))
+    java.srcDir(rootProject.file("src/fabricGameTest/${sc.current.version}"))
+    resources.srcDir(rootProject.file("src/fabricGameTest/resources"))
+}
+tasks.named("runGameTest") {
+    val report = layout.buildDirectory.file("gametest-run/results.xml").get().asFile
+    var startedAt = 0L
+    doFirst { startedAt = System.currentTimeMillis() }
+    doLast {
+        check(report.isFile && report.lastModified() >= startedAt) { "Missing fresh Fabric GameTest report: $report" }
+        val factory = javax.xml.parsers.DocumentBuilderFactory.newInstance()
+        factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true)
+        val result = factory.newDocumentBuilder().parse(report)
+        val cases = result.getElementsByTagName("testcase")
+        val names = (0 until cases.length).map { (cases.item(it) as org.w3c.dom.Element).getAttribute("name") }
+        val required = listOf("matrixreservoirplacement", "matrixreservoirinterruptedplacement", "matrixreservoirplacementpreflight", "matrixreservoircrafting", "matrixdistillatelifecycle", "deviceownership")
+        check(required.all { test -> names.count { it == "fabricruntimetests.$test" } == 1 } &&
+            listOf("failure", "error", "skipped").all { result.getElementsByTagName(it).length == 0 }) {
+            "Fabric GameTests did not complete every required Reservoir fixture successfully: $report"
+        }
+    }
+}
+
 tasks.withType<JavaExec>().matching { it.name == "runServer" }.configureEach {
     standardInput = System.`in`
 }
@@ -36,6 +87,10 @@ loom {
     runs {
         named("client") { runDir("runs/client") }
         named("server") { runDir("runs/server") }
+        named("gameTest") {
+            runDir("build/gametest-run")
+            vmArg("-Dfabric-api.gametest.report-file=${layout.buildDirectory.file("gametest-run/results.xml").get().asFile.absolutePath}")
+        }
     }
 }
 
@@ -71,6 +126,8 @@ tasks.processResources {
     filesMatching("assets/arcanearchives/models/block/gemcutters_table.json") { expand(props) }
     filesMatching("assets/arcanearchives/models/block/wonky_resonator.json") { expand(props) }
     filesMatching("assets/arcanearchives/models/block/celestial_lotus_engine.json") { expand(props) }
+    filesMatching("assets/arcanearchives/models/block/matrix_reservoir.json") { expand(props) }
+    filesMatching("assets/arcanearchives/models/block/matrix_distillate.json") { expand(props) }
     filesMatching(listOf("verdant_censer", "echoing_conformance_chamber", "echoing_reverberation_chamber").map { "assets/arcanearchives/models/block/$it.json" }) { expand(props) }
     filesMatching("assets/arcanearchives/models/block/radiant_lantern.json") { expand(props) }
     filesMatching("assets/arcanearchives/models/block/monitoring_crystal.json") { expand(props) }

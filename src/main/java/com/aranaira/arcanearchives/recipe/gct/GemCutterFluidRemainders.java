@@ -21,7 +21,9 @@ public final class GemCutterFluidRemainders {
         var views = storage.iterator();
         if (!views.hasNext()) return Optional.empty();
         var view = views.next();
-        if (views.hasNext() || view.isResourceBlank() || view.getAmount() <= 0) return Optional.empty();
+        if (views.hasNext()) return Optional.empty();
+        if (view.isResourceBlank() && view.getAmount() == 0) return Optional.of(consumed.copy());
+        if (view.isResourceBlank() || view.getAmount() <= 0) return Optional.empty();
         long amount = view.getAmount();
         try (var transaction = net.fabricmc.fabric.api.transfer.v1.transaction.Transaction.openOuter()) {
             if (storage.extract(view.getResource(), amount, transaction) != amount) return Optional.empty();
@@ -32,7 +34,7 @@ public final class GemCutterFluidRemainders {
         /*var handler = copy.getCapability(net.minecraftforge.common.capabilities.ForgeCapabilities.FLUID_HANDLER_ITEM).orElse(null);
         if (handler == null || handler.getTanks() != 1) return Optional.empty();
         var fluid = handler.getFluidInTank(0).copy();
-        if (fluid.isEmpty()) return Optional.empty();
+        if (fluid.isEmpty()) return Optional.of(consumed.copy());
         var drained = handler.drain(fluid.copy(), net.minecraftforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE);
         if (drained.getAmount() != fluid.getAmount() || !drained.isFluidEqual(fluid)) return Optional.empty();
         ItemStack result = handler.getContainer().copy();
@@ -40,7 +42,7 @@ public final class GemCutterFluidRemainders {
         /*var handler = copy.getCapability(net.neoforged.neoforge.capabilities.Capabilities.FluidHandler.ITEM);
         if (handler == null || handler.getTanks() != 1) return Optional.empty();
         var fluid = handler.getFluidInTank(0).copy();
-        if (fluid.isEmpty()) return Optional.empty();
+        if (fluid.isEmpty()) return Optional.of(consumed.copy());
         var drained = handler.drain(fluid.copy(), net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE);
         if (drained.getAmount() != fluid.getAmount()
                 || !net.neoforged.neoforge.fluids.FluidStack.isSameFluidSameComponents(drained, fluid)) return Optional.empty();

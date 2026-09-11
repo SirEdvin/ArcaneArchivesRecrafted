@@ -55,6 +55,16 @@ public final class GemCutterDataRecipe implements Recipe<RecipeInput> {
         this.name = name;
         this.data = source.deepCopy();
         if (data.toString().length() > 32767) throw new IllegalArgumentException("Gem cutting recipe exceeds wire limit");
+        // KubeJS source diagnostics are metadata, never crafting data (approved 0117).
+        if (data.has("_kubejs_changed_marker")) {
+            JsonObject marker = data.getAsJsonObject("_kubejs_changed_marker");
+            fields(marker, "source", "line");
+            if (!marker.has("source") || !marker.get("source").isJsonPrimitive()
+                    || !marker.getAsJsonPrimitive("source").isString()
+                    || !marker.has("line") || integer(marker.get("line")) < 0)
+                throw new IllegalArgumentException("Invalid KubeJS source metadata");
+            data.remove("_kubejs_changed_marker");
+        }
         fields(data, "type", "inputs", "result", "order", "enabled", "record_creator", "arsenal", "hive");
         if (data.has("hive") && (!data.get("hive").isJsonPrimitive()
                 || !data.getAsJsonPrimitive("hive").isString()
@@ -100,7 +110,7 @@ public final class GemCutterDataRecipe implements Recipe<RecipeInput> {
     }
 
     private static void fields(JsonObject object, String... allowed) {
-        if (object == null || !Set.of(allowed).containsAll(object.keySet())) throw new IllegalArgumentException("Unsupported recipe fields");
+        if (object == null || !Set.of(allowed).containsAll(object.keySet())) throw new IllegalArgumentException("Unsupported recipe fields: " + (object == null ? "null" : object.keySet()));
     }
 
     private static ResourceLocation identifier(JsonElement value) {

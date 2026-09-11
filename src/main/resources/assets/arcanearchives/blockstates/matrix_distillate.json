@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "facing=west": {
+      "model": "arcanearchives:block/matrix_distillate",
+      "y": 0
+    },
+    "facing=north": {
+      "model": "arcanearchives:block/matrix_distillate",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "arcanearchives:block/matrix_distillate",
+      "y": 90
+    },
+    "facing=east": {
+      "model": "arcanearchives:block/matrix_distillate",
+      "y": 180
+    },
+    "facing=up": {
+      "model": "arcanearchives:block/matrix_distillate",
+      "y": 0
+    },
+    "facing=down": {
+      "model": "arcanearchives:block/matrix_distillate",
+      "y": 0
+    }
+  }
+}

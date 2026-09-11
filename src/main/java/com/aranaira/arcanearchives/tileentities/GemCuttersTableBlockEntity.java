@@ -16,11 +16,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-/** Runtime input/pending ownership. The menu exposes inputs, never pending-result ownership. */
-public final class GemCuttersTableBlockEntity extends BlockEntity implements MenuProvider {
+/** Owns the saved Gem Cutter input and completed-output inventory. */
+public final class GemCuttersTableBlockEntity extends NetworkOwnedBlockEntity implements MenuProvider {
     private GemCutterCraftingState crafting = new GemCutterCraftingState();
     private boolean contentsDropped;
 
@@ -31,6 +30,8 @@ public final class GemCuttersTableBlockEntity extends BlockEntity implements Men
     public ItemStack getInput(int slot) {
         return crafting.getInput(slot);
     }
+
+    public ItemStack getOutput() { return crafting.getOutput(); }
 
     public boolean stillValid(Player player) {
         if (level == null || isRemoved() || contentsDropped || player.level() != level
@@ -114,22 +115,13 @@ public final class GemCuttersTableBlockEntity extends BlockEntity implements Men
         }
     }
 
-    /** Called once from master removal, never from the accessor. No pending stack is granted here. */
+    /** Called once from master removal, never from the accessor. */
     public void dropContents() {
         requireServer();
         ItemStack table = new ItemStack(ContentRegistry.GEMCUTTERS_TABLE_ITEM.get());
-        if (crafting.pendingResult().isPresent()) {
-            // A paid craft cannot be discarded or turned into unprocessed ingredient refunds.
-            //? if >=1.21 {
-            saveToItem(table, level.registryAccess());
-            //?} else {
-            /*saveToItem(table);
-            *///?}
-        }
         contentsDropped = true;
-        if (crafting.pendingResult().isEmpty()) {
-            for (ItemStack stack : crafting.inputSnapshot()) Block.popResource(level, worldPosition, stack);
-        }
+        for (ItemStack stack : crafting.inputSnapshot()) Block.popResource(level, worldPosition, stack);
+        Block.popResource(level, worldPosition, crafting.getOutput());
         Block.popResource(level, worldPosition, table);
     }
 

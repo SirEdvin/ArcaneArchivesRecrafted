@@ -2,6 +2,8 @@
 
 Status: implemented and headlessly verified under the user's delegated behavior-decision authority. Full remainder/gameplay acceptance remains open.
 
+Scope update: approved [0120](0120-gem-cutter-empty-fluid-returns.md) supersedes the empty-fluid refusal below for a verified single empty native tank/view. It returns the unchanged detached container and is covered by all-four-leaf native Reservoir acquisition/data-preservation fixtures. Other unsupported-container and capacity safeguards remain.
+
 ## Pinned original behavior
 
 Release `bb99accf48ed583e29b0efae56e28c963407b8df`, `recipe/gct/GCTRecipe.java`, `handleItemResult`: query the consumed stack's fluid-item capability, drain tank zero's contents and retrieve its container. Return it to table inputs first, then the player's UP/main inventory, then spawn surplus at the player. Flint-and-steel additionally takes damage. `init/RecipeLibrary.java` includes water/lava bucket ingredients in the gated Rivertear/Mountaintear recipes; those abilities are not implemented by this change.

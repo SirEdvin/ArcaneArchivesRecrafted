@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "arcanearchives:matrix_reservoir",
+    "arcanearchives:matrix_distillate",
     "arcanearchives:verdant_censer",
     "arcanearchives:celestial_lotus_engine",
     "arcanearchives:spellbook_library",

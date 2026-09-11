@@ -1,0 +1,11 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "order": 39,
+  "inputs": [
+    {"item": "arcanearchives:matrix_brace", "count": 2},
+    {"item": "arcanearchives:containment_field"},
+    {"item": "arcanearchives:empowered_quartz", "count": 6},
+    {"item": "arcanearchives:radiant_tank", "count": 10}
+  ],
+  "result": {"item": "arcanearchives:matrix_reservoir"}
+}

@@ -1,0 +1,128 @@
+{
+  "upstream_revision": "80944ce45c6559243d8928cc4b305bf379388652",
+  "scope": "All Java files beneath pinned upstream api/. References are lexical symbol matches, not proof of runtime reachability or external consumers.",
+  "entries": [
+    {
+      "path": "src/main/java/com/aranaira/arcanearchives/api/GCTRecipeEvent.java",
+      "symbol": "GCTRecipeEvent",
+      "sha256": "55d983422021a979a8f6b751594da9614932a95302e670c14a75d8f4542227e4",
+      "upstream_symbol_references": [
+        "com/aranaira/arcanearchives/init/RecipeLibrary.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/aranaira/arcanearchives/api/IArcaneArchivesRecipe.java",
+      "symbol": "IArcaneArchivesRecipe",
+      "sha256": "ec5b92f0ac322d846a773525a11259880bcb4bfe1c1b3c74d2a181c23b3e198e",
+      "upstream_symbol_references": [
+        "com/aranaira/arcanearchives/api/IGCTRecipe.java",
+        "com/aranaira/arcanearchives/recipe/fastcrafting/FastCraftingRecipe.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/aranaira/arcanearchives/api/IGCTRecipe.java",
+      "symbol": "IGCTRecipe",
+      "sha256": "bb870b382755f2463c8430540c6ca149bd39ac8c53916eb681bb7589db615c02",
+      "upstream_symbol_references": [
+        "com/aranaira/arcanearchives/api/IGCTRecipeList.java",
+        "com/aranaira/arcanearchives/api/RecipeIngredientHandler.java",
+        "com/aranaira/arcanearchives/client/gui/GUIGemCuttersTable.java",
+        "com/aranaira/arcanearchives/init/RecipeLibrary.java",
+        "com/aranaira/arcanearchives/integration/crafttweaker/GCTTweaker.java",
+        "com/aranaira/arcanearchives/integration/guidebook/GCTRecipeProvider.java",
+        "com/aranaira/arcanearchives/inventory/ContainerGemCuttersTable.java",
+        "com/aranaira/arcanearchives/inventory/slots/SlotRecipeHandler.java",
+        "com/aranaira/arcanearchives/network/PacketGemCutters.java",
+        "com/aranaira/arcanearchives/recipe/gct/GCTRecipe.java",
+        "com/aranaira/arcanearchives/recipe/gct/GCTRecipeList.java",
+        "com/aranaira/arcanearchives/recipe/gct/GCTRecipeWithConditionsCrafter.java",
+        "com/aranaira/arcanearchives/tileentities/GemCuttersTableTileEntity.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/aranaira/arcanearchives/api/IGCTRecipeList.java",
+      "symbol": "IGCTRecipeList",
+      "sha256": "f9aa471172df1ae7be2f2a3e0369fa4ebe153b8e7bc38851c04ab8540e53ed0c",
+      "upstream_symbol_references": [
+        "com/aranaira/arcanearchives/api/GCTRecipeEvent.java",
+        "com/aranaira/arcanearchives/recipe/gct/GCTRecipeList.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/aranaira/arcanearchives/api/RecipeIngredientHandler.java",
+      "symbol": "RecipeIngredientHandler",
+      "sha256": "c931de3b62cd881de682927605fcdc9589580f991dad706a48d43d5ac6de02b9",
+      "upstream_symbol_references": [
+        "com/aranaira/arcanearchives/api/IGCTRecipe.java",
+        "com/aranaira/arcanearchives/recipe/fastcrafting/FastCraftingRecipe.java",
+        "com/aranaira/arcanearchives/recipe/gct/GCTRecipe.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/aranaira/arcanearchives/api/immanence/IImmanenceBus.java",
+      "symbol": "IImmanenceBus",
+      "sha256": "e7b52d50be58b98eba3dd64a3390102fc3a08dc3509ba094337363006a348ddc",
+      "upstream_symbol_references": [
+        "com/aranaira/arcanearchives/commands/CommandImmanence.java",
+        "com/aranaira/arcanearchives/data/types/HiveNetwork.java",
+        "com/aranaira/arcanearchives/data/types/IHiveBase.java",
+        "com/aranaira/arcanearchives/data/types/ServerNetwork.java",
+        "com/aranaira/arcanearchives/immanence/ImmanenceBus.java",
+        "com/aranaira/arcanearchives/immanence/ImmanenceGlobal.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/aranaira/arcanearchives/api/immanence/IImmanenceConsumer.java",
+      "symbol": "IImmanenceConsumer",
+      "sha256": "fcdb03907d6a061e11b6180ab8dc0f17af4b492b88a85f16a2946de71548398a",
+      "upstream_symbol_references": [
+        "com/aranaira/arcanearchives/immanence/ImmanenceBus.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/aranaira/arcanearchives/api/immanence/IImmanenceGenerator.java",
+      "symbol": "IImmanenceGenerator",
+      "sha256": "ecadd39353335b9018da23d2dc4398159906135bafee2ac761b7bf827cd33594",
+      "upstream_symbol_references": [
+        "com/aranaira/arcanearchives/immanence/ImmanenceBus.java",
+        "com/aranaira/arcanearchives/tileentities/MatrixCoreTileEntity.java",
+        "com/aranaira/arcanearchives/tileentities/ReverberationChamberTileEntity.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/aranaira/arcanearchives/api/immanence/IImmanenceSource.java",
+      "symbol": "IImmanenceSource",
+      "sha256": "fbd9632c38246cb59c21a92ed7538cd8055107177ba7ddca65a2b1c244561e4b",
+      "upstream_symbol_references": [
+        "com/aranaira/arcanearchives/api/immanence/IImmanenceGenerator.java",
+        "com/aranaira/arcanearchives/immanence/ImmanenceBus.java",
+        "com/aranaira/arcanearchives/immanence/ImmanenceSource.java",
+        "com/aranaira/arcanearchives/tileentities/MatrixCoreTileEntity.java",
+        "com/aranaira/arcanearchives/tileentities/ReverberationChamberTileEntity.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/aranaira/arcanearchives/api/immanence/IImmanenceSubscriber.java",
+      "symbol": "IImmanenceSubscriber",
+      "sha256": "4d14995a28f5a0ef5c37100eac0acf3ce22500a1097c8e537e4ccd22efd88132",
+      "upstream_symbol_references": [
+        "com/aranaira/arcanearchives/api/immanence/IImmanenceConsumer.java",
+        "com/aranaira/arcanearchives/api/immanence/IImmanenceGenerator.java",
+        "com/aranaira/arcanearchives/data/types/HiveNetwork.java",
+        "com/aranaira/arcanearchives/data/types/ServerNetwork.java"
+      ]
+    },
+    {
+      "path": "src/main/java/com/aranaira/arcanearchives/api/immanence/ImmanenceBonusType.java",
+      "symbol": "ImmanenceBonusType",
+      "sha256": "50b7527a947993d009bc028dc986003ac78cf123fd27bca59c526fc1e2001510",
+      "upstream_symbol_references": [
+        "com/aranaira/arcanearchives/api/immanence/IImmanenceSource.java",
+        "com/aranaira/arcanearchives/immanence/ImmanenceBus.java",
+        "com/aranaira/arcanearchives/immanence/ImmanenceSource.java",
+        "com/aranaira/arcanearchives/tileentities/MatrixCoreTileEntity.java",
+        "com/aranaira/arcanearchives/tileentities/ReverberationChamberTileEntity.java"
+      ]
+    }
+  ]
+}

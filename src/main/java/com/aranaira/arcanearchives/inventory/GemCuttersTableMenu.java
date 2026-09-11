@@ -24,7 +24,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-/** Server-owned recipe selection and immediate paid crafting; ghost slots are never native outputs. */
+/** Explicit server crafting into a saved output slot; recipe previews cannot be extracted. */
 public final class GemCuttersTableMenu extends AbstractContainerMenu {
     private final Container inputs;
     private final Player owner;
@@ -97,7 +97,7 @@ public final class GemCuttersTableMenu extends AbstractContainerMenu {
         this.fluidRemainder = fluidRemainder;
         this.recipeSource = recipeSource;
         if (catalog != null && catalog.size() > 0) selected = catalog.getRecipeByIndex(0).getName();
-        addSlot(new UnavailableSlot(display, 0, 95, 18));
+        addSlot(new OutputSlot());
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 9; column++) {
                 addSlot(new Slot(inventory, column + row * 9 + 9, 23 + column * 18, 166 + row * 18));
@@ -112,6 +112,7 @@ public final class GemCuttersTableMenu extends AbstractContainerMenu {
         for (int column = 6; column >= 0; column--) {
             addSlot(new UnavailableSlot(display, column + 1, column * 18 + 41, 70));
         }
+        addSlot(new UnavailableSlot(display, 0, 59, 18));
         updateRecipeDisplay();
     }
 
@@ -167,7 +168,13 @@ public final class GemCuttersTableMenu extends AbstractContainerMenu {
 
     @Override
     public boolean clickMenuButton(Player player, int button) {
-        if (committing || catalog == null || !stillValid(player) || (button != 0 && button != 1)) return false;
+        if (committing || catalog == null || !stillValid(player)) return false;
+        if (button == 2) {
+            boolean crafted = !craftOutput().isEmpty();
+            broadcastChanges();
+            return crafted;
+        }
+        if (button != 0 && button != 1) return false;
         if (refreshRecipes()) { broadcastChanges(); return false; }
         page = button == 0 ? catalog.previousPage(page) : catalog.nextPage(page);
         broadcastChanges();
@@ -182,13 +189,8 @@ public final class GemCuttersTableMenu extends AbstractContainerMenu {
     @Override
     public void clicked(int slot, int button, ClickType type, Player player) {
         if (committing || !stillValid(player) || slot >= slots.size() || (slot < -1 && slot != SLOT_CLICKED_OUTSIDE)) return;
-        if (slot == 0 || slot >= 55) {
-            if (slot == 0 && (button == 0 || button == 1) && (type == ClickType.PICKUP || type == ClickType.QUICK_MOVE)) {
-                craftOutput(type == ClickType.QUICK_MOVE);
-                broadcastChanges();
-                return;
-            }
-            if (catalog != null && slot >= 55 && type == ClickType.PICKUP && (button == 0 || button == 1)) {
+        if (slot >= 55) {
+            if (catalog != null && slot < 62 && type == ClickType.PICKUP && (button == 0 || button == 1)) {
                 if (refreshRecipes()) { broadcastChanges(); return; }
                 List<GCTRecipe> definitions = catalog.getRecipePage(page);
                 int index = 61 - slot;
@@ -204,15 +206,14 @@ public final class GemCuttersTableMenu extends AbstractContainerMenu {
     @Override
     public ItemStack quickMoveStack(Player player, int index) {
         if (committing || !stillValid(player)) return ItemStack.EMPTY;
-        if (index == 0) return craftOutput(true);
-        if (index < 1 || index >= 55) return ItemStack.EMPTY;
+        if (index < 0 || index >= 55) return ItemStack.EMPTY;
         Slot source = slots.get(index);
         if (!source.mayPickup(player) || !source.hasItem()) return ItemStack.EMPTY;
         ItemStack original = source.getItem().copy();
         ItemStack remainder = original.copy();
-        int start = index < 37 ? 37 : 1;
-        int end = index < 37 ? 55 : 37;
-        boolean reverse = index >= 37;
+        int start = index > 0 && index < 37 ? 37 : 1;
+        int end = index > 0 && index < 37 ? 55 : 37;
+        boolean reverse = index == 0 || index >= 37;
         // safeInsert writes back merged copies, unlike vanilla moveItemStackTo's in-place merge.
         for (int pass = 0; pass < 2 && !remainder.isEmpty(); pass++) {
             for (int offset = 0; offset < end - start && !remainder.isEmpty(); offset++) {
@@ -233,14 +234,13 @@ public final class GemCuttersTableMenu extends AbstractContainerMenu {
             && stillValid(owner) && (owner == null || owner.containerMenu == this);
     }
 
-    private ItemStack craftOutput(boolean toInventory) {
+    private ItemStack craftOutput() {
         if (committing) return ItemStack.EMPTY;
         if (refreshRecipes()) return ItemStack.EMPTY;
         committing = true;
         try {
             if (!canCraft()) return ItemStack.EMPTY;
             GemCutterCraftingState state = craftingState.get();
-            if (state.pendingResult().isPresent()) return ItemStack.EMPTY;
             BooleanSupplier unchanged = catalog.unchanged();
             GCTRecipe recipe = catalog.getRecipe(selected);
             if (recipe == null) return ItemStack.EMPTY;
@@ -248,7 +248,7 @@ public final class GemCuttersTableMenu extends AbstractContainerMenu {
             List<ItemStack> tableBefore = state.inputSnapshot();
             List<ItemStack> playerBefore = playerInventory.items.stream().map(ItemStack::copy).toList();
             if (playerBefore.size() != 36) return ItemStack.EMPTY;
-            ItemStack cursorBefore = getCarried().copy();
+            ItemStack outputBefore = state.getOutput();
             List<ItemStack> combined = new ArrayList<>(tableBefore);
             combined.addAll(playerBefore);
             for (ItemStack stack : combined) {
@@ -277,28 +277,22 @@ public final class GemCuttersTableMenu extends AbstractContainerMenu {
                 remaining.add(stack);
             }
             for (ItemStack returned : returns) {
-                if (!insertStack(remaining.subList(0, 18), returned, false)
-                        && !insertStack(remaining.subList(18, 54), returned, false)) return ItemStack.EMPTY;
+                if (!insertStack(remaining.subList(0, 18), returned)
+                        && !insertStack(remaining.subList(18, 54), returned)) return ItemStack.EMPTY;
             }
             // The null owner exists only in headless container fixtures; live menus use server identity.
             ItemStack output = owner == null ? recipe.getRecipeOutput()
                 : recipe.createOutput(owner.getUUID(), owner.getName().getString());
-            ItemStack cursorAfter = cursorBefore.copy();
-            if (toInventory) {
-                if (!insertOutput(remaining.subList(18, 54), output.copy())) return ItemStack.EMPTY;
-            } else {
-                if (!cursorAfter.isEmpty() && !ExtendedItemStackHandler.sameItemAndData(cursorAfter, output)) return ItemStack.EMPTY;
-                if (output.getCount() > Math.min(64, output.getMaxStackSize()) - cursorAfter.getCount()) return ItemStack.EMPTY;
-                cursorAfter = output.copyWithCount(cursorAfter.getCount() + output.getCount());
-            }
-            if (!state.commitCraftInputs(tableBefore, remaining.subList(0, 18), () -> canCraft()
+            if (!outputBefore.isEmpty() && !ExtendedItemStackHandler.sameItemAndData(outputBefore, output)) return ItemStack.EMPTY;
+            if (output.getCount() > Math.min(64, output.getMaxStackSize()) - outputBefore.getCount()) return ItemStack.EMPTY;
+            ItemStack outputAfter = output.copyWithCount(outputBefore.getCount() + output.getCount());
+            if (!state.commitCraft(tableBefore, remaining.subList(0, 18), outputBefore, outputAfter, () -> canCraft()
                     && craftingState.get() == state && unchanged.getAsBoolean()
                     && (recipeSource == null || loadedRecipes.equals(availableRecipes()))
                     && tags.equals(recipe.getIngredients().stream().map(IngredientStack::getTagItems).toList())
-                    && sameStacks(playerBefore, playerInventory.items) && sameStack(cursorBefore, getCarried()))) return ItemStack.EMPTY;
-            // No external hooks between replacing owned table state and these native player/cursor writes.
+                    && sameStacks(playerBefore, playerInventory.items))) return ItemStack.EMPTY;
+            // No external hooks between replacing owned table state and these native player writes.
             for (int slot = 0; slot < 36; slot++) playerInventory.items.set(slot, remaining.get(slot + 18));
-            if (!toInventory) setCarried(cursorAfter);
             playerInventory.setChanged();
             inputs.setChanged();
             return output;
@@ -318,14 +312,9 @@ public final class GemCuttersTableMenu extends AbstractContainerMenu {
         return java.util.Optional.of(result);
     }
 
-    private static boolean insertOutput(List<ItemStack> inventory, ItemStack output) {
-        return insertStack(inventory, output, true);
-    }
-
-    private static boolean insertStack(List<ItemStack> inventory, ItemStack output, boolean reversePlayerOrder) {
+    private static boolean insertStack(List<ItemStack> inventory, ItemStack output) {
         for (int pass = 0; pass < 2 && !output.isEmpty(); pass++) {
-            for (int offset = 0; offset < inventory.size() && !output.isEmpty(); offset++) {
-                int slot = reversePlayerOrder ? (offset < 9 ? 8 - offset : 44 - offset) : offset;
+            for (int slot = 0; slot < inventory.size() && !output.isEmpty(); slot++) {
                 ItemStack existing = inventory.get(slot);
                 if (existing.isEmpty() != (pass == 1)
                         || !existing.isEmpty() && !ExtendedItemStackHandler.sameItemAndData(existing, output)) continue;
@@ -361,6 +350,40 @@ public final class GemCuttersTableMenu extends AbstractContainerMenu {
         /*return stack.hasCraftingRemainingItem()
             || stack.getCapability(net.neoforged.neoforge.capabilities.Capabilities.FluidHandler.ITEM) != null;
         *///?}
+    }
+
+    private final class OutputSlot extends Slot {
+        OutputSlot() { super(new SimpleContainer(1), 0, 95, 18); }
+
+        @Override
+        public boolean mayPlace(ItemStack stack) { return false; }
+
+        @Override
+        public boolean mayPickup(Player player) {
+            return !committing && stillValid(player) && (owner == null || owner.containerMenu == GemCuttersTableMenu.this);
+        }
+
+        @Override
+        public ItemStack getItem() {
+            return craftingState == null ? super.getItem() : craftingState.get().getOutput();
+        }
+
+        @Override
+        public void set(ItemStack stack) {
+            if (craftingState == null) super.set(stack);
+            else {
+                craftingState.get().setOutput(stack);
+                inputs.setChanged();
+            }
+        }
+
+        @Override
+        public ItemStack remove(int amount) {
+            ItemStack remaining = getItem().copy();
+            ItemStack taken = remaining.split(amount);
+            set(remaining);
+            return taken;
+        }
     }
 
     private static final class UnavailableSlot extends Slot {

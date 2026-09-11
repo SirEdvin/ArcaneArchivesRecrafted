@@ -23,6 +23,14 @@ public final class RadiantResonatorBlockEntity extends BlockEntity {
     private int growth;
     private boolean canTick;
     private boolean registered;
+    // Installed only by client entrypoints; common/server code never loads sound classes.
+    public static java.util.function.Function<RadiantResonatorBlockEntity, Runnable> clientSoundFactory = entity -> () -> {};
+    private Runnable clientSoundTick;
+
+    public boolean isResonating() {
+        return !isRemoved() && level != null && canTick && level.hasChunkAt(worldPosition)
+            && level.getBlockEntity(worldPosition) == this && level.isEmptyBlock(worldPosition.above());
+    }
 
     public RadiantResonatorBlockEntity(BlockPos pos, BlockState state) {
         super(ContentRegistry.RADIANT_RESONATOR_ENTITY.get(), pos, state);
@@ -58,6 +66,11 @@ public final class RadiantResonatorBlockEntity extends BlockEntity {
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, RadiantResonatorBlockEntity resonator) {
+        if (level.isClientSide) {
+            if (resonator.clientSoundTick == null) resonator.clientSoundTick = clientSoundFactory.apply(resonator);
+            resonator.clientSoundTick.run();
+            return;
+        }
         if (!(level instanceof ServerLevel server) || resonator.owner == null) return;
         if (!resonator.registered) {
             ResonatorSaveData.get(server.getServer()).register(new BlockPosDimension(pos, level.dimension()), resonator.owner);
@@ -81,7 +94,8 @@ public final class RadiantResonatorBlockEntity extends BlockEntity {
                         level.random.nextFloat() * 5F, (level.random.nextFloat() - .5F) * 3F));
                     cat.hasImpulse = true;
                 }
-                level.playSound(null, pos, ContentRegistry.RESONATOR_COMPLETE.get(), SoundSource.BLOCKS, 1F, 1F);
+                if (ServerSideConfig.current().useSounds() && ServerSideConfig.current().resonatorComplete())
+                    level.playSound(null, pos, ContentRegistry.RESONATOR_COMPLETE.get(), SoundSource.BLOCKS, 1F, 1F);
                 changed = true;
             }
             resonator.setChanged();

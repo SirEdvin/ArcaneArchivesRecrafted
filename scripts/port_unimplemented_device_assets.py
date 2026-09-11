@@ -1,4 +1,4 @@
-"""Restore five registered, nonfunctional devices from the pinned development baseline."""
+"""Restore registered prototype device artwork from the pinned development baseline."""
 import argparse
 import json
 from pathlib import Path
@@ -8,7 +8,7 @@ from port_gem_cutter_assets import rotation_xyz
 ROOT = Path(__file__).resolve().parents[1]
 PIN = "80944ce45c6559243d8928cc4b305bf379388652"
 PREFIX = "assets/arcanearchives/"
-OBJ_NAMES = ("verdant_censer", "echoing_conformance_chamber", "echoing_reverberation_chamber")
+OBJ_NAMES = ("verdant_censer", "echoing_conformance_chamber", "echoing_reverberation_chamber", "matrix_reservoir", "matrix_distillate")
 NAMES = OBJ_NAMES + ("spellbook_library", "immanent_incubator")
 
 
@@ -37,7 +37,7 @@ def generate(upstream):
                        for context, transform in legacy["variants"]["inventory"][0]["transform"].items()}
             model = {"loader": "${obj_loader}:obj", "model": "arcanearchives:models/block/" + name + ".obj",
                      "flip_v": legacy["defaults"]["custom"]["flip-v"], "automatic_culling": False,
-                     "shade_quads": True, "render_type": "minecraft:cutout",
+                     "shade_quads": True, "render_type": "minecraft:solid" if name.startswith("matrix_") else "minecraft:cutout",
                      "textures": {"particle": material_textures[0]}, "display": display}
         else:
             assert legacy["variants"]["normal"]["model"] == "cube_all"
@@ -51,6 +51,10 @@ def generate(upstream):
                     "entries": [{"type": "minecraft:item", "name": "arcanearchives:" + name}],
                     "conditions": [{"condition": "minecraft:survives_explosion"}]}]},
         }
+        if name == "matrix_distillate":
+            models[PREFIX + "blockstates/" + name + ".json"] = {"variants": {
+                "facing=" + facing: {"model": "arcanearchives:block/" + name, "y": rotation}
+                for facing, rotation in {"west": 0, "north": 270, "south": 90, "east": 180, "up": 0, "down": 0}.items()}}
         files.update({path: (json.dumps(data, indent=2) + "\n").encode() for path, data in models.items()})
     for texture in sorted(textures):
         for suffix in (".png", ".png.mcmeta"):

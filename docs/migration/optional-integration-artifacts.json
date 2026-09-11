@@ -1,0 +1,171 @@
+{
+  "policy": "Stable releases except user-approved older JEI betas on 1.20.1 Fabric and 1.21.1 NeoForge; compile-only by default, unbundled, optional development runtime profile; KubeJS omitted only on 1.21.1 Fabric. Hashes verified against Gradle-resolved unmodified JARs. Not full runtime compatibility acceptance.",
+  "artifacts": [
+    {
+      "target": "1.20.1-fabric",
+      "project": "jei",
+      "version_id": "jJOr2rUn",
+      "version_number": "15.20.0.134",
+      "release_type": "beta",
+      "metadata_url": "https://api.modrinth.com/v2/version/jJOr2rUn",
+      "filename": "jei-1.20.1-fabric-15.20.0.134.jar",
+      "sha512": "6a14946ae1c5341cbfaad76667b0ac2b447bcffaafd9ddc3b53382baeba6324e4edc5e61a363ac114c2f570b792a058928f21220a3dace7ae0a6952a039cf3e1",
+      "dependencies": []
+    },
+    {
+      "target": "1.20.1-fabric",
+      "project": "emi",
+      "version_id": "YbXDHf8W",
+      "version_number": "1.1.24+1.20.1+fabric",
+      "release_type": "release",
+      "metadata_url": "https://api.modrinth.com/v2/version/YbXDHf8W",
+      "filename": "emi-1.1.24+1.20.1+fabric.jar",
+      "sha512": "2e1fbbbb961a90f525f6938361288505d5928b9a54e7e932afa7de63aeb1962f6a04b77540729922ee48a425d01bbe8c00d1a18ce6cd766dfa513b6ed0cf1f1b",
+      "dependencies": []
+    },
+    {
+      "target": "1.20.1-fabric",
+      "project": "kubejs",
+      "version_id": "Pu0Ygbq6",
+      "version_number": "2001.6.5-build.26+fabric",
+      "release_type": "release",
+      "metadata_url": "https://api.modrinth.com/v2/version/Pu0Ygbq6",
+      "filename": "kubejs-fabric-2001.6.5-build.26.jar",
+      "sha512": "4f3959a03a18a14627e6f8fc06cb0f050af69e1b74a26cdfdb2cd833ee7b959004f9bacf397e055afdc069023270602c310bb212ddff2806d0318890e8959179",
+      "dependencies": [
+        {
+          "version_id": null,
+          "project_id": "P7dR8mSH",
+          "file_name": null,
+          "dependency_type": "required"
+        },
+        {
+          "version_id": null,
+          "project_id": "lhGA9TYQ",
+          "file_name": null,
+          "dependency_type": "required"
+        },
+        {
+          "version_id": null,
+          "project_id": "sk9knFPE",
+          "file_name": null,
+          "dependency_type": "required"
+        }
+      ]
+    },
+    {
+      "target": "1.21.1-fabric",
+      "project": "jei",
+      "version_id": "EO4u1E2G",
+      "version_number": "19.51.0.418",
+      "release_type": "release",
+      "metadata_url": "https://api.modrinth.com/v2/version/EO4u1E2G",
+      "filename": "jei-1.21.1-fabric-19.51.0.418.jar",
+      "sha512": "0e9b50875904bb2f1e665b7aa63702c9f0acfe8cc78fc5b99cba3f98d65f576938212988cf0a59fe2054c178ba4c752bb92beb4fa59b183ce947d9b6472c5e6f",
+      "dependencies": []
+    },
+    {
+      "target": "1.21.1-fabric",
+      "project": "emi",
+      "version_id": "on5GT1qh",
+      "version_number": "1.1.24+1.21.1+fabric",
+      "release_type": "release",
+      "metadata_url": "https://api.modrinth.com/v2/version/on5GT1qh",
+      "filename": "emi-1.1.24+1.21.1+fabric.jar",
+      "sha512": "2680e7b0a93152d4220afdc30a0452c911dc4b5c9ce1db1b7246c21b777bc2a1945fe97c98c09941d31b7478ae357135a1ef51cd3ba92d08dce35202a830b70d",
+      "dependencies": []
+    },
+    {
+      "target": "1.20.1-forge",
+      "project": "jei",
+      "version_id": "9jqubC9n",
+      "version_number": "15.56.0.205",
+      "release_type": "release",
+      "metadata_url": "https://api.modrinth.com/v2/version/9jqubC9n",
+      "filename": "jei-1.20.1-forge-15.56.0.205.jar",
+      "sha512": "1306fe15c81d54aa9ff8f3d9f04812c0d61ffaaae433c29621f926db8f8e2c898669ccdd99e025849859d38b7a2eac170c466390b467f4dfa77542b5dbdd1678",
+      "dependencies": []
+    },
+    {
+      "target": "1.20.1-forge",
+      "project": "emi",
+      "version_id": "Axuu9I9R",
+      "version_number": "1.1.24+1.20.1+forge",
+      "release_type": "release",
+      "metadata_url": "https://api.modrinth.com/v2/version/Axuu9I9R",
+      "filename": "emi-1.1.24+1.20.1+forge.jar",
+      "sha512": "02743be3476b7dc5668cedbcc5a6d384e9806981833926a83fed76a2800c44da33576e86308c058250718c128d58076f1b62bc53d200464326ace70a43229c8b",
+      "dependencies": []
+    },
+    {
+      "target": "1.20.1-forge",
+      "project": "kubejs",
+      "version_id": "hVR2xUSr",
+      "version_number": "2001.6.5-build.26+forge",
+      "release_type": "release",
+      "metadata_url": "https://api.modrinth.com/v2/version/hVR2xUSr",
+      "filename": "kubejs-forge-2001.6.5-build.26.jar",
+      "sha512": "71ef9e5eb5f3bead86b635b42ad305d075c6487e631217b281d938193dcdc5fe0ff6bae8c86dd4e069726223a66e8690c0610f736c5a62910f60fd80edd575c1",
+      "dependencies": [
+        {
+          "version_id": null,
+          "project_id": "lhGA9TYQ",
+          "file_name": null,
+          "dependency_type": "required"
+        },
+        {
+          "version_id": null,
+          "project_id": "sk9knFPE",
+          "file_name": null,
+          "dependency_type": "required"
+        }
+      ]
+    },
+    {
+      "target": "1.21.1-neoforge",
+      "project": "jei",
+      "version_id": "UJRXzDfp",
+      "version_number": "19.25.1.334",
+      "release_type": "beta",
+      "metadata_url": "https://api.modrinth.com/v2/version/UJRXzDfp",
+      "filename": "jei-1.21.1-neoforge-19.25.1.334.jar",
+      "sha512": "d55cf7fad51471cb6f71ce85da21800f600be8f901b460c1c8343248d178d37a0910e914910314e1c6630ae9b243c072a7b4ed98c0a0f58d47f9408798c85847",
+      "dependencies": []
+    },
+    {
+      "target": "1.21.1-neoforge",
+      "project": "emi",
+      "version_id": "5sIPA1To",
+      "version_number": "1.1.24+1.21.1+neoforge",
+      "release_type": "release",
+      "metadata_url": "https://api.modrinth.com/v2/version/5sIPA1To",
+      "filename": "emi-1.1.24+1.21.1+neoforge.jar",
+      "sha512": "f4c45ed686fe617311d6debadcb6ace5963e66f8cfe0cfed398231f081f87407070efc7a73c8b695d158f1d87a97180737b9107a46771e77df2bc9a7dc715ebd",
+      "dependencies": []
+    },
+    {
+      "target": "1.21.1-neoforge",
+      "project": "kubejs",
+      "version_id": "THIGFPwf",
+      "version_number": "2101.7.2-build.377",
+      "release_type": "release",
+      "metadata_url": "https://api.modrinth.com/v2/version/THIGFPwf",
+      "filename": "kubejs-neoforge-2101.7.2-build.377.jar",
+      "sha512": "fcdbee8790f8f39c106ab4bf606808c9c5bf0f13a41e216207a6fe4d15bf4a5722ce57078781e3a1823e7fdd2928e8e042d104d8ae255a36db8f12a9f46d8089",
+      "dependencies": [
+        {
+          "version_id": null,
+          "project_id": "sk9knFPE",
+          "file_name": null,
+          "dependency_type": "required"
+        },
+        {
+          "version_id": null,
+          "project_id": "iHLDc0eo",
+          "file_name": null,
+          "dependency_type": "required"
+        }
+      ]
+    }
+  ]
+}

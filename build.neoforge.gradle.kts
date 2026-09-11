@@ -5,12 +5,33 @@ plugins {
 version = "${property("mod.version")}+${sc.current.version}"
 base.archivesName = "${property("mod.id")}-neoforge"
 
+// Native world/loader fixtures remain outside production artifacts and normal runs.
+val gameTest = sourceSets.create("gameTest") {
+    java.srcDir(rootProject.file("src/sharedGameTest/java"))
+    java.srcDir(rootProject.file("src/neoforgeGameTest/java"))
+    compileClasspath += sourceSets.main.get().output
+    runtimeClasspath += sourceSets.main.get().output
+}
+configurations[gameTest.runtimeOnlyConfigurationName].extendsFrom(configurations.runtimeOnly.get())
+
 repositories {
     maven("https://api.modrinth.com/maven") { content { includeGroup("maven.modrinth") } }
     maven("https://maven.blamejared.com/") { content { includeGroup("vazkii.patchouli") } }
 }
 
 dependencies {
+    // Development-only opt-in; never bundled or required in player metadata.
+    val optionalIntegrationMods = providers.gradleProperty("optionalIntegrationMods").orElse("").get()
+        .split(',').map { it.trim() }.filter { it.isNotEmpty() }.toSet()
+    require(optionalIntegrationMods.all { it in setOf("jade", "jei", "emi", "kubejs") }) {
+        "optionalIntegrationMods supports jade,jei,emi,kubejs only"
+    }
+    optionalIntegrationMods.forEach { mod -> runtimeOnly("maven.modrinth:$mod:${property("deps.$mod")}") }
+    if ("kubejs" in optionalIntegrationMods) runtimeOnly("maven.modrinth:rhino:${property("deps.rhino")}")
+    compileOnly("maven.modrinth:jade:${property("deps.jade")}")
+    compileOnly("maven.modrinth:jei:${property("deps.jei")}")
+    compileOnly("maven.modrinth:emi:${property("deps.emi")}")
+    compileOnly("maven.modrinth:kubejs:${property("deps.kubejs")}")
     compileOnly("maven.modrinth:curios:${property("deps.curios")}")
     compileOnly("vazkii.patchouli:Patchouli:${property("deps.patchouli")}:api")
     runtimeOnly("vazkii.patchouli:Patchouli:${property("deps.patchouli")}")
@@ -20,6 +41,7 @@ dependencies {
 }
 
 tasks.test { useJUnitPlatform() }
+tasks.named("check") { dependsOn("runGameTestServer") }
 
 tasks.withType<JavaExec>().matching { it.name == "runServer" }.configureEach {
     standardInput = System.`in`
@@ -28,7 +50,16 @@ tasks.withType<JavaExec>().matching { it.name == "runServer" }.configureEach {
 neoForge {
     version = property("deps.neoforge_loader") as String
     addModdingDependenciesTo(sourceSets.test.get())
+    addModdingDependenciesTo(gameTest)
+    mods.register(property("mod.id") as String) {
+        sourceSet(sourceSets.main.get())
+    }
+    mods.register("arcanearchives_test") {
+        sourceSet(sourceSets.main.get())
+        sourceSet(gameTest)
+    }
     runs {
+        configureEach { loadedMods = listOf(mods.getByName(property("mod.id") as String)) }
         register("client") {
             client()
             gameDirectory = layout.projectDirectory.dir("runs/client")
@@ -38,13 +69,18 @@ neoForge {
             programArgument("--nogui")
             gameDirectory = layout.projectDirectory.dir("runs/server")
         }
-    }
-    mods.register(property("mod.id") as String) {
-        sourceSet(sourceSets.main.get())
+        register("gameTestServer") {
+            type = "gameTestServer"
+            sourceSet = gameTest
+            loadedMods = listOf(mods.getByName("arcanearchives_test"))
+            gameDirectory = layout.buildDirectory.dir("gametest-run")
+            systemProperty("neoforge.enabledGameTestNamespaces", "arcanearchives_test")
+        }
     }
     unitTest {
         enable()
         testedMod.set(mods.getByName(property("mod.id") as String))
+        loadedMods.set(setOf(mods.getByName(property("mod.id") as String)))
     }
 }
 
@@ -79,6 +115,8 @@ tasks.processResources {
     filesMatching("assets/arcanearchives/models/block/gemcutters_table.json") { expand(props) }
     filesMatching("assets/arcanearchives/models/block/wonky_resonator.json") { expand(props) }
     filesMatching("assets/arcanearchives/models/block/celestial_lotus_engine.json") { expand(props) }
+    filesMatching("assets/arcanearchives/models/block/matrix_reservoir.json") { expand(props) }
+    filesMatching("assets/arcanearchives/models/block/matrix_distillate.json") { expand(props) }
     filesMatching(listOf("verdant_censer", "echoing_conformance_chamber", "echoing_reverberation_chamber").map { "assets/arcanearchives/models/block/$it.json" }) { expand(props) }
     filesMatching("assets/arcanearchives/models/block/radiant_lantern.json") { expand(props) }
     filesMatching("assets/arcanearchives/models/block/monitoring_crystal.json") { expand(props) }
@@ -100,6 +138,24 @@ tasks.named("createMinecraftArtifacts") {
 }
 
 group = property("mod.group") as String
+
+val prepareGameTestStructure = tasks.register<Copy>("prepareGameTestStructure") {
+    from(rootProject.file("src/neoforgeGameTest/structures"))
+    into(layout.buildDirectory.dir("gametest-run/gameteststructures"))
+}
+tasks.named("runGameTestServer") {
+    dependsOn(prepareGameTestStructure)
+    val log = layout.buildDirectory.file("gametest-run/logs/latest.log").get().asFile
+    var startedAt = 0L
+    doFirst { startedAt = System.currentTimeMillis() }
+    doLast {
+        // NeoForge can exit zero on mod-loading failure before starting any tests.
+        check(log.isFile && log.lastModified() >= startedAt &&
+            log.readText().contains("All 7 required tests passed")) {
+            "NeoForge GameTests did not finish all seven required fixtures; inspect $log"
+        }
+    }
+}
 
 tasks.withType<Jar>().configureEach {
     from(rootProject.file("LICENSE"))

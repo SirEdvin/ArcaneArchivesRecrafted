@@ -33,4 +33,33 @@ class ClientConfigTest {
         assertThrows(IllegalStateException.class, () -> ClientConfig.load(path));
         assertEquals("UsePrettyGUIs=perhaps\n", Files.readString(path));
     }
+
+    @Test void resonatorSoundDefaultsAndOverridesPreserveUserFile() throws Exception {
+        Path path = directory.resolve("client.properties");
+        var defaults = ClientConfig.load(path);
+        assertTrue(defaults.useSounds());
+        assertTrue(defaults.resonatorTicking());
+        assertEquals(.15F, defaults.resonatorVolume());
+        String original = "UseSounds=false\nResonatorTicking=false\nResonatorVolume=0.25\n";
+        Files.writeString(path, original);
+        var configured = ClientConfig.load(path);
+        assertFalse(configured.useSounds());
+        assertFalse(configured.resonatorTicking());
+        assertEquals(.25F, configured.resonatorVolume());
+        assertEquals(original, Files.readString(path));
+        Files.writeString(path, "UsePrettyGUIs=false\n");
+        assertEquals(.15F, ClientConfig.load(path).resonatorVolume());
+    }
+
+    @Test void invalidSoundSettingsFailWithoutReplacingFile() throws Exception {
+        Path path = directory.resolve("client.properties");
+        for (String setting : new String[]{"UseSounds=perhaps", "ResonatorTicking=perhaps",
+                "ResonatorVolume=NaN", "ResonatorVolume=Infinity", "ResonatorVolume=-0.1"}) {
+            Files.writeString(path, setting);
+            assertThrows(IllegalStateException.class, () -> ClientConfig.load(path), setting);
+            assertEquals(setting, Files.readString(path));
+        }
+        Files.writeString(path, "ResonatorVolume=0");
+        assertEquals(0F, ClientConfig.load(path).resonatorVolume());
+    }
 }

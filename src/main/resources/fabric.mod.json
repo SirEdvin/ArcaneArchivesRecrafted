@@ -10,7 +10,10 @@
   "mixins": ["arcanearchives.fabric.mixins.json", "arcanearchives.mixins.json"],
   "entrypoints": {
     "main": ["com.aranaira.arcanearchives.ArcaneArchivesFabric"],
-    "client": ["com.aranaira.arcanearchives.client.ArcaneArchivesFabricClient"]
+    "client": ["com.aranaira.arcanearchives.client.ArcaneArchivesFabricClient"],
+    "jade": ["com.aranaira.arcanearchives.integration.jade.ArcaneArchivesJade"],
+    "emi": ["com.aranaira.arcanearchives.integration.emi.ArcaneArchivesEmi"],
+    "jei_mod_plugin": ["com.aranaira.arcanearchives.integration.jei.ArcaneArchivesJei"]
   },
   "depends": {
     "fabricloader": ">=0.17",

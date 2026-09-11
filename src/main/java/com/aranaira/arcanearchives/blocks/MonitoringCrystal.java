@@ -40,6 +40,12 @@ public final class MonitoringCrystal extends Block implements EntityBlock {
     @Override public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new com.aranaira.arcanearchives.tileentities.MonitoringCrystalBlockEntity(pos, state);
     }
+    @Override public void setPlacedBy(net.minecraft.world.level.Level level, BlockPos pos, BlockState state,
+            net.minecraft.world.entity.LivingEntity placer, ItemStack stack) {
+        super.setPlacedBy(level, pos, state, placer, stack);
+        if (!level.isClientSide && level.getBlockEntity(pos) instanceof com.aranaira.arcanearchives.tileentities.MonitoringCrystalBlockEntity crystal)
+            crystal.recordPlacer(placer);
+    }
     @Override public BlockState getStateForPlacement(BlockPlaceContext context) { return defaultBlockState().setValue(FACING, context.getClickedFace()); }
     @Override public BlockState rotate(BlockState state, Rotation rotation) { return state.setValue(FACING, rotation.rotate(state.getValue(FACING))); }
     @Override public BlockState mirror(BlockState state, Mirror mirror) { return state.setValue(FACING, mirror.mirror(state.getValue(FACING))); }

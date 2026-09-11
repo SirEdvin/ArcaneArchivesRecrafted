@@ -1,5 +1,6 @@
 {
   "sources": [
+    {"type": "minecraft:single", "resource": "arcanearchives:blocks/block_arcanearchives_master"},
     {"type": "minecraft:single", "resource": "arcanearchives:blocks/lotuscircle_simple"},
     {"type": "minecraft:single", "resource": "arcanearchives:blocks/lotuscircle"},
     {"type": "minecraft:single", "resource": "arcanearchives:blocks/lotuspetal"},

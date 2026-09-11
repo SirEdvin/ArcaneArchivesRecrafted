@@ -33,7 +33,9 @@ def preflight(node):
         raise SystemExit(f"{node}: set server-ip=127.0.0.1 in {properties} before smoke testing")
 
 
-def smoke(node, quartz=False, commands=None, markers=()):
+def smoke(node, quartz=False, commands=None, markers=(), before_commands=None):
+    if before_commands is not None and commands is None:
+        raise ValueError("Preparing a live fixture requires custom commands")
     if commands is not None and (quartz or not markers):
         raise ValueError("Custom fixtures require completion markers and cannot combine with quartz")
     stamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%d-%H%M%S-%f")
@@ -59,6 +61,8 @@ def smoke(node, quartz=False, commands=None, markers=()):
                 if not requested_stop and re.search(r'Done \([\d.]+s\)! For help, type "help"', text):
                     if commands is not None:
                         if not sent_fixture:
+                            if command_index == 0 and before_commands is not None:
+                                before_commands()
                             # Give chunk/entity lifecycle updates ticks between fixture commands.
                             process.stdin.write(commands[command_index] + "\n")
                             command_index += 1

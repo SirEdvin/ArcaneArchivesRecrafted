@@ -34,12 +34,12 @@ class GemCuttersTableMenuTest {
     @Test
     void releaseLayoutKeepsDisplaySlotsUnavailable() {
         var menu = new GemCuttersTableMenu(null, 1, new Inventory(null), new OwnedInputs());
-        assertEquals(62, menu.slots.size());
-        assertEquals(95, menu.getSlot(0).x);
-        assertEquals(18, menu.getSlot(0).y);
+        assertEquals(63, menu.slots.size());
+        assertEquals(59, menu.getSlot(62).x);
+        assertEquals(18, menu.getSlot(62).y);
         assertEquals(105, menu.getSlot(37).y);
         assertEquals(123, menu.getSlot(54).y);
-        for (int slot : new int[]{0, 55, 56, 57, 58, 59, 60, 61}) {
+        for (int slot : new int[]{62, 55, 56, 57, 58, 59, 60, 61}) {
             assertFalse(menu.getSlot(slot).mayPlace(new ItemStack(Items.DIAMOND)));
             assertFalse(menu.getSlot(slot).mayPickup(null));
             assertFalse(menu.getSlot(slot).isActive());
@@ -92,7 +92,7 @@ class GemCuttersTableMenuTest {
         OwnedInputs inputs = new OwnedInputs();
         var menu = new GemCuttersTableMenu(null, 1, player, inputs);
         player.setItem(9, new ItemStack(Items.DIAMOND, 10));
-        for (int index : new int[]{Integer.MIN_VALUE, -1, 62, Integer.MAX_VALUE}) {
+        for (int index : new int[]{Integer.MIN_VALUE, -1, 63, Integer.MAX_VALUE}) {
             assertTrue(menu.quickMoveStack(null, index).isEmpty());
             if (index != -1) assertDoesNotThrow(() -> menu.clicked(index, 0, ClickType.QUICK_MOVE, null));
         }
@@ -114,12 +114,12 @@ class GemCuttersTableMenuTest {
         inputs.setItem(0, new ItemStack(Items.DIAMOND, 2));
         player.setItem(40, new ItemStack(Items.DIAMOND));
         var menu = new GemCuttersTableMenu(null, 1, player, inputs, catalog);
-        assertTrue(menu.getSlot(0).getItem().isEmpty()); // Offhand is not the upstream UP/main inventory.
+        assertTrue(menu.getSlot(62).getItem().isEmpty()); // Offhand is not the upstream UP/main inventory.
         player.setItem(8, new ItemStack(Items.DIAMOND));
         menu.broadcastChanges();
-        assertEquals(2, menu.getSlot(0).getItem().getCount());
+        assertEquals(2, menu.getSlot(62).getItem().getCount());
         assertEquals(2, menu.getSlot(61).getItem().getCount());
-        for (int slot : new int[]{0, 61}) {
+        for (int slot : new int[]{62, 61}) {
             for (ClickType type : ClickType.values()) {
                 for (int button : new int[]{0, 1, 2, 40, Integer.MAX_VALUE}) menu.clicked(slot, button, type, null);
             }
@@ -131,12 +131,12 @@ class GemCuttersTableMenuTest {
         assertEquals(2, inputs.getItem(0).getCount());
         assertEquals(1, player.getItem(8).getCount());
         assertEquals(1, player.getItem(40).getCount());
-        menu.getSlot(0).getItem().setCount(50);
+        menu.getSlot(62).getItem().setCount(50);
         menu.broadcastChanges();
-        assertEquals(2, menu.getSlot(0).getItem().getCount());
+        assertEquals(2, menu.getSlot(62).getItem().getCount());
         player.setItem(8, ItemStack.EMPTY);
         menu.broadcastChanges();
-        assertTrue(menu.getSlot(0).getItem().isEmpty());
+        assertTrue(menu.getSlot(62).getItem().isEmpty());
     }
 
     @Test
@@ -152,24 +152,24 @@ class GemCuttersTableMenuTest {
         assertEquals(1, menu.getSlot(61).getItem().getCount());
         assertEquals(7, menu.getSlot(55).getItem().getCount());
         menu.clicked(55, 0, ClickType.PICKUP, null);
-        assertEquals(7, menu.getSlot(0).getItem().getCount());
+        assertEquals(7, menu.getSlot(62).getItem().getCount());
         assertTrue(menu.clickMenuButton(null, 1));
         assertEquals(8, menu.getSlot(61).getItem().getCount());
         assertEquals(9, menu.getSlot(60).getItem().getCount());
         assertTrue(menu.getSlot(59).getItem().isEmpty());
         menu.clicked(60, 1, ClickType.PICKUP, null);
-        assertEquals(9, menu.getSlot(0).getItem().getCount());
+        assertEquals(9, menu.getSlot(62).getItem().getCount());
         assertFalse(menu.clickMenuButton(null, Integer.MAX_VALUE));
         var replacement = new GCTRecipe(ResourceLocation.tryParse("arcanearchives:display_8"), new ItemStack(Items.EMERALD), List.of());
         catalog.replaceAll(List.of(replacement));
         menu.broadcastChanges();
-        assertTrue(menu.getSlot(0).getItem().is(Items.EMERALD));
+        assertTrue(menu.getSlot(62).getItem().is(Items.EMERALD));
         assertTrue(menu.getSlot(61).getItem().is(Items.EMERALD));
         assertTrue(menu.getSlot(60).getItem().isEmpty());
         assertTrue(menu.clickMenuButton(null, 0));
         catalog.removeRecipe(replacement);
         menu.broadcastChanges();
-        assertTrue(menu.getSlot(0).getItem().isEmpty());
+        assertTrue(menu.getSlot(62).getItem().isEmpty());
         assertEquals(7, player.getItem(0).getCount());
         assertEquals(5, inputs.getItem(0).getCount());
         assertTrue(menu.getCarried().isEmpty());
@@ -214,13 +214,13 @@ class GemCuttersTableMenuTest {
             inputs.setItem(0, new ItemStack(Items.DIAMOND, 2));
             player.setItem(8, new ItemStack(Items.DIAMOND));
             var menu = new GemCuttersTableMenu(null, 1, player, inputs, catalog);
-            assertTrue(menu.getSlot(0).getItem().is(Items.PAPER));
+            assertTrue(menu.getSlot(62).getItem().is(Items.PAPER));
             assertTrue(ingredient.getMatchingStacksWithSizes().get(0).is(Items.DIAMOND));
 
             rebound.put(tag, List.of(BuiltInRegistries.ITEM.wrapAsHolder(Items.GOLD_INGOT)));
             BuiltInRegistries.ITEM.bindTags(rebound);
             menu.broadcastChanges();
-            assertTrue(menu.getSlot(0).getItem().isEmpty());
+            assertTrue(menu.getSlot(62).getItem().isEmpty());
             assertEquals(2, inputs.getItem(0).getCount());
             assertEquals(1, player.getItem(8).getCount());
             assertFalse(ingredient.apply(new ItemStack(Items.DIAMOND)));
@@ -233,12 +233,12 @@ class GemCuttersTableMenuTest {
             inputs.setItem(0, new ItemStack(Items.GOLD_INGOT, 2));
             player.setItem(8, new ItemStack(Items.GOLD_INGOT));
             menu.broadcastChanges();
-            assertTrue(menu.getSlot(0).getItem().is(Items.PAPER));
+            assertTrue(menu.getSlot(62).getItem().is(Items.PAPER));
 
             rebound.put(tag, List.of());
             BuiltInRegistries.ITEM.bindTags(rebound);
             menu.broadcastChanges();
-            assertTrue(menu.getSlot(0).getItem().isEmpty());
+            assertTrue(menu.getSlot(62).getItem().isEmpty());
             assertTrue(ingredient.getMatchingStacksWithSizes().isEmpty());
             assertTrue(menu.getCarried().isEmpty());
         } finally {

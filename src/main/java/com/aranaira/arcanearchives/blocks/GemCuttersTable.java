@@ -76,7 +76,10 @@ public final class GemCuttersTable extends Block implements EntityBlock {
         BlockState state = defaultBlockState().setValue(FACING, context.getHorizontalDirection().getCounterClockWise());
         BlockPos other = connectedPos(context.getClickedPos(), state);
         return context.getLevel().getWorldBorder().isWithinBounds(other)
-                && context.getLevel().getBlockState(other).canBeReplaced(context) ? state : null;
+                && context.getLevel().getBlockState(other).canBeReplaced(context)
+                && context.getLevel().isUnobstructed(state.setValue(ACCESSOR, true), other,
+                    context.getPlayer() == null ? net.minecraft.world.phys.shapes.CollisionContext.empty()
+                        : net.minecraft.world.phys.shapes.CollisionContext.of(context.getPlayer())) ? state : null;
     }
 
     @Override
@@ -84,6 +87,7 @@ public final class GemCuttersTable extends Block implements EntityBlock {
         super.setPlacedBy(level, pos, state, placer, stack);
         if (!level.isClientSide && !state.getValue(ACCESSOR)) {
             level.setBlock(connectedPos(pos, state), state.setValue(ACCESSOR, true), UPDATE_ALL);
+            if (level.getBlockEntity(pos) instanceof GemCuttersTableBlockEntity table) table.recordPlacer(placer);
         }
     }
 

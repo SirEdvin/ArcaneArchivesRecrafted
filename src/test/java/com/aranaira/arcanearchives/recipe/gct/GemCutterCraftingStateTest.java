@@ -45,6 +45,50 @@ class GemCutterCraftingStateTest {
     }
 
     @Test
+    void outputAndInputsCommitTogetherAndInvalidOrStaleOutputCannotConsumeInputs() {
+        var state = new GemCutterCraftingState();
+        state.setInput(0, new ItemStack(Items.DIAMOND, 4));
+        state.setOutput(new ItemStack(Items.PAPER, 60));
+        var before = state.inputSnapshot();
+        var remaining = before.stream().map(ItemStack::copy).toList();
+        remaining.get(0).shrink(2);
+        var saved = save(state);
+        assertThrows(IllegalArgumentException.class, () -> state.commitCraft(before, remaining,
+            state.getOutput(), new ItemStack(Items.PAPER, 65), () -> true));
+        assertEquals(saved, save(state));
+        assertFalse(state.commitCraft(before, remaining, new ItemStack(Items.PAPER, 59),
+            new ItemStack(Items.PAPER, 62), () -> true));
+        assertEquals(saved, save(state));
+        assertThrows(IllegalStateException.class, () -> state.commitCraft(before, remaining,
+            state.getOutput(), new ItemStack(Items.PAPER, 62), () -> { state.setOutput(ItemStack.EMPTY); return true; }));
+        assertEquals(saved, save(state));
+        assertTrue(state.commitCraft(before, remaining, state.getOutput(), new ItemStack(Items.PAPER, 62), () -> true));
+        assertEquals(2, state.getInput(0).getCount());
+        assertEquals(62, state.getOutput().getCount());
+        remaining.get(0).setCount(0);
+        assertEquals(2, state.getInput(0).getCount());
+    }
+
+    @Test
+    void savedOutputIsOrdinaryDetachedInventoryWithoutJournalOrInputInsertion() {
+        var state = new GemCutterCraftingState();
+        var output = CraftingCreator.withCreator(new ItemStack(Items.PAPER, 4), PLAYER, "Crafter");
+        state.setOutput(output);
+        for (int slot = 0; slot < 18; slot++) state.setInput(slot, new ItemStack(Items.DIAMOND, 64));
+        assertEquals(4, state.insertInputStacked(output, false).getCount());
+        assertEquals(4, state.acceptRoutingInput(output, false).getCount());
+        assertEquals(4, state.getOutput().getCount());
+        var saved = save(state);
+        assertEquals(java.util.Set.of("Inputs", "Output"), saved.getAllKeys());
+        var restored = new GemCutterCraftingState();
+        load(restored, saved);
+        assertTrue(ItemStack.matches(output, restored.getOutput()));
+        output.setCount(0);
+        restored.getOutput().setCount(0);
+        assertEquals(saved, save(restored));
+    }
+
+    @Test
     void inputSnapshotsPreserveSlotOrderAndDetachAcrossCraftAndLoad() {
         GemCutterCraftingState state = new GemCutterCraftingState();
         state.setInput(0, new ItemStack(Items.DIAMOND, 4));
@@ -67,7 +111,7 @@ class GemCutterCraftingStateTest {
         load(restored, committed);
         List<ItemStack> loaded = restored.inputSnapshot();
         for (int slot = 0; slot < 18; slot++) assertTrue(ItemStack.matches(state.getInput(slot), loaded.get(slot)));
-        assertTrue(restored.pendingResult().isPresent());
+        assertTrue(!restored.getOutput().isEmpty());
     }
 
     @Test
@@ -84,8 +128,8 @@ class GemCutterCraftingStateTest {
         assertEquals(expected, save(restored));
         assertEquals(3, restored.getInput(0).getCount());
         assertEquals(7, restored.getInput(17).getCount());
-        assertEquals(1, restored.pendingResult().orElseThrow().consumed().get(0).getCount());
-        assertFalse(craft(restored, catalog(false), () -> { throw new AssertionError("Pending result must survive disk load"); }));
+        assertEquals(2, restored.getOutput().getCount());
+        assertFalse(craft(restored, catalog(false), () -> { throw new AssertionError("Output result must survive disk load"); }));
         writeTag(file, save(restored));
         assertEquals(expected, readTag(file));
     }
@@ -111,14 +155,14 @@ class GemCutterCraftingStateTest {
     }
 
     @Test
-    void validNbtWithInvalidPendingRecordCannotPartiallyLoadFromDisk() throws IOException {
+    void validNbtWithInvalidOutputRecordCannotPartiallyLoadFromDisk() throws IOException {
         GemCutterCraftingState live = new GemCutterCraftingState();
         live.setInput(0, new ItemStack(Items.DIAMOND, 4));
         assertTrue(craft(live, catalog(false), () -> true));
         CompoundTag before = save(live);
         CompoundTag invalid = before.copy();
         invalid.put("Inputs", save(new GemCutterCraftingState()).getCompound("Inputs"));
-        invalid.getCompound("Pending").putInt("Version", 2);
+        invalid.getCompound("Output").putInt("Size", 2);
         Path file = directory.resolve("invalid.nbt");
         writeTag(file, invalid);
         assertThrows(IllegalArgumentException.class, () -> load(live, readTag(file)));
@@ -144,7 +188,16 @@ class GemCutterCraftingStateTest {
     }
 
     private static boolean craft(GemCutterCraftingState state, GCTRecipeList catalog, BooleanSupplier condition) {
-        return state.craft(catalog, name(), PLAYER, "Crafter", condition);
+        // This fixture tests the inventory commit, not menu recipe authorization.
+        if (!state.getOutput().isEmpty()) return false;
+        GCTRecipe recipe = catalog.getRecipe(name());
+        if (recipe == null) return false;
+        var before = state.inputSnapshot();
+        var allocation = recipe.getMatchingSlots(before);
+        if (allocation.isEmpty()) return false;
+        var remaining = before.stream().map(ItemStack::copy).toList();
+        for (int slot = 0; slot < remaining.size(); slot++) remaining.get(slot).shrink(allocation.get()[slot]);
+        return state.commitCraft(before, remaining, ItemStack.EMPTY, recipe.createOutput(PLAYER, "Crafter"), condition);
     }
 
     private static CompoundTag save(GemCutterCraftingState state) {
@@ -168,16 +221,16 @@ class GemCutterCraftingStateTest {
         assertEquals(saved, save(restored));
         assertEquals(3, restored.getInput(0).getCount());
         assertEquals(7, restored.getInput(17).getCount());
-        assertEquals(1, restored.pendingResult().orElseThrow().consumed().get(0).getCount());
-        assertTrue(ItemStack.matches(state.pendingResult().orElseThrow().output(), restored.pendingResult().orElseThrow().output()));
-        assertFalse(craft(restored, catalog, () -> { throw new AssertionError("Pending must gate conditions"); }));
+        assertEquals(2, restored.getOutput().getCount());
+        assertTrue(ItemStack.matches(state.getOutput(), restored.getOutput()));
+        assertFalse(craft(restored, catalog, () -> { throw new AssertionError("Output must gate conditions"); }));
         restored.getInput(0).setCount(0);
-        restored.pendingResult().orElseThrow().output().setCount(0);
+        restored.getOutput().setCount(0);
         assertEquals(saved, save(restored));
     }
 
     @Test
-    void liveEmptyCountTracksTransfersCraftAndLoadWithoutCountingPendingOutput() {
+    void liveEmptyCountTracksTransfersCraftAndLoadWithoutCountingOutputOutput() {
         GemCutterCraftingState state = new GemCutterCraftingState();
         assertEquals(18, state.inputSlots());
         assertEquals(18, state.countEmptyInputs());
@@ -198,7 +251,7 @@ class GemCutterCraftingStateTest {
         load(restored, save(state));
         assertEquals(17, restored.countEmptyInputs());
         assertEquals(18, restored.inputSlots());
-        assertTrue(restored.pendingResult().isPresent());
+        assertTrue(!restored.getOutput().isEmpty());
         restored.setInput(17, ItemStack.EMPTY);
         assertEquals(18, restored.countEmptyInputs());
         for (int slot = 0; slot < restored.inputSlots(); slot++) {
@@ -208,7 +261,7 @@ class GemCutterCraftingStateTest {
     }
 
     @Test
-    void routingOnlyTopsUpExistingMatchesAndPreservesPendingAcrossLoad() {
+    void routingOnlyTopsUpExistingMatchesAndPreservesOutputAcrossLoad() {
         GemCutterCraftingState state = new GemCutterCraftingState();
         assertTrue(craft(state, catalog(true), () -> true));
         state.setInput(1, new ItemStack(Items.DIAMOND, 63));
@@ -226,7 +279,7 @@ class GemCutterCraftingStateTest {
         assertTrue(state.getInput(0).isEmpty());
         remainder.setCount(0);
         assertEquals(10, offered.getCount());
-        assertEquals(before.getCompound("Pending"), save(state).getCompound("Pending"));
+        assertEquals(before.getCompound("Output"), save(state).getCompound("Output"));
         GemCutterCraftingState restored = new GemCutterCraftingState();
         load(restored, save(state));
         assertEquals(save(state), save(restored));
@@ -257,7 +310,7 @@ class GemCutterCraftingStateTest {
     }
 
     @Test
-    void stackedInsertionPrefersMatchingSlotsAndPreservesPendingResult() {
+    void stackedInsertionPrefersMatchingSlotsAndPreservesOutputResult() {
         GemCutterCraftingState state = new GemCutterCraftingState();
         assertTrue(craft(state, catalog(true), () -> true));
         state.setInput(17, new ItemStack(Items.DIAMOND, 60));
@@ -269,7 +322,7 @@ class GemCutterCraftingStateTest {
         assertEquals(64, state.getInput(17).getCount());
         assertEquals(6, state.getInput(0).getCount());
         assertEquals(10, offered.getCount());
-        assertEquals(before.getCompound("Pending"), save(state).getCompound("Pending"));
+        assertEquals(before.getCompound("Output"), save(state).getCompound("Output"));
         GemCutterCraftingState restored = new GemCutterCraftingState();
         load(restored, save(state));
         assertEquals(save(state), save(restored));
@@ -343,31 +396,30 @@ class GemCutterCraftingStateTest {
     }
 
     @Test
-    void malformedPendingDoesNotReplaceValidLiveInputsOrResult() {
+    void malformedOutputDoesNotReplaceValidLiveInputsOrResult() {
         GemCutterCraftingState live = new GemCutterCraftingState();
         live.setInput(0, new ItemStack(Items.DIAMOND, 4));
         assertTrue(craft(live, catalog(false), () -> true));
         CompoundTag before = save(live);
         CompoundTag broken = before.copy();
         broken.put("Inputs", save(new GemCutterCraftingState()).getCompound("Inputs"));
-        broken.getCompound("Pending").putInt("Version", 2);
+        broken.getCompound("Output").putInt("Size", 2);
         assertThrows(IllegalArgumentException.class, () -> load(live, broken));
         assertEquals(before, save(live));
-        broken.putByte("HasPending", (byte) 0);
+        broken.putString("Output", "not an inventory");
         assertThrows(IllegalArgumentException.class, () -> load(live, broken));
         assertEquals(before, save(live));
-        broken.remove("Pending");
-        broken.putByte("HasPending", (byte) 2);
+        broken.remove("Output");
         assertThrows(IllegalArgumentException.class, () -> load(live, broken));
         assertEquals(before, save(live));
     }
 
     @Test
-    void idleRoundTripAndZeroCostCraftStillRespectPendingState() {
+    void idleRoundTripAndZeroCostCraftStillRespectOutputState() {
         GemCutterCraftingState state = new GemCutterCraftingState();
         CompoundTag idle = save(state);
         load(state, idle);
-        assertTrue(state.pendingResult().isEmpty());
+        assertTrue(state.getOutput().isEmpty());
         assertFalse(craft(state, catalog(true), () -> false));
         assertEquals(idle, save(state));
         assertTrue(craft(state, catalog(true), () -> true));
@@ -378,15 +430,15 @@ class GemCutterCraftingStateTest {
     }
 
     @Test
-    void pendingCraftSurvivesCatalogReplacementAndRemovalAcrossDiskLoad() throws IOException {
+    void outputCraftSurvivesCatalogReplacementAndRemovalAcrossDiskLoad() throws IOException {
         GemCutterCraftingState state = new GemCutterCraftingState();
         state.setInput(0, new ItemStack(Items.DIAMOND, 4));
         GCTRecipeList catalog = catalog(false);
         assertTrue(craft(state, catalog, () -> true));
         CompoundTag committed = save(state);
-        ItemStack originalOutput = state.pendingResult().orElseThrow().output();
+        ItemStack originalOutput = state.getOutput();
         catalog.replaceAll(List.of(new GCTRecipe(name(), new ItemStack(Items.GOLD_INGOT, 64), List.of())));
-        assertFalse(craft(state, catalog, () -> { throw new AssertionError("Pending must gate replacement conditions"); }));
+        assertFalse(craft(state, catalog, () -> { throw new AssertionError("Output must gate replacement conditions"); }));
         assertEquals(committed, save(state));
         Path file = directory.resolve("catalog-replaced.nbt");
         writeTag(file, save(state));
@@ -394,10 +446,10 @@ class GemCutterCraftingStateTest {
         GemCutterCraftingState restored = new GemCutterCraftingState();
         load(restored, readTag(file));
         assertEquals(committed, save(restored));
-        assertTrue(ItemStack.matches(originalOutput, restored.pendingResult().orElseThrow().output()));
+        assertTrue(ItemStack.matches(originalOutput, restored.getOutput()));
         assertEquals(3, restored.getInput(0).getCount());
-        assertEquals(1, restored.pendingResult().orElseThrow().consumed().get(0).getCount());
-        assertFalse(craft(restored, catalog, () -> { throw new AssertionError("Removed recipe must not discard pending output"); }));
+        assertEquals(2, restored.getOutput().getCount());
+        assertFalse(craft(restored, catalog, () -> { throw new AssertionError("Removed recipe must not discard output output"); }));
         assertEquals(committed, save(restored));
     }
 
@@ -431,14 +483,14 @@ class GemCutterCraftingStateTest {
     }
 
     @Test
-    void failedFinalConditionAndMissingRecipeNeverStageResult() {
+    void failedFinalConditionAndMissingRecipeNeverCommitOutput() {
         GemCutterCraftingState state = new GemCutterCraftingState();
         state.setInput(0, new ItemStack(Items.DIAMOND, 4));
         CompoundTag before = save(state);
         assertFalse(craft(state, new GCTRecipeList(), () -> { throw new AssertionError("Missing recipe"); }));
         int[] checks = {0};
-        assertFalse(craft(state, catalog(false), () -> ++checks[0] == 1));
-        assertEquals(2, checks[0]);
+        assertFalse(craft(state, catalog(false), () -> { checks[0]++; return false; }));
+        assertEquals(1, checks[0]);
         assertEquals(before, save(state));
     }
 
@@ -477,20 +529,20 @@ class GemCutterCraftingStateTest {
     }
 
     @Test
-    void transfersWhilePendingCannotAlterConsumedDataOrEnableAnotherCraft() {
+    void transfersWhileOutputCannotAlterOutputDataOrEnableAnotherCraft() {
         GemCutterCraftingState state = new GemCutterCraftingState();
         state.insertInput(0, new ItemStack(Items.DIAMOND, 4), false);
         GCTRecipeList catalog = catalog(false);
         assertTrue(craft(state, catalog, () -> true));
-        CompoundTag pending = save(state).getCompound("Pending").copy();
+        CompoundTag output = save(state).getCompound("Output").copy();
         assertEquals(3, state.extractInput(0, 64, false).getCount());
         state.insertInput(0, new ItemStack(Items.DIAMOND, 64), false);
         assertFalse(craft(state, catalog, () -> true));
-        assertEquals(pending, save(state).getCompound("Pending"));
+        assertEquals(output, save(state).getCompound("Output"));
         GemCutterCraftingState restored = new GemCutterCraftingState();
         load(restored, save(state));
         assertEquals(64, restored.getInput(0).getCount());
-        assertEquals(pending, save(restored).getCompound("Pending"));
+        assertEquals(output, save(restored).getCompound("Output"));
         assertFalse(craft(restored, catalog, () -> true));
     }
 }

@@ -84,6 +84,11 @@ public final class ContentRegistry {
     public static final Supplier<BlockItem> CELESTIAL_LOTUS_ENGINE_ITEM = item("celestial_lotus_engine", () -> new BlockItem(CELESTIAL_LOTUS_ENGINE.get(), new Item.Properties()));
     public static final Supplier<UnimplementedDeviceBlock> SPELLBOOK_LIBRARY = block("spellbook_library", () -> new UnimplementedDeviceBlock(false));
     public static final Supplier<UnimplementedDeviceBlock> IMMANENT_INCUBATOR = block("immanent_incubator", () -> new UnimplementedDeviceBlock(false));
+    public static final Supplier<com.aranaira.arcanearchives.blocks.MatrixReservoir> MATRIX_RESERVOIR = block("matrix_reservoir", com.aranaira.arcanearchives.blocks.MatrixReservoir::new);
+    public static final Supplier<com.aranaira.arcanearchives.blocks.MatrixDistillate> MATRIX_DISTILLATE = block("matrix_distillate", com.aranaira.arcanearchives.blocks.MatrixDistillate::new);
+    public static final Supplier<BlockItem> MATRIX_DISTILLATE_ITEM = item("matrix_distillate", () -> new com.aranaira.arcanearchives.items.MatrixDistillateItem(MATRIX_DISTILLATE.get(), new Item.Properties()));
+    public static final Supplier<BlockEntityType<com.aranaira.arcanearchives.tileentities.MatrixPartBlockEntity>> MATRIX_PART_ENTITY = matrixPartEntity();
+    public static final Supplier<BlockItem> MATRIX_RESERVOIR_ITEM = item("matrix_reservoir", () -> new com.aranaira.arcanearchives.items.MatrixReservoirItem(MATRIX_RESERVOIR.get(), new Item.Properties()));
     public static final Supplier<UnimplementedDeviceBlock> ECHOING_CONFORMANCE_CHAMBER = block("echoing_conformance_chamber", () -> new UnimplementedDeviceBlock(true));
     public static final Supplier<UnimplementedDeviceBlock> ECHOING_REVERBERATION_CHAMBER = block("echoing_reverberation_chamber", () -> new UnimplementedDeviceBlock(true));
     public static final Supplier<BlockItem> VERDANT_CENSER_ITEM = item("verdant_censer", () -> new BlockItem(VERDANT_CENSER.get(), new Item.Properties()));
@@ -208,6 +213,17 @@ public final class ContentRegistry {
         return () -> value;
         //?} else {
         /*return ITEMS.register(name, factory);
+        *///?}
+    }
+
+    private static Supplier<BlockEntityType<com.aranaira.arcanearchives.tileentities.MatrixPartBlockEntity>> matrixPartEntity() {
+        Supplier<BlockEntityType<com.aranaira.arcanearchives.tileentities.MatrixPartBlockEntity>> factory = () -> BlockEntityType.Builder.of(
+            com.aranaira.arcanearchives.tileentities.MatrixPartBlockEntity::new, MATRIX_DISTILLATE.get()).build(null);
+        //? if fabric {
+        var value = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, id("matrix_part"), factory.get());
+        return () -> value;
+        //?} else {
+        /*return BLOCK_ENTITIES.register("matrix_part", factory);
         *///?}
     }
 
@@ -391,6 +407,8 @@ public final class ContentRegistry {
                 output.accept(CELESTIAL_LOTUS_ENGINE_ITEM.get());
                 output.accept(SPELLBOOK_LIBRARY_ITEM.get());
                 output.accept(IMMANENT_INCUBATOR_ITEM.get());
+                output.accept(MATRIX_RESERVOIR_ITEM.get());
+                output.accept(MATRIX_DISTILLATE_ITEM.get());
                 output.accept(ECHOING_CONFORMANCE_CHAMBER_ITEM.get());
                 output.accept(ECHOING_REVERBERATION_CHAMBER_ITEM.get());
                 output.accept(RADIANT_CHEST_ITEM.get());

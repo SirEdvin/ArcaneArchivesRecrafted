@@ -15,6 +15,7 @@ public final class ArcaneArchivesFabricClient implements ClientModInitializer {
         com.aranaira.arcanearchives.config.ClientConfig.initialize(net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir());
         EchoColorCache.initialize(net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir());
         AmphoraClient.initialize();
+        ResonatorLoopSound.initialize();
         GemSoundClient.initialize();
         net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.ITEM.register((stack, layer) ->
             EchoColor.color(stack, layer, (source, index) -> {
@@ -89,7 +90,7 @@ public final class ArcaneArchivesFabricClient implements ClientModInitializer {
             boolean wonkyInventory = topLevel != null && topLevel.getVariant().equals("inventory")
                 && item.getNamespace().equals("arcanearchives") && item.getPath().equals("wonky_resonator");
             if (wonkyGeometry || wonkyInventory) return new GemCutterFabricModel(model, context.settings(), context.textureGetter(), "makeshift_resonator");
-            for (String name : new String[]{"verdant_censer", "echoing_conformance_chamber", "echoing_reverberation_chamber", "celestial_lotus_engine"}) {
+            for (String name : new String[]{"verdant_censer", "echoing_conformance_chamber", "echoing_reverberation_chamber", "celestial_lotus_engine", "matrix_reservoir", "matrix_distillate"}) {
                 boolean deviceGeometry = resource != null && resource.getNamespace().equals("arcanearchives")
                     && (resource.getPath().equals("block/" + name) || resource.getPath().equals("item/" + name));
                 boolean deviceInventory = topLevel != null && topLevel.getVariant().equals("inventory")

@@ -22,6 +22,9 @@ public final class GemCuttersTableScreen extends AbstractContainerScreen<GemCutt
     @Override
     protected void init() {
         super.init();
+        addRenderableWidget(Button.builder(Component.translatable("arcanearchives.gem_cutter.craft"), button -> {
+            if (minecraft.gameMode != null) minecraft.gameMode.handleInventoryButtonClick(menu.containerId, 2);
+        }).bounds(leftPos + 123, topPos + 17, 55, 20).build());
         for (int direction = 0; direction < 2; direction++) {
             int action = direction;
             String key = direction == 0 ? "arcanearchives.gem_cutter.previous_page" : "arcanearchives.gem_cutter.next_page";
@@ -45,6 +48,8 @@ public final class GemCuttersTableScreen extends AbstractContainerScreen<GemCutt
     @Override
     protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
         graphics.blit(GuiTextures.select("gemcutterstable"), leftPos, topPos, 0, 0, 206, 256, 256, 256);
+        graphics.fill(leftPos + 58, topPos + 17, leftPos + 76, topPos + 35, 0xff373737);
+        graphics.fill(leftPos + 59, topPos + 18, leftPos + 75, topPos + 34, 0xff8b8b8b);
     }
 
     @Override

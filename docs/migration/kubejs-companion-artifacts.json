@@ -1,0 +1,67 @@
+{
+  "policy": "Stable releases; optional development runtime companions, unbundled. Downloaded and Gradle-resolved SHA-512 verified. Rhino MPL-2.0; Architectury LGPL-3.0. No implementation copied.",
+  "artifacts": [
+    {
+      "target": "1.20.1-fabric",
+      "project": "rhino",
+      "version_id": "MLIu0Tct",
+      "version_number": "2001.2.3-build.10+fabric",
+      "release_type": "release",
+      "metadata_url": "https://api.modrinth.com/v2/version/MLIu0Tct",
+      "filename": "rhino-fabric-2001.2.3-build.10.jar",
+      "sha512": "5f43ca1a3d8b1e287fe177a324e8a3768235b1a07c4f0a05a87d3fe2285e0ec9a87a093b714e17a30100fe48f84f4edc32adcaa51d1f9aede1c3d89621a3cb8d",
+      "dependencies": []
+    },
+    {
+      "target": "1.20.1-forge",
+      "project": "rhino",
+      "version_id": "uNALdylI",
+      "version_number": "2001.2.3-build.10+forge",
+      "release_type": "release",
+      "metadata_url": "https://api.modrinth.com/v2/version/uNALdylI",
+      "filename": "rhino-forge-2001.2.3-build.10.jar",
+      "sha512": "4eb6a635f3eff3baa158539bd55344421cf69b15e28f7da8bf55f370a11c071f3525063a6f81b67fbfca550ad8aaab7e6208df87f65ca6ed2851edd46f032b58",
+      "dependencies": []
+    },
+    {
+      "target": "1.21.1-neoforge",
+      "project": "rhino",
+      "version_id": "cQ4POTah",
+      "version_number": "2101.2.7-build.85+Rhino-1.21",
+      "release_type": "release",
+      "metadata_url": "https://api.modrinth.com/v2/version/cQ4POTah",
+      "filename": "rhino-2101.2.7-build.85.jar",
+      "sha512": "0a6c7f4410281aeb03b815ec03487a8e80a4d3dae013d81282e447bf9c08144ef57318af614ea6d40b7d9a8c25031c557890ec792a5895a82467c1643116f693",
+      "dependencies": []
+    },
+    {
+      "target": "1.20.1-fabric",
+      "project": "architectury-api",
+      "version_id": "WbL7MStR",
+      "version_number": "9.2.14+fabric",
+      "release_type": "release",
+      "metadata_url": "https://api.modrinth.com/v2/version/WbL7MStR",
+      "filename": "architectury-9.2.14-fabric.jar",
+      "sha512": "4cb8f009fd522d68a795d2cf5a657bdbe248b32ba7c33cd968f5ab521e9d60e198f8a3f6c50e7d960a2b8f50375116be0db1fd44b5710ea758697d8ea70d15de",
+      "dependencies": [
+        {
+          "version_id": null,
+          "project_id": "P7dR8mSH",
+          "file_name": null,
+          "dependency_type": "required"
+        }
+      ]
+    },
+    {
+      "target": "1.20.1-forge",
+      "project": "architectury-api",
+      "version_id": "1MKTLiiG",
+      "version_number": "9.2.14+forge",
+      "release_type": "release",
+      "metadata_url": "https://api.modrinth.com/v2/version/1MKTLiiG",
+      "filename": "architectury-9.2.14-forge.jar",
+      "sha512": "cf67f2050cafa00f0bee42e6d7bef77fdb808ac4f71742f7b4d6d5c1e6ffb49561a5a252f332d2b78a9767bdb5faa284611790dba303fbdc736ae36d794f61c7",
+      "dependencies": []
+    }
+  ]
+}

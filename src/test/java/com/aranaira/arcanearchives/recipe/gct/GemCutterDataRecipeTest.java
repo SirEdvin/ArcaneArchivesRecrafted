@@ -26,6 +26,30 @@ class GemCutterDataRecipeTest {
     static void bootstrap() { SharedConstants.tryDetectVersion(); Bootstrap.bootStrap(); }
 
     @Test
+    void kubejsMetadataIsDetachedValidatedAndNeverSynchronized() {
+        var json = JsonParser.parseString(JSON).getAsJsonObject();
+        json.add("_kubejs_changed_marker", JsonParser.parseString("{\"source\":\"server_scripts:example.js\",\"line\":14}"));
+        var recipe = GemCutterDataRecipe.parse(NAME, json);
+        assertTrue(json.has("_kubejs_changed_marker"));
+        assertEquals(2, recipe.definition(NAME).getRecipeOutput().getCount());
+        assertFalse(recipe.definition(NAME).matches(List.of(new ItemStack(Items.DIAMOND, 2))));
+        var buffer = new FriendlyByteBuf(Unpooled.buffer());
+        try {
+            GemCutterDataRecipe.write(buffer, recipe);
+            assertEquals(JsonParser.parseString(JSON), JsonParser.parseString(buffer.readUtf(32767)));
+        } finally { buffer.release(); }
+        for (String marker : List.of("null", "true", "[]", "{}",
+                "{\"source\":4,\"line\":1}", "{\"source\":\"x\",\"line\":1.5}",
+                "{\"source\":\"x\",\"line\":-1}", "{\"source\":\"x\",\"line\":1,\"cost\":0}")) {
+            json.add("_kubejs_changed_marker", JsonParser.parseString(marker));
+            assertThrows(com.google.gson.JsonParseException.class, () -> GemCutterDataRecipe.parse(NAME, json));
+        }
+        json.add("_kubejs_changed_marker", JsonParser.parseString("{\"source\":\"x\",\"line\":0}"));
+        json.addProperty("unknown", true);
+        assertThrows(com.google.gson.JsonParseException.class, () -> GemCutterDataRecipe.parse(NAME, json));
+    }
+
+    @Test
     void ownedJsonAndWireRoundTripPreserveExactCountedPayment() {
         JsonObject json = JsonParser.parseString(JSON).getAsJsonObject();
         var original = GemCutterDataRecipe.parse(NAME, json);

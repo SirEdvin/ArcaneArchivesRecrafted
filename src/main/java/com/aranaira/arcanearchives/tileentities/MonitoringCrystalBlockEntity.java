@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 /** Registered inventory attachment; network membership is integrated separately. */
-public final class MonitoringCrystalBlockEntity extends BlockEntity {
+public final class MonitoringCrystalBlockEntity extends NetworkOwnedBlockEntity {
     private BlockPos target;
     public MonitoringCrystalBlockEntity(BlockPos pos, BlockState state) { super(ContentRegistry.MONITORING_CRYSTAL_ENTITY.get(), pos, state); }
     public BlockPos target() {
