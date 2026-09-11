@@ -41,35 +41,43 @@ public final class DevouringCharmMenu extends AbstractContainerMenu {
         addDataSlot(flipped);
         for (int row = 0; row < 4; row++) for (int col = 0; col < 9; col++) {
             int index = row == 3 ? col : 9 + row * 9 + col;
-            addSlot(new Slot(inventory, index, 10 + col * 18, row == 3 ? 223 : 165 + row * 18) {
-                @Override public boolean mayPickup(Player player) { return !(getItem().getItem() instanceof DevouringCharmItem); }
-                @Override public boolean mayPlace(ItemStack stack) { return !(stack.getItem() instanceof DevouringCharmItem); }
-            });
+            addSlot(new CharmProtectedSlot(inventory, index, 10 + col * 18, row == 3 ? 223 : 165 + row * 18));
         }
-        addSlot(new Slot(disposal, 0, 82, 71) {
-            @Override public int getMaxStackSize() { return 1; }
-            @Override public boolean isActive() { return !flipped(); }
-            @Override public boolean mayPickup(Player player) { return !flipped(); }
-            @Override public boolean mayPlace(ItemStack stack) { return !flipped() && DevouringCharmFluids.accepts(stack); }
-            @Override public void set(ItemStack stack) {
-                if (!inventory.player.level().isClientSide && stack.getItem() instanceof com.aranaira.arcanearchives.items.ParchtearItem)
-                    com.aranaira.arcanearchives.items.ArcaneGemItem.setCharge(stack, com.aranaira.arcanearchives.items.ArcaneGemItem.maximumCharge(stack));
-                super.set(inventory.player.level().isClientSide ? stack : DevouringCharmFluids.drain(stack));
-            }
-        });
-        for (int index = 0; index < 6; index++) addSlot(new Slot(disposal, index + 1, 64 + index % 3 * 18, 113 + index / 3 * 18) {
-            @Override public boolean isActive() { return !flipped(); }
-            @Override public boolean mayPickup(Player player) { return !flipped(); }
-            @Override public boolean mayPlace(ItemStack stack) { return !flipped() && !(stack.getItem() instanceof DevouringCharmItem); }
-            @Override public void set(ItemStack stack) {
-                super.set(inventory.player.level().isClientSide ? stack : DevouringCharmFluids.drain(stack));
-            }
-        });
-        for (int index = 0; index < 6; index++) addSlot(new Slot(filters, index, 58 + index % 3 * 24, 99 + index / 3 * 24) {
-            @Override public boolean isActive() { return flipped(); }
-            @Override public boolean mayPlace(ItemStack stack) { return false; }
-            @Override public boolean mayPickup(Player player) { return false; }
-        });
+        addSlot(new FluidDisposalSlot());
+        for (int index = 0; index < 6; index++) addSlot(new DisposalSlot(index));
+        for (int index = 0; index < 6; index++) addSlot(new FilterSlot(index));
+    }
+    private static final class CharmProtectedSlot extends Slot {
+        private CharmProtectedSlot(Inventory inventory, int index, int x, int y) { super(inventory, index, x, y); }
+        @Override public boolean mayPickup(Player player) { return !(getItem().getItem() instanceof DevouringCharmItem); }
+        @Override public boolean mayPlace(ItemStack stack) { return !(stack.getItem() instanceof DevouringCharmItem); }
+    }
+    private final class FluidDisposalSlot extends Slot {
+        private FluidDisposalSlot() { super(DevouringCharmMenu.this.disposal, 0, 82, 71); }
+        @Override public int getMaxStackSize() { return 1; }
+        @Override public boolean isActive() { return !flipped(); }
+        @Override public boolean mayPickup(Player player) { return !flipped(); }
+        @Override public boolean mayPlace(ItemStack stack) { return !flipped() && DevouringCharmFluids.accepts(stack); }
+        @Override public void set(ItemStack stack) {
+            if (!inventory.player.level().isClientSide && stack.getItem() instanceof com.aranaira.arcanearchives.items.ParchtearItem)
+                com.aranaira.arcanearchives.items.ArcaneGemItem.setCharge(stack, com.aranaira.arcanearchives.items.ArcaneGemItem.maximumCharge(stack));
+            super.set(inventory.player.level().isClientSide ? stack : DevouringCharmFluids.drain(stack));
+        }
+    }
+    private final class DisposalSlot extends Slot {
+        private DisposalSlot(int index) { super(DevouringCharmMenu.this.disposal, index + 1, 64 + index % 3 * 18, 113 + index / 3 * 18); }
+        @Override public boolean isActive() { return !flipped(); }
+        @Override public boolean mayPickup(Player player) { return !flipped(); }
+        @Override public boolean mayPlace(ItemStack stack) { return !flipped() && !(stack.getItem() instanceof DevouringCharmItem); }
+        @Override public void set(ItemStack stack) {
+            super.set(inventory.player.level().isClientSide ? stack : DevouringCharmFluids.drain(stack));
+        }
+    }
+    private final class FilterSlot extends Slot {
+        private FilterSlot(int index) { super(DevouringCharmMenu.this.filters, index, 58 + index % 3 * 24, 99 + index / 3 * 24); }
+        @Override public boolean isActive() { return flipped(); }
+        @Override public boolean mayPlace(ItemStack stack) { return false; }
+        @Override public boolean mayPickup(Player player) { return false; }
     }
     public boolean flipped() { return flipped.get() != 0; }
     @Override public boolean stillValid(Player player) {

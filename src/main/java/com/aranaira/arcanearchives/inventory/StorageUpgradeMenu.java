@@ -5,6 +5,7 @@ import com.aranaira.arcanearchives.inventory.handlers.SizeUpgradeItemHandler;
 import com.aranaira.arcanearchives.inventory.handlers.OptionalUpgradesHandler;
 import java.util.function.Predicate;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -38,14 +39,7 @@ public final class StorageUpgradeMenu extends AbstractContainerMenu {
                 return handler.isItemValid(slot, stack) && handler.resolveUpgradesUntil(slot) && handler.getStackInSlot(slot).isEmpty();
             }
         };
-        for (int index = 0; index < 3; index++) {
-            final int slot = index;
-            addSlot(new Slot(container, index, 57 + index * 25, 8) {
-                @Override public boolean mayPlace(ItemStack stack) { return handler == null || container.canPlaceItem(slot, stack); }
-                @Override public boolean mayPickup(Player player) { return handler == null || !handler.extractItem(slot, 1, true).isEmpty(); }
-                @Override public int getMaxStackSize() { return 1; }
-            });
-        }
+        for (int index = 0; index < 3; index++) addSlot(new SizeUpgradeSlot(container, index, handler));
         SimpleContainer optionalContainer = optional == null ? new SimpleContainer(3) : new SimpleContainer(3) {
             @Override public ItemStack getItem(int slot) { return optional.getStackInSlot(slot).copy(); }
             @Override public void setItem(int slot, ItemStack stack) { optional.setStackInSlot(slot, stack); }
@@ -56,16 +50,33 @@ public final class StorageUpgradeMenu extends AbstractContainerMenu {
                 return optional.isItemValid(slot, stack) && optional.getStackInSlot(slot).isEmpty();
             }
         };
-        for (int index = 0; index < 3; index++) {
-            final int slot = index;
-            addSlot(new Slot(optionalContainer, index, 57 + index * 25, 44) {
-                @Override public boolean mayPlace(ItemStack stack) { return optional == null || optionalContainer.canPlaceItem(slot, stack); }
-                @Override public int getMaxStackSize() { return 1; }
-            });
-        }
+        for (int index = 0; index < 3; index++) addSlot(new OptionalUpgradeSlot(optionalContainer, index, optional));
         for (int row = 0; row < 3; row++) for (int column = 0; column < 9; column++)
             addSlot(new Slot(inventory, column + row * 9 + 9, 10 + column * 18, 80 + row * 18));
         for (int column = 0; column < 9; column++) addSlot(new Slot(inventory, column, 10 + column * 18, 138));
+    }
+    private static final class SizeUpgradeSlot extends Slot {
+        private final int slot;
+        private final SizeUpgradeItemHandler handler;
+        private SizeUpgradeSlot(Container container, int slot, SizeUpgradeItemHandler handler) {
+            super(container, slot, 57 + slot * 25, 8);
+            this.slot = slot;
+            this.handler = handler;
+        }
+        @Override public boolean mayPlace(ItemStack stack) { return handler == null || container.canPlaceItem(slot, stack); }
+        @Override public boolean mayPickup(Player player) { return handler == null || !handler.extractItem(slot, 1, true).isEmpty(); }
+        @Override public int getMaxStackSize() { return 1; }
+    }
+    private static final class OptionalUpgradeSlot extends Slot {
+        private final int slot;
+        private final OptionalUpgradesHandler optional;
+        private OptionalUpgradeSlot(Container container, int slot, OptionalUpgradesHandler optional) {
+            super(container, slot, 57 + slot * 25, 44);
+            this.slot = slot;
+            this.optional = optional;
+        }
+        @Override public boolean mayPlace(ItemStack stack) { return optional == null || container.canPlaceItem(slot, stack); }
+        @Override public int getMaxStackSize() { return 1; }
     }
     @Override public boolean stillValid(Player player) { return access.test(player); }
     @Override public void clicked(int slot, int button, ClickType type, Player player) {

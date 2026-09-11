@@ -40,27 +40,38 @@ public final class RadiantCraftingMenu extends AbstractContainerMenu {
         super(ContentRegistry.RADIANT_CRAFTING_TABLE_MENU.get(), id);
         this.table = table;
         this.inventory = inventory;
-        matrix = new TransientCraftingContainer(this, 3, 3,
-                table == null ? NonNullList.withSize(9, ItemStack.EMPTY) : table.items()) {
-            @Override public void setChanged() { slotsChanged(this); }
-        };
-        addSlot(new ResultSlot(inventory.player, matrix, result, 0, 136, 42) {
-            @Override public void onTake(Player player, ItemStack stack) {
-                ResourceLocation crafted = current;
-                super.onTake(player, stack);
-                lastCrafted = crafted;
-            }
-        });
+        matrix = new SharedCraftingContainer(table == null ? NonNullList.withSize(9, ItemStack.EMPTY) : table.items());
+        addSlot(new CraftingResultSlot());
         for (int row = 0; row < 3; row++) for (int col = 0; col < 3; col++)
             addSlot(new Slot(matrix, row * 3 + col, 24 + col * 18, 24 + row * 18));
         for (int row = 0; row < 3; row++) for (int col = 0; col < 9; col++)
             addSlot(new Slot(inventory, 9 + row * 9 + col, 23 + col * 18, 115 + row * 18));
         for (int col = 0; col < 9; col++) addSlot(new Slot(inventory, col, 23 + col * 18, 173));
-        for (int index = 0; index < 3; index++) addSlot(new Slot(bookmarks, index, 174, 16 + index * 26) {
-            @Override public boolean mayPlace(ItemStack stack) { return false; }
-            @Override public boolean mayPickup(Player player) { return false; }
-        });
+        for (int index = 0; index < 3; index++) addSlot(new BookmarkSlot(bookmarks, index));
         refresh();
+    }
+
+    private final class SharedCraftingContainer extends TransientCraftingContainer {
+        private SharedCraftingContainer(NonNullList<ItemStack> items) {
+            super(RadiantCraftingMenu.this, 3, 3, items);
+        }
+        @Override public void setChanged() { slotsChanged(this); }
+    }
+    private final class CraftingResultSlot extends ResultSlot {
+        private CraftingResultSlot() {
+            super(RadiantCraftingMenu.this.inventory.player, RadiantCraftingMenu.this.matrix,
+                RadiantCraftingMenu.this.result, 0, 136, 42);
+        }
+        @Override public void onTake(Player player, ItemStack stack) {
+            ResourceLocation crafted = current;
+            super.onTake(player, stack);
+            lastCrafted = crafted;
+        }
+    }
+    private static final class BookmarkSlot extends Slot {
+        private BookmarkSlot(Container container, int index) { super(container, index, 174, 16 + index * 26); }
+        @Override public boolean mayPlace(ItemStack stack) { return false; }
+        @Override public boolean mayPickup(Player player) { return false; }
     }
 
     @Override public boolean stillValid(Player player) { return table == null || table.canUse(player); }

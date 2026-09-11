@@ -5,6 +5,7 @@ import com.aranaira.arcanearchives.items.ArcaneGemItem;
 import com.aranaira.arcanearchives.items.AvailableGems;
 import com.aranaira.arcanearchives.items.GemRecharge;
 import com.aranaira.arcanearchives.items.GemSocketItem;
+import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -30,16 +31,20 @@ public final class GemSocketMenu extends AbstractContainerMenu {
         for (int row = 0; row < 4; row++) for (int col = 0; col < 9; col++)
             addInventorySlot(row == 3 ? col : 9 + row * 9 + col, 10 + col * 18, row == 3 ? 115 : 57 + row * 18);
         addInventorySlot(40, -23, 115);
-        addSlot(new Slot(contents, 0, 81, 3) {
-            @Override public boolean mayPlace(ItemStack stack) { return stack.getItem() instanceof ArcaneGemItem; }
-            @Override public int getMaxStackSize() { return 1; }
-        });
+        addSlot(new GemSlot(contents));
     }
     private void addInventorySlot(int index, int x, int y) {
-        addSlot(new Slot(inventory, index, x, y) {
-            @Override public boolean mayPickup(Player player) { return !(getItem().getItem() instanceof GemSocketItem); }
-            @Override public boolean mayPlace(ItemStack stack) { return !(stack.getItem() instanceof GemSocketItem); }
-        });
+        addSlot(new SocketProtectedSlot(inventory, index, x, y));
+    }
+    private static final class GemSlot extends Slot {
+        private GemSlot(Container container) { super(container, 0, 81, 3); }
+        @Override public boolean mayPlace(ItemStack stack) { return stack.getItem() instanceof ArcaneGemItem; }
+        @Override public int getMaxStackSize() { return 1; }
+    }
+    private static final class SocketProtectedSlot extends Slot {
+        private SocketProtectedSlot(Inventory inventory, int index, int x, int y) { super(inventory, index, x, y); }
+        @Override public boolean mayPickup(Player player) { return !(getItem().getItem() instanceof GemSocketItem); }
+        @Override public boolean mayPlace(ItemStack stack) { return !(stack.getItem() instanceof GemSocketItem); }
     }
     public ItemStack gem() { return contents.getItem(0); }
     public void save() {

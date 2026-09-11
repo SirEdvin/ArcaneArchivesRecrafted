@@ -21,15 +21,19 @@ public final class GemSocketScreen extends AbstractContainerScreen<GemSocketMenu
     @Override protected void init() {
         super.init();
         Component label = Component.translatable("arcanearchives.gemsocket.recharge");
-        Button recharge = new Button(leftPos + 153, topPos + 2, 18, 18, label,
-                button -> minecraft.gameMode.handleInventoryButtonClick(menu.containerId, 0), narration -> narration.get()) {
-            @Override public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-                graphics.blit(GuiTextures.select("player_inv"), getX(), getY(), 238, 33, 18, 18, 256, 256);
-                if (isHoveredOrFocused()) graphics.renderOutline(getX(), getY(), width, height, 0xFFFFFFFF);
-            }
-        };
+        Button recharge = new RechargeButton(leftPos + 153, topPos + 2, label,
+            button -> minecraft.gameMode.handleInventoryButtonClick(menu.containerId, 0));
         recharge.setTooltip(Tooltip.create(label));
         addRenderableWidget(recharge);
+    }
+    private static final class RechargeButton extends Button {
+        private RechargeButton(int x, int y, Component label, OnPress onPress) {
+            super(x, y, 18, 18, label, onPress, narration -> narration.get());
+        }
+        @Override public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+            graphics.blit(GuiTextures.select("player_inv"), getX(), getY(), 238, 33, 18, 18, 256, 256);
+            if (isHoveredOrFocused()) graphics.renderOutline(getX(), getY(), width, height, 0xFFFFFFFF);
+        }
     }
     @Override public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         //? if <1.21 {
