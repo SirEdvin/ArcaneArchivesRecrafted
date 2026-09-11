@@ -22,7 +22,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         with:
-          distribution: temurin
+          distribution: zulu
           java-version: |
             17
             21
@@ -34,7 +34,10 @@ jobs:
           LOG="build/ci-gradle-$(date +%Y%m%d-%H%M%S).log"
           START=$SECONDS
           status=0
-          timeout --foreground 10m ./gradlew build --continue --no-daemon >"$LOG" 2>&1 || status=$?
+          timeout --foreground 10m ./gradlew build --continue --no-daemon \
+            -Porg.gradle.java.installations.auto-detect=false \
+            -Porg.gradle.java.installations.auto-download=false \
+            -Porg.gradle.java.installations.paths="$JAVA_HOME_17_X64,$JAVA_HOME_21_X64" >"$LOG" 2>&1 || status=$?
           printf 'exit=%s duration=%ss log=%s\n' "$status" "$((SECONDS-START))" "$LOG"
           exit "$status"
       - name: Verify all production and source artifacts
