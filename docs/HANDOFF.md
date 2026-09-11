@@ -1,5 +1,9 @@
 # Session handoff — Arcane Archives Recrafted
 
+## 0.0.1 release and publishing
+
+Current version is `0.0.1`; see [release notes](releases/0.0.1.md) and [publishing instructions](PUBLISHING.md). The user requested reuse of UnlimitedPeripheralWorks/modding-buildenv publishing. Direct buildenv application conflicts with the pinned Loom classpath, so `release.gradle.kts` adapts the same GitHub Release, CurseForgeGradle and Minotaur plugins. The Python upload transport is removed; a read-only preflight/checksum helper retains immutable GitHub release guards. All four build/native suites and artifact pairs pass (`build/release-0.0.1-verify.log`, exit 0, 80s), as do cold configuration, GitHub/Modrinth dry runs and read-only four-leaf publishing metadata assertions. CurseForge debug verification is blocked by HTTP 400 from game-version metadata; CurseForge/Modrinth project IDs and credentials remain operator inputs. No publication on those platforms is claimed. The RC section below is historical.
+
 ## RC preparation — 0.0.1-rc.1
 
 The user requested a public GitHub testing prerelease and authorized committing the full migration tree. Destination: `SirEdvin/ArcaneArchivesRecrafted`. Version is `0.0.1-rc.1`; [release notes](releases/0.0.1-rc.1.md) document dependencies and incomplete features. `publishGithub` is a Gradle task gated by all four leaf builds/tests and the artifact verifier, with clean-tree/pushed-tag checks and immutable-release publication. Runtime files/logs remain ignored. RC verification: `build/rc-verify-20260910-161647.log`, exit 0, 59s; Fabric suites 204 each, Forge runtime 199 (standalone 36 overlaps), NeoForge 279; no failures/errors/skips. This is not full migration or multiplayer acceptance.

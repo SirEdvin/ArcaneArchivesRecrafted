@@ -2,7 +2,7 @@
 
 **Resuming in another session? Start with [docs/HANDOFF.md](docs/HANDOFF.md).** It includes approved decisions, implemented scope, evidence locations and remaining work.
 
-A work-in-progress port of [Arcane Archives](https://github.com/AranaiRa/ArcaneArchives) to Minecraft 1.20.1 (Fabric/Forge) and 1.21.1 (Fabric/NeoForge). Testing prereleases include migrated storage, Gem Cutter crafting, quartz progression, gems, sockets and supporting systems. They are experimental builds, not a complete replacement for the original mod. Use disposable worlds. See [the RC testing notes](docs/releases/0.0.1-rc.1.md) for installation and known limitations.
+A work-in-progress port of [Arcane Archives](https://github.com/AranaiRa/ArcaneArchives) to Minecraft 1.20.1 (Fabric/Forge) and 1.21.1 (Fabric/NeoForge). Releases include migrated storage, Gem Cutter crafting, quartz progression, gems, sockets and supporting systems. The migration is incomplete, not a complete replacement for the original mod. Use disposable worlds. See [the 0.0.1 release notes](docs/releases/0.0.1.md) for installation and known limitations, and [publishing documentation](docs/PUBLISHING.md) for maintainer tasks.
 
 Support scope: fresh worlds only. No old-world import, legacy data migration or cross-version/cross-loader save conversion is planned. Normal saving and reloading of worlds created by this port remains required.
 
