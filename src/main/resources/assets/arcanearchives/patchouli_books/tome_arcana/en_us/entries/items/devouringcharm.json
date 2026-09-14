@@ -2,7 +2,7 @@
   "name": "Devouring Charm",
   "category": "arcanearchives:items",
   "icon": "arcanearchives:devouring_charm",
-  "sortnum": 39,
+  "sortnum": 23,
   "pages": [
     {
       "type": "arcanearchives:converted/items/devouringcharm_0"

@@ -50,7 +50,12 @@ public final class BrazierActivationLifecycle {
             if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
                 player.setPos(pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5);
                 player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ContentRegistry.SCEPTER_MANIPULATION.get()));
-                require(held.apply(hit, InteractionHand.MAIN_HAND)
+                boolean shift = player.isShiftKeyDown();
+                boolean opened;
+                player.setShiftKeyDown(true);
+                try { opened = held.apply(hit, InteractionHand.MAIN_HAND); }
+                finally { player.setShiftKeyDown(shift); }
+                require(opened
                     && player.containerMenu instanceof com.aranaira.arcanearchives.inventory.BrazierMenu,
                     "Native manipulation interaction did not open Brazier configuration");
                 require(player.getMainHandItem().is(ContentRegistry.SCEPTER_MANIPULATION.get())

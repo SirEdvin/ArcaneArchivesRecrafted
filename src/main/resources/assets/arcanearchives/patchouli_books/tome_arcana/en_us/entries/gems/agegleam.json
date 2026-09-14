@@ -1,8 +1,8 @@
 {
   "name": "Agegleam",
-  "category": "arcanearchives:gems",
+  "category": "arcanearchives:items",
   "icon": "arcanearchives:agegleam",
-  "sortnum": 53,
+  "sortnum": 34,
   "pages": [
     {
       "type": "arcanearchives:converted/gems/agegleam_0",

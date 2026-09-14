@@ -27,7 +27,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public final class ManifestContents {
     public enum Range { IN_RANGE, OUT_OF_RANGE, OTHER_DIMENSION }
 
-    public record Location(BlockPosDimension position, String description, long count) {}
+    public record Location(BlockPosDimension position, String description, long count, BlockPosDimension origin) {
+        public Location(BlockPosDimension position, String description, long count) { this(position, description, count, null); }
+    }
 
     public record Entry(ItemStack stack, long count, Range range, List<Location> locations) {
         public Entry {

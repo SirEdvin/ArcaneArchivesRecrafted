@@ -2,7 +2,7 @@
   "name": "Gem Socket",
   "category": "arcanearchives:items",
   "icon": "arcanearchives:gemsocket",
-  "sortnum": 40,
+  "sortnum": 24,
   "pages": [
     {
       "type": "arcanearchives:converted/items/gemsocket_0",

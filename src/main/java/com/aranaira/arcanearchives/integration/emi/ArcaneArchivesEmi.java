@@ -29,6 +29,8 @@ import net.minecraft.world.inventory.Slot;
 public final class ArcaneArchivesEmi implements EmiPlugin {
     @Override
     public void register(EmiRegistry registry) {
+        com.aranaira.arcanearchives.client.ManifestSearch.bindEmi(
+            dev.emi.emi.api.EmiApi::getSearchText, dev.emi.emi.api.EmiApi::setSearchText);
         var hidden = ViewerHiddenItems.items(ArsenalConfig.current().enableArsenal());
         registry.removeEmiStacks(stack -> hidden.contains(stack.getItemStack().getItem()));
         registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(ContentRegistry.RADIANT_CRAFTING_TABLE_ITEM.get()));
@@ -48,7 +50,7 @@ public final class ArcaneArchivesEmi implements EmiPlugin {
         registry.addCategory(category);
         registry.addWorkstation(category, workstation);
         for (var entry : GemCutterDataRecipe.entries(registry.getRecipeManager())) {
-            if (entry.recipe().enabled())
+            if (entry.recipe().enabled() && !hidden.contains(entry.recipe().definition(entry.name()).getRecipeOutput().getItem()))
                 registry.addRecipe(new Display(category, entry.recipe().definition(entry.name())));
         }
     }

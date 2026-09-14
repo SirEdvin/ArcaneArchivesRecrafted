@@ -47,7 +47,7 @@ public final class RadiantTankBlockEntity extends BlockEntity {
     public SizeUpgradeItemHandler upgrades() { return upgrades; }
     public StorageOptionalUpgrades optionals() { return optionals; }
     public UUID owner() { return owner; }
-    public void setOwner(UUID value) { owner = value; setChanged(); }
+    public void setOwner(UUID value) { owner = value; setChanged(); com.aranaira.arcanearchives.data.StoragePlacementSaveData.record(this); }
     public boolean isLiveServerStorage() {
         return level != null && !level.isClientSide && !isRemoved() && !dropped
             && level.getServer().isSameThread() && level.getBlockEntity(worldPosition) == this;
@@ -111,6 +111,7 @@ public final class RadiantTankBlockEntity extends BlockEntity {
         optionals.deserializeNBT(registries, preparedOptionals.serializeNBT(registries));
         inventory.readState(tag.getCompound("fluid_storage"), registries, preparedUpgrades.getUpgradesCount());
         owner = tag.hasUUID("owner") ? tag.getUUID("owner") : null;
+        com.aranaira.arcanearchives.data.StoragePlacementSaveData.record(this);
     }
     @Override public ClientboundBlockEntityDataPacket getUpdatePacket() { return ClientboundBlockEntityDataPacket.create(this); }
     //? if >=1.21 {

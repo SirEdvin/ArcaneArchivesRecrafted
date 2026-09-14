@@ -2,7 +2,7 @@
   "name": "Scepter of Revelation",
   "category": "arcanearchives:items",
   "icon": "arcanearchives:scepter_revelation",
-  "sortnum": 30,
+  "sortnum": 14,
   "pages": [
     {
       "type": "arcanearchives:converted/items/scepterrevelation_0"

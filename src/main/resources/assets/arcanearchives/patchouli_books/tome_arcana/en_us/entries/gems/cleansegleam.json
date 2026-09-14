@@ -1,8 +1,8 @@
 {
   "name": "Cleansegleam",
-  "category": "arcanearchives:gems",
+  "category": "arcanearchives:items",
   "icon": "arcanearchives:cleansegleam",
-  "sortnum": 54,
+  "sortnum": 35,
   "pages": [
     {
       "type": "arcanearchives:converted/gems/cleansegleam_0",

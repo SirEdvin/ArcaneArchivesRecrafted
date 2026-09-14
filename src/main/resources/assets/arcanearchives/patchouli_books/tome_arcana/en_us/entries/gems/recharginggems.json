@@ -1,8 +1,8 @@
 {
   "name": "Recharging Arcane Gems",
-  "category": "arcanearchives:gems",
+  "category": "arcanearchives:concepts",
   "icon": "arcanearchives:chromatic_powder",
-  "sortnum": 50,
+  "sortnum": 31,
   "pages": [
     {
       "type": "arcanearchives:converted/gems/recharginggems_0",

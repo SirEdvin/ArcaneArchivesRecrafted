@@ -2,10 +2,22 @@
   "name": "Gem Cutter's Table",
   "category": "arcanearchives:blocks",
   "icon": "arcanearchives:gemcutters_table",
-  "sortnum": 9,
+  "sortnum": 4,
   "pages": [
     {
-      "type": "arcanearchives:converted/blocks/gemcutterstable_0"
+      "type": "patchouli:multiblock",
+      "name": "Gem Cutter's Table",
+      "multiblock": {
+        "pattern": [
+          [
+            "0"
+          ]
+        ],
+        "mapping": {
+          "0": "arcanearchives:gemcutters_table"
+        }
+      },
+      "enable_visualize": false
     },
     {
       "type": "patchouli:text",

@@ -2,10 +2,22 @@
   "name": "Radiant Crafting Table",
   "category": "arcanearchives:blocks",
   "icon": "arcanearchives:radiant_crafting_table",
-  "sortnum": 8,
+  "sortnum": 3,
   "pages": [
     {
-      "type": "arcanearchives:converted/blocks/radiantcraftingtable_0"
+      "type": "patchouli:multiblock",
+      "name": "Radiant Crafting Table",
+      "multiblock": {
+        "pattern": [
+          [
+            "0"
+          ]
+        ],
+        "mapping": {
+          "0": "arcanearchives:radiant_crafting_table"
+        }
+      },
+      "enable_visualize": false
     },
     {
       "type": "patchouli:text",

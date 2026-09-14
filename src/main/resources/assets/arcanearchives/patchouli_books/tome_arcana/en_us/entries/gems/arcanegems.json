@@ -1,8 +1,8 @@
 {
   "name": "Arcane Gems",
-  "category": "arcanearchives:gems",
+  "category": "arcanearchives:concepts",
   "icon": "arcanearchives:tome_arcana",
-  "sortnum": 49,
+  "sortnum": 30,
   "pages": [
     {
       "type": "arcanearchives:converted/gems/arcanegems_0",

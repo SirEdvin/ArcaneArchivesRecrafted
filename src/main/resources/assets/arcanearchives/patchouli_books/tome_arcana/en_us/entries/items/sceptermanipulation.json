@@ -2,7 +2,7 @@
   "name": "Scepter of Manipulation",
   "category": "arcanearchives:items",
   "icon": "arcanearchives:scepter_manipulation",
-  "sortnum": 29,
+  "sortnum": 13,
   "pages": [
     {
       "type": "arcanearchives:converted/items/sceptermanipulation_0"

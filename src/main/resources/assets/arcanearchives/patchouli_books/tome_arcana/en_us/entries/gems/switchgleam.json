@@ -1,8 +1,8 @@
 {
   "name": "Switchgleam",
-  "category": "arcanearchives:gems",
+  "category": "arcanearchives:items",
   "icon": "arcanearchives:switchgleam",
-  "sortnum": 55,
+  "sortnum": 36,
   "pages": [
     {
       "type": "arcanearchives:converted/gems/switchgleam_0",

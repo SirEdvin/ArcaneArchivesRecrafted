@@ -2,7 +2,22 @@
 
 Goal: preserve Arcane Archives gameplay on Minecraft 1.20.1 Fabric/Forge and 1.21.1 Fabric/NeoForge.
 
-## 0.0.2 release implementation plan
+## 0.0.3 implementation
+
+Current execution supersedes older pending/default-version statements below. Source version is 0.0.3. The user has now explicitly authorized committing, pushing and releasing 0.0.3 on GitHub; older no-publication statements describe the implementation stage only.
+
+- [x] Add approved [Brazier filtered pull buffer](behavior-changes/0165-brazier-pull-buffer.md): scepter mode selection, nonconsuming exact filter, no-filter/full-buffer pause, persisted one-stack output, native hopper/pipe extraction and conservation-safe drops. Four-target final build/native/artifact checks pass (`build/brazier-pull-final-20260914-171051.log`, exit 0, 81s); all 25 script tests pass. Real buffered-Brazier process restart and graphical/multiplayer acceptance remain deferred.
+
+- [x] Implement chest count depth, synchronized quartz growth renderer and stored crafting-slot item renderer (0155/0156/0158).
+- [x] Bind Manifest EMI-first/JEI-fallback search, preserve session restoration, and label the control XMI integration (0157).
+- [x] Implement independent persistent per-player placed-storage quotas, default 64 each, 0 unlimited, creative bypass with accounting, and pre-mutation conversion denial (0159).
+- [x] Generate proper block previews and only Blocks/Items/Concepts categories, preserving finished gem entry IDs (0160/0161).
+- [x] Hide audited unfinished content across creative/Tome/EMI/JEI without unregistering saved IDs; default Arsenal on while preserving opt-outs (0162/0163).
+- [x] Carry server-validated lectern origins into tracking and render capped 1/16-block solid beams (0164).
+- [x] Complete final four-target build/native and production/source artifact checks (`build/003-release-20260914-150842.log`, exit 0, 78s), plus all 25 script tests. Correct table-grid alignment using real graphical evidence and verify stored-item persistence/alignment after client restart. See [0.0.3 evidence](migration/0.0.3-IMPLEMENTATION.md) and [release notes](releases/0.0.3.md).
+- [ ] Deferred acceptance: full graphical/connected-multiplayer matrix, quota process-restart campaign, installed-viewer combinations and expanded cancellation checks. These remain explicit verification limitations, not claims of full migration parity.
+
+## Historical 0.0.2 release implementation plan
 
 - [ ] Complete [0.0.2 — Connected Storage and Tome of Arcana](plans/0.0.2-implementation-plan.md): integrated network/Manifest/Brazier, remaining storage compatibility, complete Tome, then consolidated four-target gameplay and release acceptance. This is the forward release plan; historical checkpoints below retain only their stated evidence. Recording the plan does not mark implementation complete or authorize publication.
 

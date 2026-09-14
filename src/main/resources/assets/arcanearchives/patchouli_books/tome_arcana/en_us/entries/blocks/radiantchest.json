@@ -2,10 +2,22 @@
   "name": "Radiant Chest",
   "category": "arcanearchives:blocks",
   "icon": "arcanearchives:radiant_chest",
-  "sortnum": 7,
+  "sortnum": 2,
   "pages": [
     {
-      "type": "arcanearchives:converted/blocks/radiantchest_0"
+      "type": "patchouli:multiblock",
+      "name": "Radiant Chest",
+      "multiblock": {
+        "pattern": [
+          [
+            "0"
+          ]
+        ],
+        "mapping": {
+          "0": "arcanearchives:radiant_chest"
+        }
+      },
+      "enable_visualize": false
     },
     {
       "type": "patchouli:text",
@@ -24,7 +36,19 @@
       "text": "In the lower right corner of a Radiant Chest's interface, you can choose how $(l:arcanearchives:blocks/brazierhoarding)Braziers of Hoarding$(/l) route items to the Chest. By default, a Brazier will be capable of routing any item to the chest; if the checkbox is ticked on, only items that already exist within the chest can be routed."
     },
     {
-      "type": "arcanearchives:converted/blocks/radiantchest_5"
+      "type": "patchouli:multiblock",
+      "name": "Radiant Chest",
+      "multiblock": {
+        "pattern": [
+          [
+            "0"
+          ]
+        ],
+        "mapping": {
+          "0": "arcanearchives:radiant_chest"
+        }
+      },
+      "enable_visualize": false
     },
     {
       "type": "patchouli:text",

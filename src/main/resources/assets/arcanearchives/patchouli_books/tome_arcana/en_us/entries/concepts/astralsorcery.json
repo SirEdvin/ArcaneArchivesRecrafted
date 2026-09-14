@@ -2,7 +2,7 @@
   "name": "Astral Sorcery Compatibility",
   "category": "arcanearchives:concepts",
   "icon": "arcanearchives:raw_quartz",
-  "sortnum": 67,
+  "sortnum": 48,
   "pages": [
     {
       "type": "patchouli:text",

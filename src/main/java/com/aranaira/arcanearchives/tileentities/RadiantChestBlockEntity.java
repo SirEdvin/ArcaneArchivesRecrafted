@@ -59,7 +59,7 @@ public final class RadiantChestBlockEntity extends BlockEntity implements MenuPr
 
     public ExtendedItemStackHandler inventory() { return inventory; }
     public UUID owner() { return owner; }
-    public void setOwner(UUID value) { owner = value; setChanged(); }
+    public void setOwner(UUID value) { owner = value; setChanged(); com.aranaira.arcanearchives.data.StoragePlacementSaveData.record(this); }
     public void setName(String value) { name = value; setChanged(); }
     public String chestName() { return name; }
     public boolean noNewStacks() { return noNewStacks; }
@@ -173,6 +173,7 @@ public final class RadiantChestBlockEntity extends BlockEntity implements MenuPr
         //?} else {
         /*displayStack = tag.contains("displayStack") ? ItemStack.of(tag.getCompound("displayStack")) : ItemStack.EMPTY;
         *///?}
+        com.aranaira.arcanearchives.data.StoragePlacementSaveData.record(this);
     }
 
     @Override public ClientboundBlockEntityDataPacket getUpdatePacket() { return ClientboundBlockEntityDataPacket.create(this); }

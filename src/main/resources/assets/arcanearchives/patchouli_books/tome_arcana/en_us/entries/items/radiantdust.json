@@ -2,7 +2,7 @@
   "name": "Radiant Dust",
   "category": "arcanearchives:items",
   "icon": "arcanearchives:radiant_dust",
-  "sortnum": 32,
+  "sortnum": 16,
   "pages": [
     {
       "type": "arcanearchives:converted/items/radiantdust_0"

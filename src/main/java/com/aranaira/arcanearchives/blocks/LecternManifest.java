@@ -96,7 +96,8 @@ public final class LecternManifest extends Block {
     }
 
     private void openMenu(BlockState state, Level level, BlockPos pos, Player player) {
-        if (!level.isClientSide && level.mayInteract(player, pos) && !player.isSpectator()) ManifestMenu.open(player);
+        if (!level.isClientSide && level.mayInteract(player, pos) && !player.isSpectator())
+            ManifestMenu.open(player, state.getValue(ACCESSOR) ? pos.below() : pos);
     }
 
     //? if >=1.21 {

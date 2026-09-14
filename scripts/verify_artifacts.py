@@ -369,7 +369,9 @@ for minecraft, loader, entrypoint, major, metadata in TARGETS:
             "events/ManifestRequest",
             "events/OpenManifest", "client/ManifestKey",
             "client/ManifestSearch", "client/ManifestSearch$Filter", "client/ManifestScroll", "client/ManifestHighlight",
-            "client/ManifestRays", "client/ManifestRayRenderer",
+            "client/ManifestRays", "client/ManifestRays$Beam", "client/ManifestRayRenderer",
+            "client/RadiantCraftingTableRenderer", "client/RadiantResonatorRenderer",
+            "data/StoragePlacementSaveData", "data/StoragePlacementSaveData$Entry", "items/LimitedStorageBlockItem",
             "client/TroveHud", "client/TroveHudText",
             "items/ManifestItem", "inventory/ManifestMenu", "events/ManifestSnapshot",
             "client/ManifestClient", "client/ManifestScreen",
@@ -392,6 +394,8 @@ for minecraft, loader, entrypoint, major, metadata in TARGETS:
         if loader == "fabric":
             expected_classes.add("com/aranaira/arcanearchives/tileentities/GemCuttersTableBlockEntity$1.class")
             expected_classes.add("com/aranaira/arcanearchives/inventory/BrazierFabricStorage.class")
+            expected_classes.add("com/aranaira/arcanearchives/inventory/BrazierFabricStorage$1.class")
+        expected_classes.add(PACKAGE + "inventory/BrazierPullBuffer.class")
         classes = {name for name in names if name.endswith(".class")}
         require(classes == expected_classes,
                 f"{node}: extra classes {classes - expected_classes}; missing classes {expected_classes - classes}")
@@ -624,6 +628,7 @@ for minecraft, loader, entrypoint, major, metadata in TARGETS:
                      "data/BrazierRouteCache",
                      "blocks/Brazier", "tileentities/BrazierBlockEntity",
                      "tileentities/BrazierPlayerSelection", "inventory/BrazierItemAutomation",
+                     "inventory/BrazierPullBuffer",
                      "client/AmphoraRenderer",
                      "client/BrazierRangeRenderer",
                      "client/BrazierRanges",
@@ -638,6 +643,8 @@ for minecraft, loader, entrypoint, major, metadata in TARGETS:
                      "events/OpenManifest", "client/ManifestKey",
                      "client/ManifestSearch", "client/ManifestScroll", "client/ManifestHighlight",
                      "client/ManifestRays", "client/ManifestRayRenderer",
+                     "client/RadiantCraftingTableRenderer", "client/RadiantResonatorRenderer",
+                     "data/StoragePlacementSaveData", "items/LimitedStorageBlockItem",
                      "client/TroveHud", "client/TroveHudText",
                      "items/ManifestItem", "inventory/ManifestMenu", "events/ManifestSnapshot",
                      "client/ManifestClient", "client/ManifestScreen",

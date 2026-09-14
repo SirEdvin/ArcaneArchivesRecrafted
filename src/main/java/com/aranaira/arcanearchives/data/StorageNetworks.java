@@ -49,6 +49,7 @@ public final class StorageNetworks {
     public static void refresh(LevelChunk chunk, BlockPos pos) {
         if (!(chunk.getLevel() instanceof ServerLevel level) || !level.getServer().isSameThread()) return;
         BlockEntity entity = chunk.getBlockEntities().get(pos);
+        StoragePlacementSaveData.get(level.getServer()).refresh(level, pos, entity);
         if (supported(entity)) {
             LEVELS.computeIfAbsent(level, ignored -> new LinkedHashMap<>())
                 .put(pos.immutable(), new WeakReference<>(entity));

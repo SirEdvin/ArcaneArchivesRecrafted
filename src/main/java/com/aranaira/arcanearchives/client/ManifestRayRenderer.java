@@ -43,44 +43,49 @@ public final class ManifestRayRenderer {
     private static void render(Matrix4f matrix, Camera camera, float partialTick) {
         var client = Minecraft.getInstance();
         if (client.player == null || client.level == null) return;
-        var positions = ManifestRays.positions(ManifestClient.tracking(), client.level.dimension());
-        if (positions.isEmpty()) return;
         var player = client.player.getPosition(partialTick);
-        var origin = player.add(0, 1, 0).subtract(camera.getPosition());
+        var beams = ManifestRays.beams(ManifestClient.tracking(), client.level.dimension(), player);
+        var geometry = beams.stream().map(ManifestRays::corners).filter(corners -> corners.length != 0).toList();
+        if (geometry.isEmpty()) return;
         int color = ManifestHighlight.color(client.level.getGameTime());
         boolean depth = GL11.glIsEnabled(GL11.GL_DEPTH_TEST);
         boolean depthMask = GL11.glGetBoolean(GL11.GL_DEPTH_WRITEMASK);
-        float lineWidth = GL11.glGetFloat(GL11.GL_LINE_WIDTH);
+        boolean cull = GL11.glIsEnabled(GL11.GL_CULL_FACE);
         var shader = RenderSystem.getShader();
         float[] shaderColor = RenderSystem.getShaderColor().clone();
         try {
             RenderSystem.disableDepthTest();
             RenderSystem.depthMask(false);
+            RenderSystem.disableCull();
             RenderSystem.setShader(GameRenderer::getPositionColorShader);
             RenderSystem.setShaderColor(1, 1, 1, 1);
-            for (var position : positions) {
-                var corner = new Vec3(position.getX(), position.getY(), position.getZ());
-                var target = corner.add(.5, .5, .5).subtract(camera.getPosition());
-                RenderSystem.lineWidth(ManifestRays.width(player.distanceTo(corner)));
+            //? if >=1.21 {
+            var buffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+            //?} else {
+            /*var buffer = Tesselator.getInstance().getBuilder();
+            buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+            *///?}
+            for (var corners : geometry) for (int index : FACES) {
+                Vec3 vertex = corners[index].subtract(camera.getPosition());
                 //? if >=1.21 {
-                var buffer = Tesselator.getInstance().begin(VertexFormat.Mode.DEBUG_LINES, DefaultVertexFormat.POSITION_COLOR);
-                buffer.addVertex(matrix, (float) target.x, (float) target.y, (float) target.z).setColor(color);
-                buffer.addVertex(matrix, (float) origin.x, (float) origin.y, (float) origin.z).setColor(color);
-                BufferUploader.drawWithShader(buffer.buildOrThrow());
+                buffer.addVertex(matrix, (float) vertex.x, (float) vertex.y, (float) vertex.z).setColor(color);
                 //?} else {
-                /*var buffer = Tesselator.getInstance().getBuilder();
-                buffer.begin(VertexFormat.Mode.DEBUG_LINES, DefaultVertexFormat.POSITION_COLOR);
-                buffer.vertex(matrix, (float) target.x, (float) target.y, (float) target.z).color(color).endVertex();
-                buffer.vertex(matrix, (float) origin.x, (float) origin.y, (float) origin.z).color(color).endVertex();
-                BufferUploader.drawWithShader(buffer.end());
+                /*buffer.vertex(matrix, (float) vertex.x, (float) vertex.y, (float) vertex.z).color(color).endVertex();
                 *///?}
             }
+            //? if >=1.21 {
+            BufferUploader.drawWithShader(buffer.buildOrThrow());
+            //?} else {
+            /*BufferUploader.drawWithShader(buffer.end());
+            *///?}
         } finally {
             RenderSystem.setShader(() -> shader);
             RenderSystem.setShaderColor(shaderColor[0], shaderColor[1], shaderColor[2], shaderColor[3]);
-            RenderSystem.lineWidth(lineWidth);
+            if (cull) RenderSystem.enableCull(); else RenderSystem.disableCull();
             RenderSystem.depthMask(depthMask);
             if (depth) RenderSystem.enableDepthTest(); else RenderSystem.disableDepthTest();
         }
     }
+    private static final int[] FACES = {0, 1, 2, 3, 7, 6, 5, 4,
+        0, 4, 5, 1, 1, 5, 6, 2, 2, 6, 7, 3, 3, 7, 4, 0};
 }

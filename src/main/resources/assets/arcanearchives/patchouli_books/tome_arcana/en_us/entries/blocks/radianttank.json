@@ -2,10 +2,22 @@
   "name": "Radiant Tank",
   "category": "arcanearchives:blocks",
   "icon": "arcanearchives:radiant_tank",
-  "sortnum": 14,
+  "sortnum": 9,
   "pages": [
     {
-      "type": "arcanearchives:converted/blocks/radianttank_0"
+      "type": "patchouli:multiblock",
+      "name": "Radiant Tank",
+      "multiblock": {
+        "pattern": [
+          [
+            "0"
+          ]
+        ],
+        "mapping": {
+          "0": "arcanearchives:radiant_tank"
+        }
+      },
+      "enable_visualize": false
     },
     {
       "type": "patchouli:text",
@@ -27,7 +39,19 @@
       "text": "When monitored with a Redstone Comparator, a Radiant Tank ouptuts a signal based on how full it is."
     },
     {
-      "type": "arcanearchives:converted/blocks/radianttank_6"
+      "type": "patchouli:multiblock",
+      "name": "Radiant Tank",
+      "multiblock": {
+        "pattern": [
+          [
+            "0"
+          ]
+        ],
+        "mapping": {
+          "0": "arcanearchives:radiant_tank"
+        }
+      },
+      "enable_visualize": false
     },
     {
       "type": "patchouli:text",

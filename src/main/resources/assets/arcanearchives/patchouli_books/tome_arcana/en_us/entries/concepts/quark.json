@@ -2,7 +2,7 @@
   "name": "Quark Compatibility",
   "category": "arcanearchives:concepts",
   "icon": "minecraft:chest",
-  "sortnum": 70,
+  "sortnum": 51,
   "pages": [
     {
       "type": "patchouli:text",

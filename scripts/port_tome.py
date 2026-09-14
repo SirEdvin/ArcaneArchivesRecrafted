@@ -15,6 +15,17 @@ ROOT = Path(__file__).resolve().parents[1]
 ASSETS = "assets/arcanearchives/patchouli_books/tome_arcana/en_us/"
 BOOK = "data/arcanearchives/patchouli_books/tome_arcana/book.json"
 EXCLUDED = "Blocks:RadiantFurnace"
+UNFINISHED_TOPICS = {
+    EXCLUDED, "Blocks:ImmanentIncubator", "Blocks:CrystalMatrixCore", "Blocks:DistillateMatrix",
+    "Blocks:EchoingConformanceChamber", "Blocks:EchoingReverberationChamber", "Blocks:RepositoryMatrix",
+    "Blocks:ReservoirMatrix", "Blocks:StorageMatrix", "Blocks:SpellbookLibrary", "Blocks:VerdantCenser",
+    "Blocks:CelestialLotusEngine", "Items:ObstructionCharm", "Items:SerenityCharm", "Items:MatrixBrace",
+}
+REMOVED_CHAPTERS = {"Home", "TableOfContents", "Index"}
+
+
+def excluded_topic(topic):
+    return topic in UNFINISHED_TOPICS or topic.split(":")[0] in REMOVED_CHAPTERS
 ITEM_ALIASES = {
     ("minecraft:grass", "0"): "minecraft:grass_block",
     ("minecraft:stonebrick", "0"): "minecraft:stone_bricks",
@@ -90,11 +101,13 @@ def generated(upstream):
                 titles[current] = section.findtext("page_title_shorter/title") or chapter.get("id")
                 chapter_first.setdefault(chapter.get("id"), current)
             topics[current].append(section)
-    del topics[EXCLUDED]
+    excluded = sorted(topic for topic in topics if excluded_topic(topic))
+    for topic in excluded:
+        del topics[topic]
 
     def target(literal):
         literal = chapter_first.get(literal, literal)
-        if literal == EXCLUDED:
+        if excluded_topic(literal):
             return None
         if literal not in topics:
             raise ValueError("Unresolved converted link: " + literal)
@@ -202,12 +215,11 @@ def generated(upstream):
                     recipes_total += 1
                 elif element.tag == "p":
                     # Remove the approved furnace-only index/navigation row, not neighbouring prose.
-                    if any(link.get("ref") == EXCLUDED for link in element.iter("link")):
+                    if any(excluded_topic(chapter_first.get(link.get("ref"), link.get("ref"))) for link in element.iter("link")):
                         continue
                     prose = plain(text(element))
                     if prose == "PLACEHOLDER":
-                        prose = ("The original Tome left this topic unfinished and supplies no operating instructions. "
-                                 "This entry preserves its place in the archive; it does not imply a working or obtainable feature.")
+                        continue  # Finished ingredients need no historical placeholder page.
                     components = []
                     for visual in element.iter():
                         if visual.tag == "stack":
@@ -226,6 +238,18 @@ def generated(upstream):
                     if prose and len(components) == 1 and components[0]["type"] == "patchouli:item":
                         components = []
                     if components:
+                        if chapter == "Blocks" and not prose and len(components) == 1 and components[0]["type"] == "patchouli:item":
+                            block = components[0]["item"]
+                            page = {"type": "patchouli:multiblock", "name": titles[topic],
+                                    "multiblock": {"pattern": [["0"]], "mapping": {"0": block}},
+                                    "enable_visualize": False}
+                            if block == "arcanearchives:lectern_manifest":
+                                page["multiblock"] = {"pattern": [["T"], ["0"]], "mapping": {
+                                    "0": block + "[accessor=false]", "T": block + "[accessor=true]"}}
+                            if flag:
+                                page["flag"] = flag
+                            pages.append(page)
+                            continue
                         x, y, row_height = 0, 0, 0
                         for component in components:
                             width = component.get("width", 16) * component.get("scale", 1)
@@ -254,9 +278,18 @@ def generated(upstream):
                 pages.append(page)
         if not pages:
             raise ValueError("Empty entry: " + topic)
+        if topic == "Blocks:BrazierHoarding":
+            pages.extend([
+                {"type": "patchouli:text", "title": "Deposit and Pull", "text":
+                 "Use the Scepter of Manipulation to switch Deposit/Pull modes. Sneak-use it to open the radius and network settings described above.$(br2)In Pull mode, right-click with an item to select it without consuming it. Sneak-right-click with an empty hand to clear the filter. An empty filter pauses all pulling."},
+                {"type": "patchouli:text", "title": "Buffered output", "text":
+                 "Pull mode takes matching items from accessible, loaded Radiant Chests and Troves in range, up to one ordinary stack per second. Item components must match.$(br2)Hoppers and pipes extract the output buffer; empty-hand right-click retrieves it manually. A full buffer stops pulling. Changing mode or filter preserves buffered items. Breaking the Brazier drops them. Pull mode does not accept deposits."},
+            ])
         entry = {"name": titles[topic], "category": "arcanearchives:" + slug(chapter),
                  "icon": icons[0] if icons else "arcanearchives:tome_arcana",
                  "sortnum": order, "pages": pages}
+        if chapter == "Gems":
+            entry["category"] = "arcanearchives:" + ("concepts" if topic in ("Gems:ArcaneGems", "Gems:RechargingGems") else "items")
         # Preserve mixed-condition continuation sections, e.g. Arsenal-disabled explanation.
         flags = {section.get("condition") for section in sections}
         if len(flags) == 1 and None not in flags:
@@ -266,20 +299,19 @@ def generated(upstream):
         files[ASSETS + "entries/" + entry_id.split(":")[1] + ".json"] = dump(entry)
         pages_total += len(pages)
 
-    category_names = {"Home": "Welcome", "TableOfContents": "Table of Contents", "Blocks": "Blocks",
-                      "Items": "Items", "Gems": "Arcane Gems", "Concepts": "Concepts", "Index": "Index"}
+    category_names = {"Blocks": "Blocks", "Items": "Items", "Concepts": "Concepts"}
     for order, (chapter, name) in enumerate(category_names.items()):
         chapter_target = target(chapter)
         assert chapter_target is not None
         files[ASSETS + "categories/" + slug(chapter) + ".json"] = dump({
             "name": name, "description": "$(l:" + chapter_target + ")" + name + "$(/l)",
             "icon": "arcanearchives:tome_arcana", "sortnum": order})
-    files[BOOK] = dump({"name": "Tome of Arcana", "landing_text": "The Arcane Archives: quartz, storage, networks and arcana. Begin with the Radiant Resonator in Blocks, or browse the original table of contents.",
+    files[BOOK] = dump({"name": "Tome of Arcana", "landing_text": "Explore Blocks for quartz production and storage, Items for tools and arcane gems, and Concepts for networks and practical guidance. Begin with the Radiant Resonator in Blocks.",
         "version": "1", "use_resource_pack": True, "dont_generate_book": True,
         "custom_book_item": "arcanearchives:tome_arcana", "show_progress": False,
         "show_toasts": False, "pause_game": False, "i18n": False,
         "text_overflow_mode": "RESIZE"})
-    report = {"baseline": BASELINE, "source_sections": inventory["section"], "excluded_sections": [EXCLUDED],
+    report = {"baseline": BASELINE, "source_sections": inventory["section"], "excluded_sections": excluded,
               "entries": len(topics), "pages": pages_total, "recipes": recipes_total,
               "illustrations": len(illustrations), "validated_source_targets": checked,
               "reference_repairs": dict(repairs), "files": sorted(files)}
@@ -293,8 +325,8 @@ def main():
     args = parser.parse_args()
     files, report = generated(args.upstream)
     base = ROOT / "src/main/resources"
-    converted = base / ASSETS / "templates/converted"
-    for old in converted.rglob("*.json"):
+    owned = [base / ASSETS / part for part in ("templates/converted", "entries", "categories")]
+    for old in (path for directory in owned for path in directory.rglob("*.json")):
         if str(old.relative_to(base)) not in files:
             if args.check:
                 raise ValueError("Obsolete converted template: " + str(old))

@@ -32,6 +32,8 @@ public final class ManifestMenu extends AbstractContainerMenu {
     private final com.aranaira.arcanearchives.events.ManifestSnapshotReceiver receiver;
     private boolean failed;
     private boolean ready;
+    private com.aranaira.arcanearchives.types.BlockPosDimension origin;
+    public com.aranaira.arcanearchives.types.BlockPosDimension origin() { return origin; }
 
     public ManifestMenu(int id, Inventory inventory) {
         super(ContentRegistry.MANIFEST_MENU.get(), id);
@@ -39,8 +41,15 @@ public final class ManifestMenu extends AbstractContainerMenu {
         receiver = new com.aranaira.arcanearchives.events.ManifestSnapshotReceiver(id);
     }
     public static void open(Player player) {
+        open(player, null);
+    }
+    public static void open(Player player, net.minecraft.core.BlockPos lectern) {
         if (!player.level().isClientSide && player.isAlive())
-            player.openMenu(new SimpleMenuProvider((id, inventory, viewer) -> new ManifestMenu(id, inventory),
+            player.openMenu(new SimpleMenuProvider((id, inventory, viewer) -> {
+                var menu = new ManifestMenu(id, inventory);
+                if (lectern != null) menu.origin = new com.aranaira.arcanearchives.types.BlockPosDimension(lectern.immutable(), player.level().dimension());
+                return menu;
+            },
                 Component.translatable("item.arcanearchives.manifest")));
     }
     public static void openFromKey(Player player) {

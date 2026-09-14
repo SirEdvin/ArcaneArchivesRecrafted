@@ -2,7 +2,7 @@
   "name": "Sliver of Light",
   "category": "arcanearchives:items",
   "icon": "arcanearchives:quartz_sliver",
-  "sortnum": 31,
+  "sortnum": 15,
   "pages": [
     {
       "type": "arcanearchives:converted/items/sliveroflight_0"

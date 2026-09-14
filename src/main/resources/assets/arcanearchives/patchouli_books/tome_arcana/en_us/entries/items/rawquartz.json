@@ -2,7 +2,7 @@
   "name": "Raw Radiant Quartz",
   "category": "arcanearchives:items",
   "icon": "arcanearchives:raw_quartz",
-  "sortnum": 27,
+  "sortnum": 11,
   "pages": [
     {
       "type": "arcanearchives:converted/items/rawquartz_0"

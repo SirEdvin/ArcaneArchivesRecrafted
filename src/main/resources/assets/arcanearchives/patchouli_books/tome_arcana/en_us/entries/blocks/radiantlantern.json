@@ -2,10 +2,22 @@
   "name": "Radiant Lantern",
   "category": "arcanearchives:blocks",
   "icon": "arcanearchives:radiant_lantern",
-  "sortnum": 13,
+  "sortnum": 8,
   "pages": [
     {
-      "type": "arcanearchives:converted/blocks/radiantlantern_0"
+      "type": "patchouli:multiblock",
+      "name": "Radiant Lantern",
+      "multiblock": {
+        "pattern": [
+          [
+            "0"
+          ]
+        ],
+        "mapping": {
+          "0": "arcanearchives:radiant_lantern"
+        }
+      },
+      "enable_visualize": false
     },
     {
       "type": "patchouli:text",

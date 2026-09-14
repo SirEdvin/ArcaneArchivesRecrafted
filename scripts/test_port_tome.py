@@ -4,7 +4,7 @@ from pathlib import Path
 import re
 import unittest
 import xml.etree.ElementTree as ET
-from port_tome import ROOT, ASSETS, BOOK, item
+from port_tome import ROOT, ASSETS, BOOK, item, excluded_topic
 
 
 class TomeConversionTest(unittest.TestCase):
@@ -20,10 +20,14 @@ class TomeConversionTest(unittest.TestCase):
     def test_complete_inventory_and_binding(self):
         report = json.loads((ROOT / "docs/migration/tome-conversion.json").read_text())
         self.assertEqual(98, report["source_sections"])
-        self.assertEqual(["Blocks:RadiantFurnace"], report["excluded_sections"])
-        self.assertEqual(73, len(self.entries))
+        self.assertTrue(all(excluded_topic(topic) for topic in report["excluded_sections"]))
+        self.assertEqual(53, len(self.entries))
+        self.assertEqual({"arcanearchives:blocks", "arcanearchives:items", "arcanearchives:concepts"},
+                         {e["category"] for e in self.entries.values()})
+        self.assertEqual({"blocks", "items", "concepts"}, {p.stem for p in (self.base / "categories").glob("*.json")})
+        self.assertTrue(any(p["type"] == "patchouli:multiblock" for e in self.entries.values() for p in e["pages"]))
         self.assertEqual(report["pages"], sum(len(e["pages"]) for e in self.entries.values()))
-        self.assertEqual(44, sum(p["type"] in ("patchouli:crafting", "arcanearchives:gem_cutting_output") for e in self.entries.values() for p in e["pages"]))
+        self.assertEqual(42, sum(p["type"] in ("patchouli:crafting", "arcanearchives:gem_cutting_output") for e in self.entries.values() for p in e["pages"]))
         book = json.loads((self.resources / BOOK).read_text())
         self.assertTrue(book["use_resource_pack"] and book["dont_generate_book"])
         self.assertEqual("arcanearchives:tome_arcana", book["custom_book_item"])
@@ -90,7 +94,7 @@ class TomeConversionTest(unittest.TestCase):
             if section.get("id") or chapter != previous_chapter:
                 topic = "arcanearchives:" + chapter + "/" + section.get("id", "Introduction").lower()
             previous_chapter = chapter
-            if topic == "arcanearchives:blocks/radiantfurnace":
+            if topic not in self.entries:
                 continue
             assert topic is not None
             entry = self.entries[topic]
@@ -101,14 +105,14 @@ class TomeConversionTest(unittest.TestCase):
                     texts.append(component.get("text", ""))
             prose = " ".join(re.sub(r"\$\([^)]*\)", "", " ".join(texts)).split())
             for paragraph in section.findall("p"):
-                if any(link.get("ref") == "Blocks:RadiantFurnace" for link in paragraph.iter("link")):
+                if any(excluded_topic(link.get("ref")) for link in paragraph.iter("link")):
                     continue
                 for fragment in paragraph.itertext():
                     fragment = " ".join(fragment.split())
                     if len(fragment) >= 8 and fragment != "PLACEHOLDER":
                         self.assertIn(fragment, prose, topic)
                         checked += 1
-        self.assertGreater(checked, 600)
+        self.assertGreater(checked, 400)
 
 
 if __name__ == "__main__":

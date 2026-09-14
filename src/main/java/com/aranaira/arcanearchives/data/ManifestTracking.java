@@ -27,7 +27,8 @@ public final class ManifestTracking {
     private static final Map<ServerPlayer, Long> LAST_HOVER = new WeakHashMap<>();
     private static final java.util.concurrent.atomic.AtomicLong REVISIONS = new java.util.concurrent.atomic.AtomicLong();
 
-    public record Marker(ItemStack stack, BlockPosDimension position, Set<UUID> owners) {
+    public record Marker(ItemStack stack, BlockPosDimension position, Set<UUID> owners, BlockPosDimension origin) {
+        public Marker(ItemStack stack, BlockPosDimension position, Set<UUID> owners) { this(stack, position, owners, null); }
         public Marker {
             stack = stack.copy();
             stack.setCount(1);
@@ -120,7 +121,8 @@ public final class ManifestTracking {
         for (var entry : selected) for (var location : entry.locations()) {
             var owners = grants.get(location.position());
             if (owners == null || owners.isEmpty()) return false;
-            additions.add(new Marker(entry.stack(), location.position(), owners));
+            var origin = player.containerMenu instanceof ManifestMenu menu ? menu.origin() : null;
+            additions.add(new Marker(entry.stack(), location.position(), owners, origin));
         }
         var markers = TRACKED.computeIfAbsent(player, ignored -> new ArrayList<>());
         for (var addition : additions) {
@@ -145,6 +147,14 @@ public final class ManifestTracking {
         Map<BlockPosDimension, Set<UUID>> currentGrants = null;
         for (int i = markers.size() - 1; i >= 0; i--) {
             var marker = markers.get(i);
+            if (marker.origin() != null) {
+                var originLevel = player.server.getLevel(marker.origin().dimension);
+                if (originLevel == null || originLevel.hasChunkAt(marker.origin().pos)
+                        && !originLevel.getBlockState(marker.origin().pos).is(com.aranaira.arcanearchives.init.ContentRegistry.LECTERN_MANIFEST.get())) {
+                    markers.remove(i);
+                    continue;
+                }
+            }
             var remaining = new HashSet<>(marker.owners());
             remaining.retainAll(audience);
             var level = player.server.getLevel(marker.position().dimension);
@@ -164,7 +174,7 @@ public final class ManifestTracking {
             }
             if (remaining.equals(marker.owners())) continue;
             if (remaining.isEmpty()) markers.remove(i);
-            else markers.set(i, new Marker(marker.stack(), marker.position(), remaining));
+            else markers.set(i, new Marker(marker.stack(), marker.position(), remaining, marker.origin()));
         }
         if (markers.isEmpty()) TRACKED.remove(player);
         publish(player, markers);
@@ -173,7 +183,7 @@ public final class ManifestTracking {
     /** Tracking sends reference items/locations only, never server-owned grants or live inventory counts. */
     public static byte[] encodeMarkers(List<Marker> markers, net.minecraft.core.HolderLookup.Provider registries) {
         var entries = markers.stream().map(marker -> new ManifestContents.Entry(marker.stack(), 1,
-            ManifestContents.Range.IN_RANGE, List.of(new ManifestContents.Location(marker.position(), "", 1)))).toList();
+            ManifestContents.Range.IN_RANGE, List.of(new ManifestContents.Location(marker.position(), "", 1, marker.origin())))).toList();
         return com.aranaira.arcanearchives.events.ManifestSnapshot.encode(entries, registries);
     }
 

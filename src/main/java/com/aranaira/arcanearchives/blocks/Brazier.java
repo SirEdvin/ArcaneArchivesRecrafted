@@ -21,6 +21,18 @@ public final class Brazier extends Block implements EntityBlock {
     public Brazier() { this(Properties.of().strength(3).requiresCorrectToolForDrops().lightLevel(state -> 15).noOcclusion()); }
     public Brazier(Properties properties) { super(properties); }
     @Override public BlockEntity newBlockEntity(BlockPos pos, BlockState state) { return new BrazierBlockEntity(pos, state); }
+    @Override public <T extends BlockEntity> net.minecraft.world.level.block.entity.BlockEntityTicker<T> getTicker(
+            net.minecraft.world.level.Level level, BlockState state, net.minecraft.world.level.block.entity.BlockEntityType<T> type) {
+        if (level.isClientSide || type != com.aranaira.arcanearchives.init.ContentRegistry.BRAZIER_ENTITY.get()) return null;
+        return (world, pos, block, entity) -> {
+            if (world.getGameTime() % 20 == 0) ((BrazierBlockEntity) entity).pull().tick();
+        };
+    }
+    @Override public void onRemove(BlockState state, net.minecraft.world.level.Level level, BlockPos pos, BlockState next, boolean moving) {
+        if (!level.isClientSide && !state.is(next.getBlock()) && level.getBlockEntity(pos) instanceof BrazierBlockEntity brazier)
+            brazier.pull().drop();
+        super.onRemove(state, level, pos, next, moving);
+    }
     private void deposit(net.minecraft.world.level.Level level, BlockPos pos, net.minecraft.world.entity.player.Player player,
             net.minecraft.world.InteractionHand hand) {
         if (player.getItemInHand(hand).getItem() instanceof com.aranaira.arcanearchives.items.StorageScepterItem scepter

@@ -10,6 +10,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ServerSideConfigTest {
     @TempDir Path directory;
+    @Test void storageLimitsDefaultTo64AcceptZeroAndRejectNegative() {
+        var defaults = ServerSideConfig.fromProperties(new Properties());
+        assertEquals(64, defaults.radiantChestLimit());
+        assertEquals(64, defaults.radiantTroveLimit());
+        assertEquals(64, defaults.radiantTankLimit());
+        for (String key : new String[]{"RadiantChestLimit", "RadiantTroveLimit", "RadiantTankLimit"}) {
+            var props = defaults.toProperties();
+            props.setProperty(key, "0");
+            assertEquals("0", ServerSideConfig.fromProperties(props).toProperties().getProperty(key));
+            props.setProperty(key, "-1");
+            assertThrows(IllegalArgumentException.class, () -> ServerSideConfig.fromProperties(props));
+        }
+    }
 
     @Test
     void retainsUpstreamDefaultsAndRoundTripsCustomValues() {

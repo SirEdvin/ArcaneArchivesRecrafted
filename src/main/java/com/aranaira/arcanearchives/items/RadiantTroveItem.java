@@ -13,7 +13,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.Block;
 
 /** Original packed reference/count/voiding presentation, without modifying item data. */
-public final class RadiantTroveItem extends BlockItem {
+public final class RadiantTroveItem extends LimitedStorageBlockItem {
     public RadiantTroveItem(Block block, Properties properties) { super(block, properties); }
 
     //? if forge {

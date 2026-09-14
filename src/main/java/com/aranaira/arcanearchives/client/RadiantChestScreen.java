@@ -105,11 +105,16 @@ public final class RadiantChestScreen extends AbstractContainerScreen<RadiantChe
     }
 
     @Override protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
-        for (int index = 0; index < 54; index++) {
-            var slot = menu.slots.get(index);
-            if (menu.count(index) > 1 && slot.hasItem()) {
-                graphics.renderItemDecorations(font, slot.getItem(), slot.x, slot.y, Integer.toString(menu.count(index)));
+        graphics.pose().pushPose();
+        // Match the native slot's item/decorations depth, not the label background.
+        graphics.pose().translate(0, 0, 100);
+        try {
+            for (int index = 0; index < 54; index++) {
+                var slot = menu.slots.get(index);
+                if (menu.count(index) > 1 && slot.hasItem()) {
+                    graphics.renderItemDecorations(font, slot.getItem(), slot.x, slot.y, Integer.toString(menu.count(index)));
+                }
             }
-        }
+        } finally { graphics.pose().popPose(); }
     }
 }

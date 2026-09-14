@@ -1,8 +1,8 @@
 {
   "name": "Rivertear",
-  "category": "arcanearchives:gems",
+  "category": "arcanearchives:items",
   "icon": "arcanearchives:rivertear",
-  "sortnum": 62,
+  "sortnum": 43,
   "pages": [
     {
       "type": "arcanearchives:converted/gems/rivertear_0",

@@ -2,7 +2,7 @@
   "name": "Letter of Resignation",
   "category": "arcanearchives:items",
   "icon": "arcanearchives:letter_resignation",
-  "sortnum": 34,
+  "sortnum": 18,
   "pages": [
     {
       "type": "arcanearchives:converted/items/letterresignation_0"

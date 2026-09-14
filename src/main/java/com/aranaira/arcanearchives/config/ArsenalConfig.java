@@ -7,9 +7,9 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Properties;
 
-/** Original opt-in Arsenal setting and local accessibility preference. Restart to apply. */
+/** Arsenal gameplay setting and local accessibility preference. Restart to apply. */
 public record ArsenalConfig(boolean enableArsenal, boolean colourblindMode) {
-    private static ArsenalConfig current = new ArsenalConfig(false, false);
+    private static ArsenalConfig current = new ArsenalConfig(true, false);
     public static ArsenalConfig current() { return current; }
     public static void initialize(Path directory) {
         MunchstoneConfig.initialize(directory);
@@ -18,10 +18,10 @@ public record ArsenalConfig(boolean enableArsenal, boolean colourblindMode) {
             if (!Files.exists(path)) {
                 Files.createDirectories(path.getParent());
                 Properties defaults = new Properties();
-                defaults.setProperty("EnableArsenal", "false");
+                defaults.setProperty("EnableArsenal", "true");
                 defaults.setProperty("ColourblindMode", "false");
                 try (var writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE_NEW)) {
-                    defaults.store(writer, "Arcane Archives Arsenal; original opt-in defaults. Restart to apply.");
+                    defaults.store(writer, "Arcane Archives Arsenal; enabled by default. Restart to apply.");
                 }
             }
             Properties values = new Properties();
@@ -32,7 +32,7 @@ public record ArsenalConfig(boolean enableArsenal, boolean colourblindMode) {
         }
     }
     private static boolean bool(Properties values, String key) {
-        String value = values.getProperty(key, "false");
+        String value = values.getProperty(key, key.equals("EnableArsenal") ? "true" : "false");
         if (!value.equalsIgnoreCase("true") && !value.equalsIgnoreCase("false")) throw new IllegalArgumentException(key + " must be true or false");
         return Boolean.parseBoolean(value);
     }

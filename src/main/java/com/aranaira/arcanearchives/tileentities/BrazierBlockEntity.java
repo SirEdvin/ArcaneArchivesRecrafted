@@ -8,8 +8,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
-/** No input buffer: callers retain and pay their source using the returned remainder. */
+/** Direct deposits or filtered network pulls into a bounded output buffer. */
 public final class BrazierBlockEntity extends NetworkOwnedBlockEntity {
+    private final com.aranaira.arcanearchives.inventory.BrazierPullBuffer pull = new com.aranaira.arcanearchives.inventory.BrazierPullBuffer(this);
+    public com.aranaira.arcanearchives.inventory.BrazierPullBuffer pull() { return pull; }
     private BrazierRouteCache routes = new BrazierRouteCache();
     private BrazierPlayerSelection playerSelection = new BrazierPlayerSelection();
     private int radius = 150;
@@ -22,7 +24,7 @@ public final class BrazierBlockEntity extends NetworkOwnedBlockEntity {
         new com.aranaira.arcanearchives.inventory.BrazierFabricStorage(this);
     public ItemStack insertTransactional(ItemStack offered,
             net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext transaction) {
-        if (!live() || networkOwner() == null) return offered.copy();
+        if (pull.enabled() || !live() || networkOwner() == null) return offered.copy();
         return routes.insertTransactional((ServerLevel) level, worldPosition, networkOwner(), personalOnly, radius, offered, transaction);
     }
     public void playAutomationSound() {
@@ -45,7 +47,7 @@ public final class BrazierBlockEntity extends NetworkOwnedBlockEntity {
             center.x + horizontal, center.y + vertical, center.z + horizontal).inflate(.01);
     }
 
-    private boolean live() {
+    public boolean live() {
         return level instanceof ServerLevel server && server.getServer().isSameThread() && !isRemoved()
             && server.hasChunkAt(worldPosition) && server.getBlockEntity(worldPosition) == this;
     }
@@ -66,7 +68,7 @@ public final class BrazierBlockEntity extends NetworkOwnedBlockEntity {
     }
 
     public ItemStack insert(ItemStack offered, boolean simulate) {
-        if (!live() || networkOwner() == null) return offered.copy();
+        if (pull.enabled() || !live() || networkOwner() == null) return offered.copy();
         return routes.insert((ServerLevel) level, worldPosition, networkOwner(), personalOnly, radius, offered, simulate);
     }
 
@@ -95,7 +97,7 @@ public final class BrazierBlockEntity extends NetworkOwnedBlockEntity {
 
     /** Real collected player-source batch; the caller still owns source payment and remainder delivery. */
     public java.util.List<ItemStack> insertBatch(ItemStack reference, java.util.List<ItemStack> inputs) {
-        if (!live() || networkOwner() == null) return inputs.stream().map(ItemStack::copy).toList();
+        if (pull.enabled() || !live() || networkOwner() == null) return inputs.stream().map(ItemStack::copy).toList();
         return routes.insertBatch((ServerLevel) level, worldPosition, networkOwner(), personalOnly, radius, reference, inputs);
     }
 
@@ -107,6 +109,7 @@ public final class BrazierBlockEntity extends NetworkOwnedBlockEntity {
     boolean deposit(net.minecraft.world.entity.player.Player player, long now,
             java.util.function.Predicate<net.minecraft.world.entity.item.ItemEntity> spawn) {
         if (!live() || player.level() != level || player.isSpectator() || !level.mayInteract(player, worldPosition)) return false;
+        if (pull.enabled()) { pull.interact(player); return true; }
         var pending = com.aranaira.arcanearchives.data.PlayerSaveData.get(((ServerLevel) level).getServer(), player.getUUID());
         // Recovery consumes this interaction; returned items need a separate explicit deposit.
         if (pending.hasBrazierPendingReturns()) return pending.deliverBrazierReturns(player);
@@ -144,7 +147,7 @@ public final class BrazierBlockEntity extends NetworkOwnedBlockEntity {
     /** The spawn boundary is injectable for cancellation/conservation tests. */
     void absorb(net.minecraft.world.entity.item.ItemEntity source,
             java.util.function.Predicate<net.minecraft.world.entity.item.ItemEntity> spawn) {
-        if (!live() || source.level() != level || !source.isAlive() || source.getTags().contains(REJECTED)) return;
+        if (pull.enabled() || !live() || source.level() != level || !source.isAlive() || source.getTags().contains(REJECTED)) return;
         ItemStack remainder = insert(source.getItem(), false);
         if (pickupSoundDue(System.currentTimeMillis(), com.aranaira.arcanearchives.config.ServerSideConfig.current()))
             level.playSound(null, worldPosition, ContentRegistry.BRAZIER_ABSORB.get(), net.minecraft.sounds.SoundSource.BLOCKS, 1F, 1F);
@@ -189,6 +192,11 @@ public final class BrazierBlockEntity extends NetworkOwnedBlockEntity {
         CompoundTag tag = super.getUpdateTag();
     *///?}
         writeSettings(tag);
+        //? if >=1.21 {
+        pull.save(tag, registries);
+        //?} else {
+        /*pull.save(tag, null);
+        *///?}
         return tag;
     }
 
@@ -206,19 +214,23 @@ public final class BrazierBlockEntity extends NetworkOwnedBlockEntity {
     @Override protected void saveAdditional(CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         writeSettings(tag);
+        pull.save(tag, registries);
     }
     @Override protected void loadAdditional(CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         readSettings(tag);
+        pull.load(tag, registries);
     }
     //?} else {
     /*@Override protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         writeSettings(tag);
+        pull.save(tag, null);
     }
     @Override public void load(CompoundTag tag) {
         super.load(tag);
         readSettings(tag);
+        pull.load(tag, null);
     }
     *///?}
 }

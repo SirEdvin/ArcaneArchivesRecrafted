@@ -33,6 +33,8 @@ public final class DeviceOwnershipLifecycle {
             Function<GameTestHelper, net.minecraft.server.level.ServerPlayer> serverPlayer) {
         BrazierPlayerSelectionLifecycle.run(player, fake, itemData);
         StoragePreferencesLifecycle.run(helper, serverPlayer.apply(helper), itemData);
+        Release003Lifecycle.run(helper, serverPlayer.apply(helper), save, load);
+        BrazierPullLifecycle.run(helper, serverPlayer.apply(helper), save, load);
         var level = helper.getLevel();
         var pos = helper.absolutePos(new BlockPos(1, 2, 1));
         player.setPos(pos.getX() + 4, pos.getY(), pos.getZ() + 4);

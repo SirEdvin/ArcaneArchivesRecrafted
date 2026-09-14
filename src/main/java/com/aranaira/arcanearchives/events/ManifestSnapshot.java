@@ -50,7 +50,7 @@ public record ManifestSnapshot(int containerId, long revision, int offset, int t
     //?}
     //? if forge {
     /*private static final net.minecraftforge.network.simple.SimpleChannel CHANNEL = net.minecraftforge.network.NetworkRegistry.newSimpleChannel(
-        ID, () -> "3", "3"::equals, "3"::equals);
+        ID, () -> "4", "4"::equals, "4"::equals);
     *///?}
     public static void initialize() {
         //? if fabric && >=1.21 {
@@ -67,7 +67,7 @@ public record ManifestSnapshot(int containerId, long revision, int offset, int t
     }
     //? if neoforge {
     /*public static void register(net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent event) {
-        event.registrar("3").playToClient(TYPE, CODEC,
+        event.registrar("4").playToClient(TYPE, CODEC,
             (payload, context) -> {
                 var source = context.connection();
                 context.enqueueWork(() -> com.aranaira.arcanearchives.client.ManifestClient.receive(payload, source));
@@ -119,6 +119,8 @@ public record ManifestSnapshot(int containerId, long revision, int offset, int t
                     buffer.writeNbt(location.position().serializeNBT());
                     buffer.writeUtf(location.description());
                     buffer.writeLong(location.count());
+                    buffer.writeBoolean(location.origin() != null);
+                    if (location.origin() != null) buffer.writeNbt(location.origin().serializeNBT());
                 }
             }
             byte[] bytes = new byte[buffer.readableBytes()];
@@ -151,7 +153,15 @@ public record ManifestSnapshot(int containerId, long revision, int offset, int t
                 for (int source = 0; source < sources; source++) {
                     var position = buffer.readNbt();
                     if (position == null) throw new IllegalArgumentException("Missing Manifest source");
-                    var location = new ManifestContents.Location(BlockPosDimension.deserializeNBT(position), buffer.readUtf(), buffer.readLong());
+                    String description = buffer.readUtf();
+                    long sourceCount = buffer.readLong();
+                    BlockPosDimension origin = null;
+                    if (buffer.readBoolean()) {
+                        var originTag = buffer.readNbt();
+                        if (originTag == null) throw new IllegalArgumentException("Missing Manifest origin");
+                        origin = BlockPosDimension.deserializeNBT(originTag);
+                    }
+                    var location = new ManifestContents.Location(BlockPosDimension.deserializeNBT(position), description, sourceCount, origin);
                     if (location.count() <= 0) throw new IllegalArgumentException("Invalid Manifest source count");
                     total = Math.addExact(total, location.count());
                     locations.add(location);

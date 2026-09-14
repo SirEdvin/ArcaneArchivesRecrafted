@@ -18,7 +18,7 @@ class TomePageTypesTest {
     @BeforeAll static void bootstrap() { SharedConstants.tryDetectVersion(); Bootstrap.bootStrap(); }
 
     @Test void completeBookUsesRecognizedNativePagesAndComponents() throws Exception {
-        var anchor = getClass().getResource("/assets/arcanearchives/patchouli_books/tome_arcana/en_us/categories/home.json");
+        var anchor = getClass().getResource("/assets/arcanearchives/patchouli_books/tome_arcana/en_us/categories/blocks.json");
         assertNotNull(anchor);
         Path root = Path.of(anchor.toURI()).getParent().getParent();
         int entries = 0;
@@ -40,8 +40,8 @@ class TomePageTypesTest {
                 }
             }
         }
-        assertEquals(73, entries);
-        assertEquals(222, components, "Must parse the complete templates, not only recipe prototypes");
+        assertEquals(53, entries);
+        assertEquals(171, components, "Must parse the curated templates, not only recipe prototypes");
     }
 }
 //?}

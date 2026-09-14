@@ -1,8 +1,8 @@
 {
   "name": "Mindspindle",
-  "category": "arcanearchives:gems",
+  "category": "arcanearchives:items",
   "icon": "arcanearchives:mindspindle",
-  "sortnum": 59,
+  "sortnum": 40,
   "pages": [
     {
       "type": "arcanearchives:converted/gems/mindspindle_0",

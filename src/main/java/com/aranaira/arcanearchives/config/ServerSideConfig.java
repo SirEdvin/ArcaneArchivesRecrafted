@@ -13,7 +13,16 @@ import java.util.Properties;
 public record ServerSideConfig(int resonatorLimit, int resonatorTickTime, int radiantMultiplier,
                                boolean bookFromBookshelf, boolean bookFromResonator,
                                int sliverClusterChance, int sliverSingleChance, int sliverMinimum, int sliverMaximum,
-                               boolean inWorldChestConversion, boolean useSounds, boolean resonatorComplete, boolean brazierPickup) {
+                               boolean inWorldChestConversion, boolean useSounds, boolean resonatorComplete, boolean brazierPickup,
+                               int radiantChestLimit, int radiantTroveLimit, int radiantTankLimit) {
+    public ServerSideConfig(int resonatorLimit, int resonatorTickTime, int radiantMultiplier,
+                            boolean bookFromBookshelf, boolean bookFromResonator,
+                            int sliverClusterChance, int sliverSingleChance, int sliverMinimum, int sliverMaximum,
+                            boolean inWorldChestConversion, boolean useSounds, boolean resonatorComplete, boolean brazierPickup) {
+        this(resonatorLimit, resonatorTickTime, radiantMultiplier, bookFromBookshelf, bookFromResonator,
+            sliverClusterChance, sliverSingleChance, sliverMinimum, sliverMaximum,
+            inWorldChestConversion, useSounds, resonatorComplete, brazierPickup, 64, 64, 64);
+    }
     public ServerSideConfig(int resonatorLimit, int resonatorTickTime, int radiantMultiplier,
                             boolean bookFromBookshelf, boolean bookFromResonator,
                             int sliverClusterChance, int sliverSingleChance, int sliverMinimum, int sliverMaximum,
@@ -43,6 +52,8 @@ public record ServerSideConfig(int resonatorLimit, int resonatorTickTime, int ra
     private static ServerSideConfig current = DEFAULTS;
 
     public ServerSideConfig {
+        if (radiantChestLimit < 0 || radiantTroveLimit < 0 || radiantTankLimit < 0)
+            throw new IllegalArgumentException("Storage placement limits must be nonnegative; 0 means unlimited");
         if (sliverClusterChance < 0 || sliverClusterChance > 100 || sliverSingleChance < 0 || sliverSingleChance > 100
             || sliverMinimum < 1 || sliverMaximum < sliverMinimum || sliverMaximum > 64) {
             throw new IllegalArgumentException("Sliver chances must be 0–100 and cluster bounds 1 <= minimum <= maximum <= 64");
@@ -89,7 +100,10 @@ public record ServerSideConfig(int resonatorLimit, int resonatorTickTime, int ra
             Integer.parseInt(properties.getProperty("AmountGeneratedOnSliverClusterMinimum", "8")),
             Integer.parseInt(properties.getProperty("AmountGeneratedOnSliverClusterMaximum", "24")),
             bool(properties, "InWorldChestConversion"), bool(properties, "UseSounds"), bool(properties, "ResonatorComplete"),
-            bool(properties, "BrazierPickup"));
+            bool(properties, "BrazierPickup"),
+            Integer.parseInt(properties.getProperty("RadiantChestLimit", "64")),
+            Integer.parseInt(properties.getProperty("RadiantTroveLimit", "64")),
+            Integer.parseInt(properties.getProperty("RadiantTankLimit", "64")));
     }
 
     private static boolean bool(Properties properties, String key) {
@@ -103,6 +117,9 @@ public record ServerSideConfig(int resonatorLimit, int resonatorTickTime, int ra
     public Properties toProperties() {
         Properties properties = new Properties();
         properties.setProperty("ResonatorLimit", Integer.toString(resonatorLimit));
+        properties.setProperty("RadiantChestLimit", Integer.toString(radiantChestLimit));
+        properties.setProperty("RadiantTroveLimit", Integer.toString(radiantTroveLimit));
+        properties.setProperty("RadiantTankLimit", Integer.toString(radiantTankLimit));
         properties.setProperty("ResonatorTickTime", Integer.toString(resonatorTickTime));
         properties.setProperty("RadiantMultiplier", Integer.toString(radiantMultiplier));
         properties.setProperty("BookFromBookshelf", Boolean.toString(bookFromBookshelf));

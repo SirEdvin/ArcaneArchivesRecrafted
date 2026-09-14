@@ -2,10 +2,22 @@
   "name": "Radiant Resonator",
   "category": "arcanearchives:blocks",
   "icon": "arcanearchives:radiant_resonator",
-  "sortnum": 5,
+  "sortnum": 0,
   "pages": [
     {
-      "type": "arcanearchives:converted/blocks/radiantresonator_0"
+      "type": "patchouli:multiblock",
+      "name": "Radiant Resonator",
+      "multiblock": {
+        "pattern": [
+          [
+            "0"
+          ]
+        ],
+        "mapping": {
+          "0": "arcanearchives:radiant_resonator"
+        }
+      },
+      "enable_visualize": false
     },
     {
       "type": "patchouli:text",

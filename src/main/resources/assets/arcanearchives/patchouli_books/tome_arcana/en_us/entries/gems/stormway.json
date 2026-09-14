@@ -1,8 +1,8 @@
 {
   "name": "Stormway",
-  "category": "arcanearchives:gems",
+  "category": "arcanearchives:items",
   "icon": "arcanearchives:stormway",
-  "sortnum": 65,
+  "sortnum": 46,
   "pages": [
     {
       "type": "arcanearchives:converted/gems/stormway_0",

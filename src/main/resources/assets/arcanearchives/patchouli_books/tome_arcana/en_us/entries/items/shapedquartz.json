@@ -2,7 +2,7 @@
   "name": "Shaped Radiant Quartz",
   "category": "arcanearchives:items",
   "icon": "arcanearchives:shaped_quartz",
-  "sortnum": 37,
+  "sortnum": 21,
   "pages": [
     {
       "type": "arcanearchives:converted/items/shapedquartz_0"

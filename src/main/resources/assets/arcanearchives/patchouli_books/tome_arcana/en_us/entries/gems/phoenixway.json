@@ -1,8 +1,8 @@
 {
   "name": "Phoenixway",
-  "category": "arcanearchives:gems",
+  "category": "arcanearchives:items",
   "icon": "arcanearchives:phoenixway",
-  "sortnum": 64,
+  "sortnum": 45,
   "pages": [
     {
       "type": "arcanearchives:converted/gems/phoenixway_0",

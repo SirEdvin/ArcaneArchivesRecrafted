@@ -2,7 +2,7 @@
   "name": "Containment Field",
   "category": "arcanearchives:items",
   "icon": "arcanearchives:containment_field",
-  "sortnum": 38,
+  "sortnum": 22,
   "pages": [
     {
       "type": "arcanearchives:converted/items/containmentfield_0"

@@ -1,8 +1,8 @@
 {
   "name": "Salvegleam",
-  "category": "arcanearchives:gems",
+  "category": "arcanearchives:items",
   "icon": "arcanearchives:salvegleam",
-  "sortnum": 56,
+  "sortnum": 37,
   "pages": [
     {
       "type": "arcanearchives:converted/gems/salvegleam_0",

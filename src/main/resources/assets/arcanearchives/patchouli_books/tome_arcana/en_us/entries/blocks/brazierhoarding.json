@@ -2,10 +2,22 @@
   "name": "Brazier of Hoarding",
   "category": "arcanearchives:blocks",
   "icon": "arcanearchives:brazier_of_hoarding",
-  "sortnum": 10,
+  "sortnum": 5,
   "pages": [
     {
-      "type": "arcanearchives:converted/blocks/brazierhoarding_0"
+      "type": "patchouli:multiblock",
+      "name": "Brazier of Hoarding",
+      "multiblock": {
+        "pattern": [
+          [
+            "0"
+          ]
+        ],
+        "mapping": {
+          "0": "arcanearchives:brazier_of_hoarding"
+        }
+      },
+      "enable_visualize": false
     },
     {
       "type": "patchouli:text",
@@ -37,7 +49,19 @@
       "flag": "arcanearchives:ml_thaumcraft"
     },
     {
-      "type": "arcanearchives:converted/blocks/brazierhoarding_8"
+      "type": "patchouli:multiblock",
+      "name": "Brazier of Hoarding",
+      "multiblock": {
+        "pattern": [
+          [
+            "0"
+          ]
+        ],
+        "mapping": {
+          "0": "arcanearchives:brazier_of_hoarding"
+        }
+      },
+      "enable_visualize": false
     },
     {
       "type": "patchouli:text",
@@ -46,6 +70,16 @@
     {
       "type": "arcanearchives:gem_cutting_output",
       "output": "arcanearchives:brazier_of_hoarding"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Deposit and Pull",
+      "text": "Use the Scepter of Manipulation to switch Deposit/Pull modes. Sneak-use it to open the radius and network settings described above.$(br2)In Pull mode, right-click with an item to select it without consuming it. Sneak-right-click with an empty hand to clear the filter. An empty filter pauses all pulling."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Buffered output",
+      "text": "Pull mode takes matching items from accessible, loaded Radiant Chests and Troves in range, up to one ordinary stack per second. Item components must match.$(br2)Hoppers and pipes extract the output buffer; empty-hand right-click retrieves it manually. A full buffer stops pulling. Changing mode or filter preserves buffered items. Breaking the Brazier drops them. Pull mode does not accept deposits."
     }
   ],
   "extra_recipe_mappings": {

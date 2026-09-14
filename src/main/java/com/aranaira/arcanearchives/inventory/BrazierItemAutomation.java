@@ -15,11 +15,11 @@ public final class BrazierItemAutomation
     public BrazierItemAutomation(BrazierBlockEntity brazier) { this.brazier = brazier; }
     public int getSlots() { return 999; }
     public int getSlotLimit(int slot) { java.util.Objects.checkIndex(slot, getSlots()); return 999; }
-    public ItemStack getStackInSlot(int slot) { java.util.Objects.checkIndex(slot, getSlots()); return ItemStack.EMPTY; }
-    public boolean isItemValid(int slot, ItemStack stack) { java.util.Objects.checkIndex(slot, getSlots()); return true; }
+    public ItemStack getStackInSlot(int slot) { java.util.Objects.checkIndex(slot, getSlots()); return slot == 0 && brazier.live() ? brazier.pull().stack() : ItemStack.EMPTY; }
+    public boolean isItemValid(int slot, ItemStack stack) { java.util.Objects.checkIndex(slot, getSlots()); return !brazier.pull().enabled(); }
     public ItemStack extractItem(int slot, int amount, boolean simulate) {
         java.util.Objects.checkIndex(slot, getSlots());
-        return ItemStack.EMPTY;
+        return slot == 0 ? brazier.pull().extract(amount, simulate) : ItemStack.EMPTY;
     }
     public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
         java.util.Objects.checkIndex(slot, getSlots());

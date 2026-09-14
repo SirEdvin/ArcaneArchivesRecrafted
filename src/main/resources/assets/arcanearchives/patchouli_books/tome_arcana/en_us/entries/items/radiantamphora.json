@@ -2,7 +2,7 @@
   "name": "Radiant Amphora",
   "category": "arcanearchives:items",
   "icon": "arcanearchives:radiant_amphora",
-  "sortnum": 44,
+  "sortnum": 26,
   "pages": [
     {
       "type": "arcanearchives:converted/items/radiantamphora_0"

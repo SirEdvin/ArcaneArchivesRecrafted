@@ -19,7 +19,7 @@ public final class TomeContentLifecycle {
     public static void run(ServerLevel level) {
         try {
             var anchor = TomeContentLifecycle.class.getResource(
-                "/assets/arcanearchives/patchouli_books/tome_arcana/en_us/categories/home.json");
+                "/assets/arcanearchives/patchouli_books/tome_arcana/en_us/categories/blocks.json");
             require(anchor != null, "Missing native test book resources");
             Path root = Path.of(anchor.toURI()).getParent().getParent();
             int entries = 0;
@@ -52,7 +52,7 @@ public final class TomeContentLifecycle {
                     }
                 }
             }
-            require(entries == 73 && recipes == 45, "Incomplete native Tome resource traversal: " + entries + "/" + recipes);
+            require(entries == 53 && recipes == 43, "Incomplete native Tome resource traversal: " + entries + "/" + recipes);
         } catch (Exception exception) {
             throw new AssertionError("Native Tome content verification failed", exception);
         }

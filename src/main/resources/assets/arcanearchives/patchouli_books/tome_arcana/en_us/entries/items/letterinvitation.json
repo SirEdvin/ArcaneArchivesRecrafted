@@ -2,7 +2,7 @@
   "name": "Letter of Invitation",
   "category": "arcanearchives:items",
   "icon": "arcanearchives:letter_invitation",
-  "sortnum": 33,
+  "sortnum": 17,
   "pages": [
     {
       "type": "arcanearchives:converted/items/letterinvitation_0"

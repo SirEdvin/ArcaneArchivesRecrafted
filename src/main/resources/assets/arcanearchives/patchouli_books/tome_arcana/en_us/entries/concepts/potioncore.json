@@ -2,7 +2,7 @@
   "name": "Potion Core Compatibility",
   "category": "arcanearchives:concepts",
   "icon": "minecraft:potion",
-  "sortnum": 69,
+  "sortnum": 50,
   "pages": [
     {
       "type": "patchouli:text",

@@ -14,7 +14,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.Block;
 
 /** Original Tank item presentation and fresh-empty-container crafting remainder. */
-public final class RadiantTankItem extends BlockItem {
+public final class RadiantTankItem extends LimitedStorageBlockItem {
     public RadiantTankItem(Block block, Properties properties) { super(block, properties); }
 
     //? if forge {

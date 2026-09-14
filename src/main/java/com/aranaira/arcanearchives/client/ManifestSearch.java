@@ -6,12 +6,14 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-/** Client-only search lifetime, with no linkage to optional JEI classes outside its plugin. */
+/** Search lifetime without linkage to optional viewer classes outside their plugins. */
 public final class ManifestSearch {
     private record Filter(Supplier<String> read, Consumer<String> write) {}
-    private static Filter current;
+    private static volatile Filter current;
+    private static volatile Filter emi;
+    private static Filter preferred() { return emi != null ? emi : current; }
     private static String previousQuery = "";
-    private final Filter filter = current;
+    private final Filter filter = preferred();
     private final String originalJei = filter == null ? "" : filter.read.get();
     private String query;
     private boolean synchronize;
@@ -21,6 +23,10 @@ public final class ManifestSearch {
         current = new Filter(Objects.requireNonNull(read), Objects.requireNonNull(write));
     }
     public static void unbind() { current = null; }
+    public static void bindEmi(Supplier<String> read, Consumer<String> write) {
+        emi = new Filter(Objects.requireNonNull(read), Objects.requireNonNull(write));
+    }
+    public static void unbindEmi() { emi = null; }
     public static boolean matchesEnchantment(net.minecraft.world.item.ItemStack stack, String query) {
         if (query.startsWith("@") || !stack.is(net.minecraft.world.item.Items.ENCHANTED_BOOK)) return false;
         //? if >=1.21 {
@@ -56,7 +62,7 @@ public final class ManifestSearch {
     }
     public String query() { return query; }
     public boolean closed() { return closed; }
-    public boolean available() { return !closed && filter != null && filter == current; }
+    public boolean available() { return !closed && filter != null && filter == preferred(); }
     public boolean synchronizing() { return synchronize; }
     public void edit(String query) {
         if (closed) return;

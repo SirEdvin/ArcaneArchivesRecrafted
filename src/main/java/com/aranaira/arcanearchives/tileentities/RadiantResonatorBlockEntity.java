@@ -21,6 +21,7 @@ import net.minecraft.world.phys.AABB;
 public final class RadiantResonatorBlockEntity extends BlockEntity {
     private UUID owner;
     private int growth;
+    private float visualProgress;
     private boolean canTick;
     private boolean registered;
     // Installed only by client entrypoints; common/server code never loads sound classes.
@@ -37,6 +38,7 @@ public final class RadiantResonatorBlockEntity extends BlockEntity {
     }
 
     public UUID owner() { return owner; }
+    public float visualProgress() { return visualProgress; }
     public int progressPercentage() {
         return (int) Math.floor(growth / (double) ServerSideConfig.current().resonatorTickTime() * 100D);
     }
@@ -119,12 +121,15 @@ public final class RadiantResonatorBlockEntity extends BlockEntity {
         if (owner != null) tag.putUUID("owner", owner);
         tag.putInt("current_tick", growth);
         tag.putBoolean("can_tick", canTick);
+        tag.putFloat("visual_progress", Math.max(0F, Math.min(1F,
+            growth / (float) Math.max(1, ServerSideConfig.current().resonatorTickTime()))));
     }
 
     private void readState(CompoundTag tag) {
         owner = tag.hasUUID("owner") ? tag.getUUID("owner") : null;
         growth = tag.getInt("current_tick");
         canTick = tag.getBoolean("can_tick");
+        visualProgress = tag.getFloat("visual_progress");
         registered = false;
     }
 

@@ -2,7 +2,7 @@
   "name": "Networks",
   "category": "arcanearchives:concepts",
   "icon": "arcanearchives:letter_invitation",
-  "sortnum": 66,
+  "sortnum": 47,
   "pages": [
     {
       "type": "arcanearchives:converted/concepts/networks_0",

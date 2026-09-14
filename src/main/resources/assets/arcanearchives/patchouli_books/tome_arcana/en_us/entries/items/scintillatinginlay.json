@@ -2,7 +2,7 @@
   "name": "Scintillating Inlay",
   "category": "arcanearchives:items",
   "icon": "arcanearchives:scintillating_inlay",
-  "sortnum": 47,
+  "sortnum": 28,
   "pages": [
     {
       "type": "arcanearchives:converted/items/scintillatinginlay_0"

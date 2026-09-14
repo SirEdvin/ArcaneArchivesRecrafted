@@ -45,6 +45,8 @@ public final class ArcaneArchivesModClient {
         event.enqueueWork(() -> MenuScreens.register(ContentRegistry.GEM_SOCKET_MENU.get(), GemSocketScreen::new));
         event.enqueueWork(() -> net.minecraft.client.renderer.blockentity.BlockEntityRenderers.register(ContentRegistry.RADIANT_TANK_ENTITY.get(), RadiantTankRenderer::new));
         event.enqueueWork(() -> net.minecraft.client.renderer.blockentity.BlockEntityRenderers.register(ContentRegistry.RADIANT_CHEST_ENTITY.get(), RadiantChestRenderer::new));
+        event.enqueueWork(() -> net.minecraft.client.renderer.blockentity.BlockEntityRenderers.register(ContentRegistry.RADIANT_RESONATOR_ENTITY.get(), RadiantResonatorRenderer::new));
+        event.enqueueWork(() -> net.minecraft.client.renderer.blockentity.BlockEntityRenderers.register(ContentRegistry.RADIANT_CRAFTING_TABLE_ENTITY.get(), RadiantCraftingTableRenderer::new));
         event.enqueueWork(() -> net.minecraft.client.renderer.blockentity.BlockEntityRenderers.register(ContentRegistry.BRAZIER_ENTITY.get(), BrazierRenderer::new));
     }
     @SubscribeEvent
@@ -105,6 +107,8 @@ public final class ArcaneArchivesModClient {
     public static void registerRenderers(net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(ContentRegistry.RADIANT_TANK_ENTITY.get(), RadiantTankRenderer::new);
         event.registerBlockEntityRenderer(ContentRegistry.RADIANT_CHEST_ENTITY.get(), RadiantChestRenderer::new);
+        event.registerBlockEntityRenderer(ContentRegistry.RADIANT_RESONATOR_ENTITY.get(), RadiantResonatorRenderer::new);
+        event.registerBlockEntityRenderer(ContentRegistry.RADIANT_CRAFTING_TABLE_ENTITY.get(), RadiantCraftingTableRenderer::new);
         event.registerBlockEntityRenderer(ContentRegistry.BRAZIER_ENTITY.get(), BrazierRenderer::new);
     }
     @SubscribeEvent

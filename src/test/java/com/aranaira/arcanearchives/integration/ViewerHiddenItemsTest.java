@@ -19,11 +19,15 @@ class ViewerHiddenItemsTest {
         assertEquals(Set.of("slaughtergleam", "murdergleam", "agegleam", "cleansegleam", "switchgleam",
             "salvegleam", "munchstone", "orderstone", "mindspindle", "elixirspindle", "mountaintear",
             "rivertear", "parchtear", "phoenixway", "stormway", "chromatic_powder", "full_spectrum_chromatic_powder"),
-            ViewerHiddenItems.items(false).stream().map(item -> BuiltInRegistries.ITEM.getKey(item).getPath()).collect(Collectors.toSet()));
+            ViewerHiddenItems.items(false).stream().filter(item -> !ViewerHiddenItems.unfinished().contains(item))
+                .map(item -> BuiltInRegistries.ITEM.getKey(item).getPath()).collect(Collectors.toSet()));
     }
 
     @Test void enabledArsenalHidesOnlyPowdersAndNeverOrdinaryItemsOrSocket() {
-        assertEquals(Set.of(ContentRegistry.CHROMATIC_POWDER.get(), ContentRegistry.RAINBOW_CHROMATIC_POWDER.get()), ViewerHiddenItems.items(true));
+        var expected = new java.util.HashSet<>(ViewerHiddenItems.unfinished());
+        expected.add(ContentRegistry.CHROMATIC_POWDER.get());
+        expected.add(ContentRegistry.RAINBOW_CHROMATIC_POWDER.get());
+        assertEquals(expected, ViewerHiddenItems.items(true));
         for (boolean enabled : new boolean[]{false, true}) {
             var hidden = ViewerHiddenItems.items(enabled);
             assertFalse(hidden.contains(ContentRegistry.RAW_QUARTZ.get()));

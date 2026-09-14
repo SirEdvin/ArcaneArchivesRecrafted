@@ -48,6 +48,8 @@ public final class RawQuartzItem extends Item {
         if (level.isClientSide) return InteractionResult.SUCCESS;
         var original = ChestBlock.getContainer(chestBlock, state, level, pos, true);
         if (original == null) return InteractionResult.FAIL;
+        if (!com.aranaira.arcanearchives.data.StoragePlacementSaveData.mayPlace(
+                player, ContentRegistry.RADIANT_CHEST.get())) return InteractionResult.FAIL;
         List<ItemStack> contents = new ArrayList<>();
         for (int slot = 0; slot < original.getContainerSize(); slot++) contents.add(original.getItem(slot).copy());
         // Removing a chest normally drops its inventory; escrow first, then publish or restore.

@@ -9,6 +9,32 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ManifestSearchTest {
+    @Test void emiWinsInEitherRegistrationOrderAndRetiredSessionsCannotRestoreIntoFallback() {
+        for (boolean emiFirst : new boolean[]{true, false}) {
+            var jei = new AtomicReference<>("jei original");
+            var emi = new AtomicReference<>("emi original");
+            if (emiFirst) ManifestSearch.bindEmi(emi::get, emi::set);
+            ManifestSearch.bind(jei::get, jei::set);
+            if (!emiFirst) ManifestSearch.bindEmi(emi::get, emi::set);
+            var session = new ManifestSearch(false, true);
+            assertEquals("emi original", session.copyFromJei().orElseThrow());
+            session.edit("diamond");
+            assertEquals("diamond", emi.get());
+            assertEquals("jei original", jei.get());
+            ManifestSearch.unbind();
+            assertTrue(session.available(), "JEI shutdown must not unbind EMI");
+            ManifestSearch.bind(jei::get, jei::set);
+            ManifestSearch.unbindEmi();
+            assertFalse(session.available());
+            session.close();
+            assertEquals("jei original", jei.get());
+            var fallback = new ManifestSearch(false, true);
+            fallback.edit("gold");
+            assertEquals("gold", jei.get());
+            fallback.close();
+            assertEquals("jei original", jei.get());
+        }
+    }
     @Test void enchantmentNamesIncludeLevelsButNeverModQueries() {
         assertTrue(ManifestSearch.matchesEnchantmentName("SHARPNESS", "Sharpness V"));
         assertTrue(ManifestSearch.matchesEnchantmentName("sharpness v", "Sharpness V"));
@@ -31,6 +57,7 @@ class ManifestSearchTest {
 
     @BeforeEach @AfterEach void reset() {
         ManifestSearch.unbind();
+        ManifestSearch.unbindEmi();
         new ManifestSearch(false, false).close();
     }
 

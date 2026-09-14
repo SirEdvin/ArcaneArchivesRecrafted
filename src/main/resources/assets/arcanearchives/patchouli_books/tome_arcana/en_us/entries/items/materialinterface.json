@@ -2,7 +2,7 @@
   "name": "Material Interface",
   "category": "arcanearchives:items",
   "icon": "arcanearchives:material_interface",
-  "sortnum": 41,
+  "sortnum": 25,
   "pages": [
     {
       "type": "arcanearchives:converted/items/materialinterface_0"

@@ -21,8 +21,35 @@ public final class ManifestRays {
         return result;
     }
 
-    public static float width(double distance) {
-        float normalized = Math.max(0F, Math.min(1F, ((float) distance - 10F) / 60F));
-        return Math.max(1F, (1F - (normalized * .7F + .3F)) * 10F);
+    public static final double THICKNESS = 1D / 16D;
+
+    public record Beam(net.minecraft.world.phys.Vec3 origin, net.minecraft.world.phys.Vec3 target) {}
+
+    public static Set<Beam> beams(List<ManifestContents.Entry> tracking, ResourceKey<Level> dimension,
+            net.minecraft.world.phys.Vec3 player) {
+        Set<Beam> result = new LinkedHashSet<>();
+        for (var entry : tracking) for (var location : entry.locations()) {
+            if (!location.position().dimension.equals(dimension)
+                    || location.origin() != null && !location.origin().dimension.equals(dimension)) continue;
+            var origin = location.origin() == null ? player.add(0, 1, 0)
+                : net.minecraft.world.phys.Vec3.atLowerCornerOf(location.origin().pos).add(.5, 1.25, .5);
+            result.add(new Beam(origin, net.minecraft.world.phys.Vec3.atCenterOf(location.position().pos)));
+        }
+        return result;
+    }
+
+    public static net.minecraft.world.phys.Vec3[] corners(Beam beam) {
+        var direction = beam.target.subtract(beam.origin);
+        if (direction.lengthSqr() < 1E-10) return new net.minecraft.world.phys.Vec3[0];
+        direction = direction.normalize();
+        var axis = Math.abs(direction.y) > .9 ? new net.minecraft.world.phys.Vec3(1, 0, 0)
+            : new net.minecraft.world.phys.Vec3(0, 1, 0);
+        var u = direction.cross(axis).normalize().scale(THICKNESS / 2);
+        var v = direction.cross(u).normalize().scale(THICKNESS / 2);
+        return new net.minecraft.world.phys.Vec3[]{
+            beam.origin.add(u).add(v), beam.origin.subtract(u).add(v),
+            beam.origin.subtract(u).subtract(v), beam.origin.add(u).subtract(v),
+            beam.target.add(u).add(v), beam.target.subtract(u).add(v),
+            beam.target.subtract(u).subtract(v), beam.target.add(u).subtract(v)};
     }
 }

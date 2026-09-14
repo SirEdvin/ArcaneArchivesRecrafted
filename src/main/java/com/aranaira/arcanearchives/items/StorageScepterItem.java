@@ -67,7 +67,8 @@ public final class StorageScepterItem extends Item {
         if (level.isClientSide || !manipulation && hand != InteractionHand.MAIN_HAND) return true;
         if (device.isRemoved() || player.level() != level || player.distanceToSqr(pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5) > 64) return true;
         if (manipulation && device instanceof com.aranaira.arcanearchives.tileentities.BrazierBlockEntity brazier) {
-            com.aranaira.arcanearchives.inventory.BrazierMenu.open(player, brazier);
+            if (player.isShiftKeyDown()) com.aranaira.arcanearchives.inventory.BrazierMenu.open(player, brazier);
+            else brazier.pull().toggle(player);
         } else if (device instanceof RadiantTroveBlockEntity trove && trove.canUse(player)) {
             if (manipulation) StorageUpgradeMenu.open(player, trove.upgrades(), trove.optionals(), trove::canUse);
             else {

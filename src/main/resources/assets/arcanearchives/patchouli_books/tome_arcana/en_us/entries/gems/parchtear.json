@@ -1,8 +1,8 @@
 {
   "name": "Parchtear",
-  "category": "arcanearchives:gems",
+  "category": "arcanearchives:items",
   "icon": "arcanearchives:parchtear",
-  "sortnum": 63,
+  "sortnum": 44,
   "pages": [
     {
       "type": "arcanearchives:converted/gems/parchtear_0",

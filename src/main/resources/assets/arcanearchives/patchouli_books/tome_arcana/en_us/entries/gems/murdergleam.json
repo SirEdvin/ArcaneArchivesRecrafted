@@ -1,8 +1,8 @@
 {
   "name": "Murdergleam",
-  "category": "arcanearchives:gems",
+  "category": "arcanearchives:items",
   "icon": "arcanearchives:murdergleam",
-  "sortnum": 52,
+  "sortnum": 33,
   "pages": [
     {
       "type": "arcanearchives:converted/gems/murdergleam_0",

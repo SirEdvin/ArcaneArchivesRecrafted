@@ -2,10 +2,22 @@
   "name": "Monitoring Crystal",
   "category": "arcanearchives:blocks",
   "icon": "arcanearchives:monitoring_crystal",
-  "sortnum": 12,
+  "sortnum": 7,
   "pages": [
     {
-      "type": "arcanearchives:converted/blocks/monitoringcrystal_0"
+      "type": "patchouli:multiblock",
+      "name": "Monitoring Crystal",
+      "multiblock": {
+        "pattern": [
+          [
+            "0"
+          ]
+        ],
+        "mapping": {
+          "0": "arcanearchives:monitoring_crystal"
+        }
+      },
+      "enable_visualize": false
     },
     {
       "type": "patchouli:text",

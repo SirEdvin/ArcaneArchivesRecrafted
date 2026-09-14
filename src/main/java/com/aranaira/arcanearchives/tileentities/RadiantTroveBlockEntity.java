@@ -105,7 +105,7 @@ public final class RadiantTroveBlockEntity extends BlockEntity {
         if (!optionals.isVoiding()) return 4500;
         return stored.getCount() < capacity(reference, upgrades.getUpgradesCount()) ? 4700 : 4000;
     }
-    public void setOwner(UUID value) { owner = value; setChanged(); }
+    public void setOwner(UUID value) { owner = value; setChanged(); com.aranaira.arcanearchives.data.StoragePlacementSaveData.record(this); }
     public UUID owner() { return owner; }
     public boolean isLiveServerStorage() {
         return level != null && !level.isClientSide && !isRemoved() && !dropped
@@ -280,6 +280,7 @@ public final class RadiantTroveBlockEntity extends BlockEntity {
         restoreLockReference(reference);
         captureLockReference();
         owner = tag.hasUUID("owner") ? tag.getUUID("owner") : null;
+        com.aranaira.arcanearchives.data.StoragePlacementSaveData.record(this);
     }
     @Override public ClientboundBlockEntityDataPacket getUpdatePacket() { return ClientboundBlockEntityDataPacket.create(this); }
     //? if >=1.21 {

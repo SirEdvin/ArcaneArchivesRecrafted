@@ -56,7 +56,7 @@ tasks.test {
     // SliverSmashingTest and PlayerSaveDataTest need Forge's transformed runtime.
     // PlayerSaveData now references Player; plain JUnit verifies signatures on remapped IForgePlayer.
     include("**/MathUtilsTest.class", "**/IngredientAllocationTest.class", "**/ClientConfigTest.class",
-        "**/ServerSideConfigTest.class", "**/HiveCraftingConditionsTest.class",
+        "**/ServerSideConfigTest.class", "**/ArsenalConfigTest.class", "**/HiveCraftingConditionsTest.class",
         "**/ManifestScrollTest.class", "**/ManifestSearchTest.class", "**/ManifestHighlightTest.class", "**/ManifestRaysTest.class",
         "**/TroveHudTextTest.class")
 }

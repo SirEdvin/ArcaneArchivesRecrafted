@@ -106,7 +106,7 @@ public final class ContentRegistry {
     public static final Supplier<BlockEntityType<RadiantTankBlockEntity>> RADIANT_TANK_ENTITY = tankEntity();
     public static final Supplier<BlockItem> RADIANT_TROVE_ITEM = item("radiant_trove", () -> new com.aranaira.arcanearchives.items.RadiantTroveItem(RADIANT_TROVE.get(), new Item.Properties()));
     public static final Supplier<BlockEntityType<RadiantTroveBlockEntity>> RADIANT_TROVE_ENTITY = troveEntity();
-    public static final Supplier<BlockItem> RADIANT_CHEST_ITEM = item("radiant_chest", () -> new BlockItem(RADIANT_CHEST.get(), new Item.Properties()));
+    public static final Supplier<BlockItem> RADIANT_CHEST_ITEM = item("radiant_chest", () -> new com.aranaira.arcanearchives.items.LimitedStorageBlockItem(RADIANT_CHEST.get(), new Item.Properties()));
     public static final Supplier<BlockEntityType<RadiantChestBlockEntity>> RADIANT_CHEST_ENTITY = chestEntity();
     public static final Supplier<MenuType<RadiantChestMenu>> RADIANT_CHEST_MENU = chestMenu();
     public static final Supplier<MenuType<com.aranaira.arcanearchives.inventory.StorageUpgradeMenu>> STORAGE_UPGRADE_MENU = upgradeMenu();
@@ -439,7 +439,11 @@ public final class ContentRegistry {
         *///?}
             .title(Component.translatable("itemGroup.arcanearchives"))
             .icon(() -> new ItemStack(SHAPED_QUARTZ.get()))
-            .displayItems((parameters, output) -> {
+            .displayItems((parameters, nativeOutput) -> {
+                var unfinished = com.aranaira.arcanearchives.integration.ViewerHiddenItems.unfinished();
+                java.util.function.Consumer<net.minecraft.world.level.ItemLike> output = item -> {
+                    if (!unfinished.contains(item.asItem())) nativeOutput.accept(item);
+                };
                 output.accept(RAW_QUARTZ.get());
                 output.accept(ECHO.get());
                 output.accept(DEBUG_ORB.get());

@@ -1,8 +1,8 @@
 {
   "name": "Slaughtergleam",
-  "category": "arcanearchives:gems",
+  "category": "arcanearchives:items",
   "icon": "arcanearchives:slaughtergleam",
-  "sortnum": 51,
+  "sortnum": 32,
   "pages": [
     {
       "type": "arcanearchives:converted/gems/slaughtergleam_0",

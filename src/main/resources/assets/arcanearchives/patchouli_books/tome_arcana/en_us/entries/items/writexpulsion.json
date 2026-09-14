@@ -2,7 +2,7 @@
   "name": "Writ of Expulsion",
   "category": "arcanearchives:items",
   "icon": "arcanearchives:writ_expulsion",
-  "sortnum": 36,
+  "sortnum": 20,
   "pages": [
     {
       "type": "arcanearchives:converted/items/writexpulsion_0"

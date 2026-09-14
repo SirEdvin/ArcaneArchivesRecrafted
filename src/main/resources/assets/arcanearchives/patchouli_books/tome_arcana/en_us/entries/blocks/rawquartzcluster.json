@@ -2,10 +2,22 @@
   "name": "Raw Quartz Cluster",
   "category": "arcanearchives:blocks",
   "icon": "arcanearchives:raw_quartz_cluster",
-  "sortnum": 6,
+  "sortnum": 1,
   "pages": [
     {
-      "type": "arcanearchives:converted/blocks/rawquartzcluster_0"
+      "type": "patchouli:multiblock",
+      "name": "Raw Quartz Cluster",
+      "multiblock": {
+        "pattern": [
+          [
+            "0"
+          ]
+        ],
+        "mapping": {
+          "0": "arcanearchives:raw_quartz_cluster"
+        }
+      },
+      "enable_visualize": false
     },
     {
       "type": "patchouli:text",

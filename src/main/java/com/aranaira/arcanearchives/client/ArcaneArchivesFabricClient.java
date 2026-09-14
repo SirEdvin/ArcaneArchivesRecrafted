@@ -31,6 +31,8 @@ public final class ArcaneArchivesFabricClient implements ClientModInitializer {
             context.register(BrazierRenderType.id(), com.mojang.blaze3d.vertex.DefaultVertexFormat.NEW_ENTITY, BrazierRenderType::loaded));
         net.minecraft.client.renderer.blockentity.BlockEntityRenderers.register(ContentRegistry.RADIANT_TANK_ENTITY.get(), RadiantTankRenderer::new);
         net.minecraft.client.renderer.blockentity.BlockEntityRenderers.register(ContentRegistry.RADIANT_CHEST_ENTITY.get(), RadiantChestRenderer::new);
+        net.minecraft.client.renderer.blockentity.BlockEntityRenderers.register(ContentRegistry.RADIANT_RESONATOR_ENTITY.get(), RadiantResonatorRenderer::new);
+        net.minecraft.client.renderer.blockentity.BlockEntityRenderers.register(ContentRegistry.RADIANT_CRAFTING_TABLE_ENTITY.get(), RadiantCraftingTableRenderer::new);
         net.minecraft.client.renderer.blockentity.BlockEntityRenderers.register(ContentRegistry.BRAZIER_ENTITY.get(), BrazierRenderer::new);
         net.minecraft.client.gui.screens.MenuScreens.register(ContentRegistry.GEMCUTTERS_TABLE_MENU.get(), GemCuttersTableScreen::new);
         net.minecraft.client.gui.screens.MenuScreens.register(ContentRegistry.RADIANT_CHEST_MENU.get(), RadiantChestScreen::new);

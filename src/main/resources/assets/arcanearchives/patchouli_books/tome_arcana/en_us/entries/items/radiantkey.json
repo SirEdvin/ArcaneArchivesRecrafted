@@ -2,7 +2,7 @@
   "name": "Radiant Key",
   "category": "arcanearchives:items",
   "icon": "arcanearchives:radiant_key",
-  "sortnum": 45,
+  "sortnum": 27,
   "pages": [
     {
       "type": "arcanearchives:converted/items/radiantkey_0"

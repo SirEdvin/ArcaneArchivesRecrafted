@@ -88,7 +88,8 @@ public final class ArcaneArchivesJei implements IModPlugin {
         if (level == null) return;
         registration.addRecipes(TYPE, GemCutterDataRecipe.entries(level.getRecipeManager()).stream()
             .filter(entry -> entry.recipe().enabled())
-            .map(entry -> entry.recipe().definition(entry.name())).toList());
+            .map(entry -> entry.recipe().definition(entry.name()))
+            .filter(recipe -> !ViewerHiddenItems.unfinished().contains(recipe.getRecipeOutput().getItem())).toList());
     }
 
     public static final class ResonatorCategory implements IRecipeCategory<ResonatorDisplay> {

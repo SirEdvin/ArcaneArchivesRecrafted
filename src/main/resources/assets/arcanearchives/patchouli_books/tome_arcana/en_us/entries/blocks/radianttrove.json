@@ -2,10 +2,22 @@
   "name": "Radiant Trove",
   "category": "arcanearchives:blocks",
   "icon": "arcanearchives:radiant_trove",
-  "sortnum": 15,
+  "sortnum": 10,
   "pages": [
     {
-      "type": "arcanearchives:converted/blocks/radianttrove_0"
+      "type": "patchouli:multiblock",
+      "name": "Radiant Trove",
+      "multiblock": {
+        "pattern": [
+          [
+            "0"
+          ]
+        ],
+        "mapping": {
+          "0": "arcanearchives:radiant_trove"
+        }
+      },
+      "enable_visualize": false
     },
     {
       "type": "patchouli:text",

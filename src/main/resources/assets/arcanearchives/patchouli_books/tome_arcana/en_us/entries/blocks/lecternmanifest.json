@@ -2,10 +2,26 @@
   "name": "Manifest Lectern",
   "category": "arcanearchives:blocks",
   "icon": "arcanearchives:lectern_manifest",
-  "sortnum": 11,
+  "sortnum": 6,
   "pages": [
     {
-      "type": "arcanearchives:converted/blocks/lecternmanifest_0"
+      "type": "patchouli:multiblock",
+      "name": "Manifest Lectern",
+      "multiblock": {
+        "pattern": [
+          [
+            "T"
+          ],
+          [
+            "0"
+          ]
+        ],
+        "mapping": {
+          "0": "arcanearchives:lectern_manifest[accessor=false]",
+          "T": "arcanearchives:lectern_manifest[accessor=true]"
+        }
+      },
+      "enable_visualize": false
     },
     {
       "type": "patchouli:text",

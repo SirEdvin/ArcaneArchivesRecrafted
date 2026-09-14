@@ -33,6 +33,26 @@ public final class RadiantCraftingTableBlockEntity extends BlockEntity implement
     }
 
     public NonNullList<ItemStack> items() { return items; }
+    @Override public void setChanged() {
+        super.setChanged();
+        if (level instanceof ServerLevel) level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+    }
+    @Override public net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket.create(this);
+    }
+    //? if >=1.21 {
+    @Override public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag tag = new CompoundTag();
+        ContainerHelper.saveAllItems(tag, items, registries);
+        return tag;
+    }
+    //?} else {
+    /*@Override public CompoundTag getUpdateTag() {
+        CompoundTag tag = new CompoundTag();
+        ContainerHelper.saveAllItems(tag, items);
+        return tag;
+    }
+    *///?}
     public UUID owner() { return owner; }
     public void setOwner(UUID value) { owner = value; setChanged(); }
     public ResourceLocation recipe(int index) { return recipes[index]; }

@@ -2,7 +2,7 @@
   "name": "Manifest",
   "category": "arcanearchives:items",
   "icon": "arcanearchives:manifest",
-  "sortnum": 35,
+  "sortnum": 19,
   "pages": [
     {
       "type": "arcanearchives:converted/items/manifest_0"
