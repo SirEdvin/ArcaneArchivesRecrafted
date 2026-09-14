@@ -1,0 +1,34 @@
+{
+  "name": "Material Interface",
+  "category": "arcanearchives:items",
+  "icon": "arcanearchives:material_interface",
+  "sortnum": 41,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/items/materialinterface_0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Material Interface is a crafting component. Material Interfaces are generally used in devices that need to read data from a specially prepared Radiant Quartz crystal.$(br2)Material Interfaces can be used to upgrade $(l:arcanearchives:blocks/radianttrove)Radiant Troves$(/l).$(br2)Material Interfaces can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l)."
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:material_interface"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$()$(italic) My tests with the mysterious crystal indicate that each facet, no matter how small or how minutely different from its neighbors, lead to a different part of this strange Otherwhere. $()$(br2)$()$(italic) The implications of this property are staggering for compact storage. $()"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$()$(italic) Or at least, they would be, if the slightest touch didn’t change what part of Otherwhere the crystal is pointing to. A pity, too. I was rather fond of that spoon. $()"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$()$(italic) I believe a device meant to emulate the $()Unseen Hand of the Master$()$(italic) spell, along with some minor divination enchantments for good measure, might have the potential to correct for these instabilities and maintain a consistent location and frequency in Othewhere. $()$(br2)$()$(bold) Research Journal of Sharaveda $()$(br2)...1665, Autumn’s Birth"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "arcanearchives:material_interface": 0
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "components": [
+    {
+      "type": "patchouli:item",
+      "item": "arcanearchives:scepter_manipulation",
+      "x": 0,
+      "y": 0
+    }
+  ]
+}

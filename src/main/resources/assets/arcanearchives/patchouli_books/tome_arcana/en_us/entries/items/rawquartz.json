@@ -1,0 +1,42 @@
+{
+  "name": "Raw Radiant Quartz",
+  "category": "arcanearchives:items",
+  "icon": "arcanearchives:raw_quartz",
+  "sortnum": 27,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/items/rawquartz_0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Raw Radiant Quartz is an unrefined magical crystal that makes up the basis of all of Arcane Archives. It is primarily a crafting component.$(br2)Raw Radiant Quartz can be used to convert a chest to a $(l:arcanearchives:blocks/radiantchest)Radiant Chest$(/l).$(br2)Raw Radiant Quartz can be used to convert a crafting table into a $(l:arcanearchives:blocks/radiantcraftingtable)Radiant Crafting Table$(/l)."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Raw Radiant Quartz can be used to create $(l:arcanearchives:items/sliveroflight)Slivers of Light$(/l) by bashing a piece against another block."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Astral Sorcery Lightwell When placed in a Lightwell with access to the sky, Raw Radiant Quartz creates Liquid Starlight over time. Compared to Aquamarine, its production rate is significantly lower, but is much more resistant to shattering.",
+      "flag": "arcanearchives:ml_astralsorcery"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Raw Radiant Quartz is created over time on top of a $(l:arcanearchives:blocks/radiantresonator)Radiant Resonator$(/l) in the form of a $(l:arcanearchives:blocks/rawquartzcluster)Raw Quartz Cluster$(/l)."
+    },
+    {
+      "type": "arcanearchives:converted/items/rawquartz_5"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Raw Radiant Quartz can also be compressed into a storage block. Blocks of Raw Radiant Quartz are a light source.$(br2)Blocks of Raw Radiant Quartz can be crafted conventionally."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "arcanearchives:storage_raw_quartz"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "arcanearchives:storage_raw_quartz": 0
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "Switchgleam",
+  "category": "arcanearchives:gems",
+  "icon": "arcanearchives:switchgleam",
+  "sortnum": 55,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/gems/switchgleam_0",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Switchgleam is an Arcane Gem formed from a purple-spectrum piece of $(l:arcanearchives:items/shapedquartz)Shaped Radiant Quartz$(/l) in an asscher cut.$(br2)When activated, a Switchgleam will swap the positions of you and the entity you're looking at, at the cost of one point of charge.$(br2)While held, Endermen within 10 blocks will have their teleportation attempts absorbed.",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/gems/switchgleam_2",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Salvegleams can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l).",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:switchgleam",
+      "flag": "arcanearchives:arsenal_enabled"
+    }
+  ],
+  "flag": "arcanearchives:arsenal_enabled",
+  "extra_recipe_mappings": {
+    "arcanearchives:switchgleam": 0
+  }
+}

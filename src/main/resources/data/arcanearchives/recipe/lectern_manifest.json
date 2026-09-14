@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " M ",
+    "SWS",
+    "S S"
+  ],
+  "key": {
+    "M": {
+      "item": "arcanearchives:manifest"
+    },
+    "S": {
+      "tag": "arcanearchives:ingredients/stick_wood"
+    },
+    "W": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "${result_key}": "arcanearchives:lectern_manifest",
+    "count": 1
+  }
+}

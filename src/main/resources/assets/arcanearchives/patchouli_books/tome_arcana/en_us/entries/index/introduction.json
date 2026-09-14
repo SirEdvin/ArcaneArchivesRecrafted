@@ -1,0 +1,142 @@
+{
+  "name": "Index",
+  "category": "arcanearchives:index",
+  "icon": "minecraft:writable_book",
+  "sortnum": 72,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/index/introduction_0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:gems/agegleam)Agegleam$(/l)",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/index/introduction_2",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Astral Tome $(l:arcanearchives:concepts/astralsorcery)Astral Sorcery Compatibility$(/l)",
+      "flag": "arcanearchives:ml_astralsorcery"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Lexica Botania $(l:arcanearchives:concepts/botania)Botania Compatibility$(/l)",
+      "flag": "arcanearchives:ml_botania"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:gems/cleansegleam)Cleansegleam$(/l)",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:blocks/brazierhoarding)Brazier of Hoarding$(/l)$(br2)$(l:arcanearchives:items/containmentfield)Containment Field$(/l)$(br2)$(l:arcanearchives:items/devouringcharm)Devouring Charm$(/l)"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:gems/elixirspindle)Elixirspindle$(/l)",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l)"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:items/gemsocket)Gem Socket$(/l)",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:items/letterinvitation)Letter of Invitation$(/l)$(br2)$(l:arcanearchives:items/letterresignation)Letter of Resignation$(/l)$(br2)$(l:arcanearchives:items/manifest)Manifest$(/l)$(br2)$(l:arcanearchives:blocks/lecternmanifest)Manifest Lectern$(/l)$(br2)$(l:arcanearchives:items/materialinterface)Material Interface$(/l)"
+    },
+    {
+      "type": "arcanearchives:converted/index/introduction_11"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:items/matrixbrace)Matrix Brace$(/l)"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:gems/mindspindle)Mindspindle$(/l)",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:blocks/monitoringcrystal)Monitoring Crystal$(/l)"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:gems/mountaintear)Mountaintear$(/l)$(br2)$(l:arcanearchives:gems/munchstone)Munchstone$(/l)$(br2)$(l:arcanearchives:gems/murdergleam)Murdergleam$(/l)$(br2)$(l:arcanearchives:gems/orderstone)Orderstone$(/l)$(br2)$(l:arcanearchives:gems/parchtear)Parchtear$(/l)$(br2)$(l:arcanearchives:gems/phoenixway)Phoenixway$(/l)",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:concepts/potioncore)Potion Core Compatibility$(/l)",
+      "flag": "arcanearchives:ml_potioncore"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Ancient Tome $(l:arcanearchives:concepts/quark)Quark Compatibility$(/l)",
+      "flag": "arcanearchives:ml_quark"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:blocks/radiantcraftingtable)Radiant Crafting Table$(/l)$(br2)$(l:arcanearchives:items/radiantamphora)Radiant Amphora$(/l)$(br2)$(l:arcanearchives:blocks/radiantchest)Radiant Chest$(/l)$(br2)$(l:arcanearchives:items/radiantdust)Radiant Dust$(/l)$(br2)$(l:arcanearchives:blocks/radiantlantern)Radiant Lantern$(/l)"
+    },
+    {
+      "type": "arcanearchives:converted/index/introduction_19"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:items/rawquartz)Radiant Quartz (Raw)$(/l)$(br2)$(l:arcanearchives:items/shapedquartz)Radiant Quartz (Shaped)$(/l)$(br2)$(l:arcanearchives:blocks/radiantresonator)Radiant Resonator$(/l)$(br2)$(l:arcanearchives:blocks/radianttank)Radiant Tank$(/l)$(br2)$(l:arcanearchives:blocks/radianttrove)Radiant Trove$(/l)$(br2)$(l:arcanearchives:blocks/rawquartzcluster)Raw Quartz Cluster$(/l)"
+    },
+    {
+      "type": "arcanearchives:converted/index/introduction_21",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:gems/rivertear)Rivertear$(/l)$(br2)$(l:arcanearchives:gems/salvegleam)Salvegleam$(/l)",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:items/sceptermanipulation)Scepter of Manipulation$(/l)$(br2)$(l:arcanearchives:items/scintillatinginlay)Scintillating Inlay$(/l)$(br2)$(l:arcanearchives:items/scepterrevelation)Scepter of Revelation$(/l)"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:gems/slaughtergleam)Slaughtergleam$(/l)",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:items/sliveroflight)Sliver of Light$(/l)"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:gems/stormway)Stormway$(/l)$(br2)$(l:arcanearchives:gems/switchgleam)Switchgleam$(/l)",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/index/introduction_27"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Thaumonomicon $(l:arcanearchives:concepts/thaumcraft)Thaumcraft Compatibility$(/l)",
+      "flag": "arcanearchives:ml_thaumcraft"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:items/writexpulsion)Writ of Expulsion$(/l)$(br2)$()$(bold) ENTRIES TO ADD TO THE INDEX $()"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Celestial Lotus Engine Crystal Matrix Core Distillate Matrix Echoes Echoing Conformance Chamber Echoing Reverberation Chamber Immanence Immanent Incubator Obstruction Charm Radiant Furnace Radiant Key Radiant Quartz (Empowered) Repository Matrix Reservoir Matrix Serenity Charm Storage Matrix Spellbook Library Verdant Censer"
+    }
+  ]
+}

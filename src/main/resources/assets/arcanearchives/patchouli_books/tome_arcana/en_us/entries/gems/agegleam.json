@@ -1,0 +1,35 @@
+{
+  "name": "Agegleam",
+  "category": "arcanearchives:gems",
+  "icon": "arcanearchives:agegleam",
+  "sortnum": 53,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/gems/agegleam_0",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "An Agegleam is an Arcane Gem formed from a green-spectrum piece of $(l:arcanearchives:items/shapedquartz)Shaped Radiant Quartz$(/l) in an asscher cut.$(br2)When activated, the amount of time until nearby animals grow up will be significantly reduced, at the cost of charge for each animal affected.",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/gems/agegleam_2",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Murdergleams can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l).",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:agegleam",
+      "flag": "arcanearchives:arsenal_enabled"
+    }
+  ],
+  "flag": "arcanearchives:arsenal_enabled",
+  "extra_recipe_mappings": {
+    "arcanearchives:agegleam": 0
+  }
+}

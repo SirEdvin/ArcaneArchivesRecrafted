@@ -1,0 +1,21 @@
+{
+  "components": [
+    {
+      "type": "patchouli:image",
+      "image": "arcanearchives:textures/gui/guidebook/observation_sigil.png",
+      "width": 118,
+      "height": 94,
+      "texture_width": 118,
+      "texture_height": 94,
+      "scale": 0.8297872340425532,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$()$(italic) $()",
+      "x": 0,
+      "y": 84
+    }
+  ]
+}

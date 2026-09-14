@@ -8,11 +8,10 @@ import net.minecraft.world.level.block.state.BlockState;
 
 /** Registered inventory attachment; network membership is integrated separately. */
 public final class MonitoringCrystalBlockEntity extends NetworkOwnedBlockEntity {
-    private BlockPos target;
+
     public MonitoringCrystalBlockEntity(BlockPos pos, BlockState state) { super(ContentRegistry.MONITORING_CRYSTAL_ENTITY.get(), pos, state); }
     public BlockPos target() {
-        if (target == null) target = worldPosition.relative(getBlockState().getValue(MonitoringCrystal.FACING).getOpposite());
-        return target;
+        return worldPosition.relative(getBlockState().getValue(MonitoringCrystal.FACING).getOpposite());
     }
     public static boolean isArcaneDevice(BlockEntity tile) {
         return tile instanceof RadiantChestBlockEntity || tile instanceof RadiantTroveBlockEntity

@@ -1,0 +1,67 @@
+{
+  "name": "Radiant Chest",
+  "category": "arcanearchives:blocks",
+  "icon": "arcanearchives:radiant_chest",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/blocks/radiantchest_0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Radiant Chests are a storage container with as many slots as a vanilla double chest in a single block. Each slot of a Radiant Chest can store up to 256 items instead of the stored item’s normal stack limit.$(br2)At the bottom of a Radiant Chest’s interface, you can give it a name to help keep your storage organized. Radiant Chests are also a light source."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Items stored in Radiant Chests appear on a $(l:arcanearchives:items/manifest)Manifest$(/l) as long as the Chest's chunk is loaded.$(br2)Using a $(l:arcanearchives:items/sceptermanipulation)Scepter of Manipulation$(/l) on a Radiant Chest while holding an item in the other hand allows you to label the chest with the held item. The item is not consumed."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "To clear the item, sneak and activate the chest while holding the Scepter of Manipulation with your main hand and nothing in your off hand.$(br2)Using a $(l:arcanearchives:items/scepterrevelation)Scepter of Revelation$(/l) on a Radiant Chest will return the chest's name, and how many slots of its inventory are available."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "In the lower right corner of a Radiant Chest's interface, you can choose how $(l:arcanearchives:blocks/brazierhoarding)Braziers of Hoarding$(/l) route items to the Chest. By default, a Brazier will be capable of routing any item to the chest; if the checkbox is ticked on, only items that already exist within the chest can be routed."
+    },
+    {
+      "type": "arcanearchives:converted/blocks/radiantchest_5"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "When monitored with a Redstone Comparator, a Radiant Chest ouptuts a signal based on how full it is (in total items, rather than number of slots filled)."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Radiant Chests can be crafted by using a piece of $(l:arcanearchives:items/rawquartz)Raw Radiant Quartz$(/l) on a chest while sneaking. Any items inside the chest will be imported, and if used on a double vanilla chest, both chests' inventories will be imported into the new Radiant Chest.$(br2)Radiant Chests can be crafted conventionally."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "arcanearchives:radiant_chest1",
+      "recipe2": "arcanearchives:radiant_chest2"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$()$(italic) Upon further examination, the glowing crystalline substance I was imparted with seems to have spatial (temporal?) distortion properties. Further research is required; I have an idea I wish to test out. $()"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$()$(italic) I constructed a frame out of this crystalline substance. Items placed within the frame only seem to be visible—and, indeed, existent, if my instruments are to be believed— from certain angles of view. $()"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$()$(italic) I tried to attach wooden panels to the frame to keep the contents within, but they too were subject to this strange spatial distortion. Reinforcing the wood with a lacquer ensorcelled with the $()Stalwart Oak Abjuration$()$(italic) seems to prevent the panels from being affected by these distortions. $()"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$()$(italic) It appears my opinions on the usefulness of the $()Stalwart Oak Abjuration$()$(italic) compared to Infused Wood were incorrect. I believe I owe Etrea a drink. $()",
+      "flag": "arcanearchives:ml_astralsorcery"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$()$(bold) Research Journal of Sharaveda $()$(br2)...1665, Autumn’s Birth"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "arcanearchives:radiant_chest": 0
+  }
+}

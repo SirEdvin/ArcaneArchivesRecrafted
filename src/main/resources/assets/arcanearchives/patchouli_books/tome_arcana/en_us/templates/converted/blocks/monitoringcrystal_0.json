@@ -1,0 +1,10 @@
+{
+  "components": [
+    {
+      "type": "patchouli:item",
+      "item": "arcanearchives:monitoring_crystal",
+      "x": 0,
+      "y": 0
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "name": "Orderstone",
+  "category": "arcanearchives:gems",
+  "icon": "arcanearchives:orderstone",
+  "sortnum": 58,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/gems/orderstone_0",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "An Orderstone is an Arcane Gem formed from a pink-spectrum piece of $(l:arcanearchives:items/shapedquartz)Shaped Radiant Quartz$(/l) in an oval cut.$(br2)When activated, an Orderstone transforms certain blocks into a more orderly state. The following pages list all valid transformations the Orderstone is capable of.",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/gems/orderstone_2",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Orderstones can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l).",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:orderstone",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The following transformation sequences can be performed:",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/gems/orderstone_6",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/gems/orderstone_7",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/gems/orderstone_8",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/gems/orderstone_9",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/gems/orderstone_10",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/gems/orderstone_11",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/gems/orderstone_12",
+      "flag": "arcanearchives:arsenal_enabled"
+    }
+  ],
+  "flag": "arcanearchives:arsenal_enabled",
+  "extra_recipe_mappings": {
+    "arcanearchives:orderstone": 0
+  }
+}

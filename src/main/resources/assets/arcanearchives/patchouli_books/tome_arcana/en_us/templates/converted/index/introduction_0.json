@@ -1,0 +1,10 @@
+{
+  "components": [
+    {
+      "type": "patchouli:item",
+      "item": "minecraft:writable_book",
+      "x": 0,
+      "y": 0
+    }
+  ]
+}

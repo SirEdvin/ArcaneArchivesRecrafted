@@ -1,0 +1,10 @@
+{
+  "type": "arcanearchives:gem_cutting",
+  "inputs": [
+    {"item": "arcanearchives:radiant_dust", "count": 4},
+    {"tag": "minecraft:coals", "count": 8},
+    {"tag": "arcanearchives:ingredients/ingot_gold", "count": 2},
+    {"tag": "arcanearchives:ingredients/logs", "count": 3}
+  ],
+  "result": {"item": "arcanearchives:brazier_of_hoarding", "count": 1}
+}

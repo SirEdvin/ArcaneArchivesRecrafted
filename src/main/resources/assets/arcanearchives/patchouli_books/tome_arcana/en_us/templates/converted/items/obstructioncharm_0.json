@@ -1,0 +1,10 @@
+{
+  "components": [
+    {
+      "type": "patchouli:item",
+      "item": "arcanearchives:obstruction_charm",
+      "x": 0,
+      "y": 0
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "name": "Radiant Resonator",
+  "category": "arcanearchives:blocks",
+  "icon": "arcanearchives:radiant_resonator",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/blocks/radiantresonator_0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Radiant Resonator produces a cluster of Raw Radiant Quartz in the block above itself once every five minutes. Once Quartz is produced, the process halts until the block above the Resonator is cleared.$(br2)You can only place up to three Radiant Resonators. Any further Resonators you attempt to place will pop off, and any Resonators placed by automated means will destroy themselves."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Radiant Resonators only run while you’re online, even if the chunk is loaded.$(br2)Using a $(l:arcanearchives:items/scepterrevelation)Scepter of Revelation$(/l) on a Radiant Resonator will return its current process, and whether it is running or not."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "When monitored with a Redstone Comparator, a Radiant Resonator ouptuts a signal based on its progress towards creating a new $(l:arcanearchives:blocks/rawquartzcluster)Radiant Quartz Cluster$(/l).$(br2)Radiant Resonators can be crafted conventionally."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "arcanearchives:radiant_resonator"
+    },
+    {
+      "type": "arcanearchives:converted/blocks/radiantresonator_5"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$()$(bold) Found in the notes of Sharaveda, Deceased $()$(br2)...Annotation made by Traylin, former Apprentice of the deceased$(br2)...1672, Winter's Birth"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "arcanearchives:radiant_resonator": 0
+  }
+}

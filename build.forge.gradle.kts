@@ -11,6 +11,7 @@ val gameTest = sourceSets.create("gameTest") {
     java.srcDir(rootProject.file("src/forgeGameTest/java"))
     resources.srcDir(rootProject.file("src/forgeGameTest/resources"))
     compileClasspath += sourceSets.main.get().output + sourceSets.test.get().output
+    compileClasspath += sourceSets.main.get().compileClasspath
     runtimeClasspath += sourceSets.main.get().output + sourceSets.test.get().output
 }
 configurations[gameTest.implementationConfigurationName].extendsFrom(configurations.testImplementation.get())
@@ -54,7 +55,9 @@ tasks.test {
     // These fixtures do not load Minecraft classes. All shared fixtures also run in the GameTest server.
     // SliverSmashingTest needs Forge's loader even though it only calls the roll helper.
     include("**/MathUtilsTest.class", "**/IngredientAllocationTest.class", "**/ClientConfigTest.class",
-        "**/ServerSideConfigTest.class", "**/PlayerSaveDataTest.class", "**/HiveCraftingConditionsTest.class")
+        "**/ServerSideConfigTest.class", "**/PlayerSaveDataTest.class", "**/HiveCraftingConditionsTest.class",
+        "**/ManifestScrollTest.class", "**/ManifestSearchTest.class", "**/ManifestHighlightTest.class", "**/ManifestRaysTest.class",
+        "**/TroveHudTextTest.class")
 }
 tasks.named("check") { dependsOn("runGameTestServer") }
 
@@ -126,10 +129,16 @@ tasks.processResources {
         "silk_predicate" to """{"enchantments":[{"enchantment":"minecraft:silk_touch","levels":{"min":1}}]}""",
     )
     inputs.properties(props)
+    filesMatching("assets/arcanearchives/shaders/core/brazier_fire.vsh") {
+        expand("brazier_fog" to "fog_distance(ModelViewMat, IViewRotMat * Position, FogShape)")
+    }
     filesMatching(listOf("META-INF/mods.toml", "pack.mcmeta")) { expand(props) }
     filesMatching("data/arcanearchives/recipe/*.json") { expand(props) }
     filesMatching("data/arcanearchives/advancement/*.json") { expand(props) }
     filesMatching("assets/arcanearchives/models/block/gemcutters_table.json") { expand(props) }
+    filesMatching("assets/arcanearchives/models/block/lectern_manifest.json") { expand(props) }
+    filesMatching("assets/arcanearchives/models/block/brazier_of_hoarding_fire.json") { expand(props) }
+    filesMatching("assets/arcanearchives/models/block/brazier_of_hoarding.json") { expand(props) }
     filesMatching("assets/arcanearchives/models/block/wonky_resonator.json") { expand(props) }
     filesMatching("assets/arcanearchives/models/block/celestial_lotus_engine.json") { expand(props) }
     filesMatching("assets/arcanearchives/models/block/matrix_reservoir.json") { expand(props) }
@@ -151,6 +160,7 @@ tasks.processResources {
             .replace("data/arcanearchives/loot_table/", "data/arcanearchives/loot_tables/")
             .replace("data/arcanearchives/advancement/", "data/arcanearchives/advancements/")
             .replace("data/minecraft/tags/block/", "data/minecraft/tags/blocks/")
+            .replace("data/arcanearchives/tags/block/", "data/arcanearchives/tags/blocks/")
             .replace("data/arcanearchives/tags/item/", "data/arcanearchives/tags/items/")
     }
     exclude("fabric.mod.json", "arcanearchives.fabric.mixins.json", "arcanearchives.mixins.json", "META-INF/neoforge.mods.toml")

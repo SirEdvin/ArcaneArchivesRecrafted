@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "accessor=false,facing=west": {
+      "model": "arcanearchives:block/lectern_manifest",
+      "y": 0
+    },
+    "accessor=false,facing=north": {
+      "model": "arcanearchives:block/lectern_manifest",
+      "y": 90
+    },
+    "accessor=false,facing=east": {
+      "model": "arcanearchives:block/lectern_manifest",
+      "y": 180
+    },
+    "accessor=false,facing=south": {
+      "model": "arcanearchives:block/lectern_manifest",
+      "y": 270
+    },
+    "accessor=false,facing=up": {
+      "model": "arcanearchives:block/lectern_manifest",
+      "y": 0
+    },
+    "accessor=false,facing=down": {
+      "model": "arcanearchives:block/lectern_manifest",
+      "y": 0
+    },
+    "accessor=true,facing=west": {
+      "model": "arcanearchives:block/lectern_manifest_accessor",
+      "y": 0
+    },
+    "accessor=true,facing=north": {
+      "model": "arcanearchives:block/lectern_manifest_accessor",
+      "y": 90
+    },
+    "accessor=true,facing=east": {
+      "model": "arcanearchives:block/lectern_manifest_accessor",
+      "y": 180
+    },
+    "accessor=true,facing=south": {
+      "model": "arcanearchives:block/lectern_manifest_accessor",
+      "y": 270
+    },
+    "accessor=true,facing=up": {
+      "model": "arcanearchives:block/lectern_manifest_accessor",
+      "y": 0
+    },
+    "accessor=true,facing=down": {
+      "model": "arcanearchives:block/lectern_manifest_accessor",
+      "y": 0
+    }
+  }
+}

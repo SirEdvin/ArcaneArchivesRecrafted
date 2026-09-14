@@ -1,0 +1,6 @@
+{
+  "name": "Index",
+  "description": "$(l:arcanearchives:index/introduction)Index$(/l)",
+  "icon": "arcanearchives:tome_arcana",
+  "sortnum": 6
+}

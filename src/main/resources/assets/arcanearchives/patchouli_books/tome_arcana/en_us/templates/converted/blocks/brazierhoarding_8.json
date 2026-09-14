@@ -1,0 +1,10 @@
+{
+  "components": [
+    {
+      "type": "patchouli:item",
+      "item": "arcanearchives:brazier_of_hoarding",
+      "x": 0,
+      "y": 0
+    }
+  ]
+}

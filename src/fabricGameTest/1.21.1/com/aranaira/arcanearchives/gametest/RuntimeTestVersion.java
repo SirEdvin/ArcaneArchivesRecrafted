@@ -7,6 +7,17 @@ import net.minecraft.world.item.ItemStack;
 /** Native API differences only; all placement assertions are shared. */
 final class RuntimeTestVersion {
     private RuntimeTestVersion() {}
+    static void lectern(GameTestHelper helper, Player player) {
+        var level = helper.getLevel();
+        BrazierActivationLifecycle.run(helper, player,
+            (hit, hand) -> com.aranaira.arcanearchives.init.ContentRegistry.BRAZIER.get().useItemOn(player.getItemInHand(hand),
+                level.getBlockState(hit.getBlockPos()), level, hit.getBlockPos(), player, hand, hit).consumesAction(),
+            hit -> level.getBlockState(hit.getBlockPos()).useWithoutItem(level, player, hit).consumesAction());
+        ManifestLecternLifecycle.run(helper, player,
+            matrix -> level.getRecipeManager().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, matrix.asCraftInput(), level)
+                .orElseThrow().value().assemble(matrix.asCraftInput(), level.registryAccess()),
+            hit -> level.getBlockState(hit.getBlockPos()).useWithoutItem(level, player, hit).consumesAction());
+    }
     static net.minecraft.nbt.CompoundTag saveEntity(net.minecraft.world.level.block.entity.BlockEntity entity) {
         return entity.saveWithFullMetadata(entity.getLevel().registryAccess());
     }

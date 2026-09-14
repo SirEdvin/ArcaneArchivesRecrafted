@@ -6,6 +6,13 @@
       "arcanearchives:radiant_resonator_make3"
     ]
   },
+  "brazier.absorb": {
+    "sounds": [
+      "arcanearchives:brazier_absorb1",
+      "arcanearchives:brazier_absorb2",
+      "arcanearchives:brazier_absorb3"
+    ]
+  },
   "resonator.loop": {
     "sounds": [
       "arcanearchives:radiant_resonator_loop_v1"

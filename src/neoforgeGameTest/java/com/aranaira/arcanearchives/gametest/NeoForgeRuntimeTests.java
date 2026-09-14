@@ -11,13 +11,33 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 public final class NeoForgeRuntimeTests {
     @GameTest(template = "empty", timeoutTicks = 100)
     public static void deviceOwnership(GameTestHelper helper) {
+        BrazierAutomationLifecycle.run(helper, helper.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL), (brazier, side) -> {
+            var handler = helper.getLevel().getCapability(net.neoforged.neoforge.capabilities.Capabilities.ItemHandler.BLOCK,
+                brazier.getBlockPos(), side);
+            if (handler instanceof net.neoforged.neoforge.items.IItemHandlerModifiable) throw new AssertionError("0146 modifiable setter exposed");
+            return (com.aranaira.arcanearchives.inventory.BrazierItemAutomation) handler;
+        });
         DeviceOwnershipLifecycle.run(helper, helper.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL),
             net.neoforged.neoforge.common.util.FakePlayerFactory.get(helper.getLevel(),
                 new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(), "Ownership fixture")),
             entity -> entity.saveWithFullMetadata(helper.getLevel().registryAccess()),
             (entity, tag) -> entity.loadWithComponents(tag, helper.getLevel().registryAccess()),
             (stack, tag) -> stack.set(net.minecraft.core.component.DataComponents.BLOCK_ENTITY_DATA,
-                net.minecraft.world.item.component.CustomData.of(tag)));
+                net.minecraft.world.item.component.CustomData.of(tag)), (test, player) -> {
+                var level = test.getLevel();
+                BrazierActivationLifecycle.run(test, player,
+                    (hit, hand) -> com.aranaira.arcanearchives.init.ContentRegistry.BRAZIER.get().useItemOn(player.getItemInHand(hand),
+                        level.getBlockState(hit.getBlockPos()), level, hit.getBlockPos(), player, hand, hit).consumesAction(),
+                    hit -> level.getBlockState(hit.getBlockPos()).useWithoutItem(level, player, hit).consumesAction());
+                ManifestLecternLifecycle.run(test, player,
+                    matrix -> level.getRecipeManager().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, matrix.asCraftInput(), level)
+                        .orElseThrow().value().assemble(matrix.asCraftInput(), level.registryAccess()),
+                    hit -> level.getBlockState(hit.getBlockPos()).useWithoutItem(level, player, hit).consumesAction());
+            }, test -> {
+                var player = test.makeMockServerPlayerInLevel();
+                net.neoforged.neoforge.network.registration.NetworkRegistry.configureMockConnection(player.connection.getConnection());
+                return player;
+            });
     }
     @GameTest(template = "empty", timeoutTicks = 1200)
     public static void matrixDistillateLifecycle(GameTestHelper helper) {

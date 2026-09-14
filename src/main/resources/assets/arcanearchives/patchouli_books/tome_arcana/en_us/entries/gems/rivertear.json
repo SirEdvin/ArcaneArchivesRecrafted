@@ -1,0 +1,50 @@
+{
+  "name": "Rivertear",
+  "category": "arcanearchives:gems",
+  "icon": "arcanearchives:rivertear",
+  "sortnum": 62,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/gems/rivertear_0",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Rivertear is an Arcane Gem formed from a blue-spectrum piece of $(l:arcanearchives:items/shapedquartz)Shaped Radiant Quartz$(/l) in a pendeloque cut.$(br2)When activated, a Rivertear will conjure a block of water at a distance of up to 40 blocks at the cost of one point of charge.",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Astral Sorcery Lightwell When placed in a Lightwell with access to the sky, a Rivertear generates water at an extremely rapid rate. While it's possible for a Rivertear to shatter, the chances of shattering are $()$(italic)astronomically$() unlikely. For all intents and purposes, a Rivertear lasts indefinitely unless its Lightwell is broken. Once placed in a Lightwell, a Rivertear cannot be retrieved.",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Petal Apothecary If you have a Rivertear somewhere in your inventory (or slotted in a $(l:arcanearchives:items/gemsocket)Gem Socket$(/l)), right clicking on a Petal Apothecary will refill it with water.",
+      "flag": "&arcanearchives:arsenal_enabled,arcanearchives:ml_botania"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Crucible If you have a Rivertear somewhere in your inventory (or slotted in a $(l:arcanearchives:items/gemsocket)Gem Socket$(/l)), right clicking on a Crucible will refill it with water.",
+      "flag": "&arcanearchives:arsenal_enabled,arcanearchives:ml_thaumcraft"
+    },
+    {
+      "type": "arcanearchives:converted/gems/rivertear_5",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Rivertears can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l).",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:rivertear",
+      "flag": "arcanearchives:arsenal_enabled"
+    }
+  ],
+  "flag": "arcanearchives:arsenal_enabled",
+  "extra_recipe_mappings": {
+    "arcanearchives:rivertear": 0
+  }
+}

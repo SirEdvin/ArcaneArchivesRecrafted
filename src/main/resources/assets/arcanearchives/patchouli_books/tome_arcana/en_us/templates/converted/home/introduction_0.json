@@ -1,0 +1,15 @@
+{
+  "components": [
+    {
+      "type": "patchouli:image",
+      "image": "arcanearchives:textures/gui/guidebook/home_title.png",
+      "width": 310,
+      "height": 136,
+      "texture_width": 310,
+      "texture_height": 136,
+      "scale": 0.3419354838709677,
+      "x": 0,
+      "y": 0
+    }
+  ]
+}

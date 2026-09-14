@@ -1,0 +1,10 @@
+{
+  "components": [
+    {
+      "type": "patchouli:item",
+      "item": "arcanearchives:scepter_revelation",
+      "x": 0,
+      "y": 0
+    }
+  ]
+}

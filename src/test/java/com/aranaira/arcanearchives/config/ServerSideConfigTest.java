@@ -30,6 +30,7 @@ class ServerSideConfigTest {
         var defaults = ServerSideConfig.fromProperties(new Properties());
         assertTrue(defaults.useSounds());
         assertTrue(defaults.resonatorComplete());
+        assertTrue(defaults.brazierPickup());
         for (boolean sounds : new boolean[]{false, true}) {
             for (boolean completion : new boolean[]{false, true}) {
                 Properties values = new Properties();
@@ -45,11 +46,27 @@ class ServerSideConfigTest {
     }
 
     @Test
+    void brazierSoundSwitchRoundTripsIndependently() {
+        for (boolean sounds : new boolean[]{false, true}) {
+            for (boolean pickup : new boolean[]{false, true}) {
+                Properties values = new Properties();
+                values.setProperty("UseSounds", Boolean.toString(sounds));
+                values.setProperty("BrazierPickup", Boolean.toString(pickup));
+                var configured = ServerSideConfig.fromProperties(values);
+                assertEquals(sounds, configured.useSounds());
+                assertEquals(pickup, configured.brazierPickup());
+                assertTrue(configured.resonatorComplete());
+                assertEquals(configured, ServerSideConfig.fromProperties(configured.toProperties()));
+            }
+        }
+    }
+
+    @Test
     void invalidSoundSwitchesPreserveFileAndPreviousSnapshot() throws Exception {
         ServerSideConfig.initialize(directory);
         var before = ServerSideConfig.current();
         Path file = directory.resolve("arcanearchives/server.properties");
-        for (String key : new String[]{"UseSounds", "ResonatorComplete"}) {
+        for (String key : new String[]{"UseSounds", "ResonatorComplete", "BrazierPickup"}) {
             String invalid = key + "=perhaps\n";
             Files.writeString(file, invalid);
             assertThrows(IllegalStateException.class, () -> ServerSideConfig.initialize(directory));
@@ -68,7 +85,18 @@ class ServerSideConfigTest {
         ServerSideConfig.initialize(directory);
         assertEquals(7, ServerSideConfig.current().radiantMultiplier());
         assertFalse(ServerSideConfig.current().bookFromBookshelf());
+        assertTrue(ServerSideConfig.current().brazierPickup());
         assertEquals(custom, Files.readString(file));
+        String optedOut = custom + "UseSounds=true\nBrazierPickup=false\n";
+        Files.writeString(file, optedOut);
+        ServerSideConfig.initialize(directory);
+        assertFalse(ServerSideConfig.current().brazierPickup());
+        assertTrue(ServerSideConfig.current().useSounds());
+        assertEquals(7, ServerSideConfig.current().radiantMultiplier());
+        assertEquals(optedOut, Files.readString(file));
+        ServerSideConfig.initialize(directory);
+        assertFalse(ServerSideConfig.current().brazierPickup());
+        assertEquals(optedOut, Files.readString(file));
     }
 
     @Test

@@ -1,0 +1,29 @@
+{
+  "name": "Scepter of Manipulation",
+  "category": "arcanearchives:items",
+  "icon": "arcanearchives:scepter_manipulation",
+  "sortnum": 29,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/items/sceptermanipulation_0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Scepter of Manipulation is used modify properties of certain Arcane Archives blocks. The following blocks have interactions with a Scepter of Manipulation."
+    },
+    {
+      "type": "arcanearchives:converted/items/sceptermanipulation_2"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Scepters of Manipulation can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l)."
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:scepter_manipulation"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "arcanearchives:scepter_manipulation": 0
+  }
+}

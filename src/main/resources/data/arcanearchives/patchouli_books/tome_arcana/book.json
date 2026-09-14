@@ -1,0 +1,13 @@
+{
+  "name": "Tome of Arcana",
+  "landing_text": "The Arcane Archives: quartz, storage, networks and arcana. Begin with the Radiant Resonator in Blocks, or browse the original table of contents.",
+  "version": "1",
+  "use_resource_pack": true,
+  "dont_generate_book": true,
+  "custom_book_item": "arcanearchives:tome_arcana",
+  "show_progress": false,
+  "show_toasts": false,
+  "pause_game": false,
+  "i18n": false,
+  "text_overflow_mode": "RESIZE"
+}

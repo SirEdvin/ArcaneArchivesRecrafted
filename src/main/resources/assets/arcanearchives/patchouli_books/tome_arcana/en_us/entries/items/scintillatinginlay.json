@@ -1,0 +1,22 @@
+{
+  "name": "Scintillating Inlay",
+  "category": "arcanearchives:items",
+  "icon": "arcanearchives:scintillating_inlay",
+  "sortnum": 47,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/items/scintillatinginlay_0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Scintillating Inlay is a crafting component. Scintillating Inlay is generally used in devices that need to transfer signals or perform complex calculations.$(br2)Scintillating Inlay can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l)."
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:scintillating_inlay"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "arcanearchives:scintillating_inlay": 0
+  }
+}

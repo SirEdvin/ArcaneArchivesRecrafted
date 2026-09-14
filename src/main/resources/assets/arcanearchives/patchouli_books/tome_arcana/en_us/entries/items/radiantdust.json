@@ -1,0 +1,22 @@
+{
+  "name": "Radiant Dust",
+  "category": "arcanearchives:items",
+  "icon": "arcanearchives:radiant_dust",
+  "sortnum": 32,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/items/radiantdust_0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Radiant Dust is a crafting component made from ground up $(l:arcanearchives:items/rawquartz)Raw Radiant Quartz$(/l). Radiant Dust is generally used in devices where full sized pieces of Radiant Quartz would be too large.$(br2)Radiant Dust can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l)."
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:radiant_dust"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "arcanearchives:radiant_dust": 0
+  }
+}

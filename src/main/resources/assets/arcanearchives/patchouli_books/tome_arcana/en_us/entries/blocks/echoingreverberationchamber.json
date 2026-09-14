@@ -1,0 +1,18 @@
+{
+  "name": "Echoing Reverberation Chamber",
+  "category": "arcanearchives:blocks",
+  "icon": "arcanearchives:echoing_reverberation_chamber",
+  "sortnum": 20,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/blocks/echoingreverberationchamber_0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The original Tome left this topic unfinished and supplies no operating instructions. This entry preserves its place in the archive; it does not imply a working or obtainable feature."
+    }
+  ],
+  "extra_recipe_mappings": {
+    "arcanearchives:echoing_reverberation_chamber": 0
+  }
+}

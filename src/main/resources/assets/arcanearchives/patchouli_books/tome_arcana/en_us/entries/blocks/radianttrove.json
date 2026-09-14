@@ -1,0 +1,37 @@
+{
+  "name": "Radiant Trove",
+  "category": "arcanearchives:blocks",
+  "icon": "arcanearchives:radiant_trove",
+  "sortnum": 15,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/blocks/radianttrove_0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Radiant Trove is a storage container that can contain up to 1024 stacks of a single type of item."
+    },
+    {
+      "type": "arcanearchives:converted/blocks/radianttrove_2"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "If used as an upgrade, a $(l:arcanearchives:items/devouringcharm)Devouring Charm$(/l) causes items added to the Trove in excess of its maximum capacity are destroyed.$(br2)If used as an upgrade, a $(l:arcanearchives:items/radiantkey)Radiant Key$(/l) locks the type of item in the trove. Once the trove reaches 0 stored items, it will still reserve its storage for the type of item it once held."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Using a $(l:arcanearchives:items/scepterrevelation)Scepter of Revelation$(/l) on a Radiant Trove will return what type of item is stored, its current and maximum capacity, and how many upgrades have been installed.$(br2)Using a $(l:arcanearchives:items/sceptermanipulation)Scepter of Manipulation$(/l) on a Radiant Trove opens a GUI that allows you to see and modify what upgrades are installed."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "When monitored with a Redstone Comparator, a Radiant Trove ouptuts a signal based on how full it is.$(br2)Radiant Troves can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l)."
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:radiant_trove"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "arcanearchives:radiant_trove": 0
+  }
+}

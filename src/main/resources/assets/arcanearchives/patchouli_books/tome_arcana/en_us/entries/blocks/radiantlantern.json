@@ -1,0 +1,22 @@
+{
+  "name": "Radiant Lantern",
+  "category": "arcanearchives:blocks",
+  "icon": "arcanearchives:radiant_lantern",
+  "sortnum": 13,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/blocks/radiantlantern_0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Radiant Lanterns are a light source. They can be placed in any orientation, and will not pop off if the block they're attached to is removed.$(br2)Radiant Lanterns can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l)."
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:radiant_lantern"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "arcanearchives:radiant_lantern": 0
+  }
+}

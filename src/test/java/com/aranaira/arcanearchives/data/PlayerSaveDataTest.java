@@ -39,4 +39,62 @@ class PlayerSaveDataTest {
     void missingReceiptDefaultsToFalse() {
         assertFalse(PlayerSaveData.load(new CompoundTag()).hasReceivedBook());
     }
+
+    @Test
+    void pendingReturnsPreservePayloadAndReceiptWithoutMutableAliases() {
+        var data = new PlayerSaveData();
+        assertFalse(data.hasBrazierPendingReturns());
+        assertNull(data.brazierPendingReturns());
+        data.markBookReceived();
+        var pending = new CompoundTag();
+        pending.putInt("count", Integer.MAX_VALUE);
+        var item = new CompoundTag();
+        item.putString("id", "arcanearchives:unavailable_item_fixture");
+        pending.put("item", item);
+        var expected = pending.copy();
+        data.setDirty(false);
+        data.setBrazierPendingReturns(pending);
+        assertTrue(data.isDirty());
+        pending.putInt("count", 1);
+        ((CompoundTag) data.brazierPendingReturns()).remove("item");
+        assertEquals(expected, data.brazierPendingReturns());
+        data.setDirty(false);
+        data.setBrazierPendingReturns(expected);
+        assertFalse(data.isDirty());
+        //? if >=1.21 {
+        var saved = data.save(new CompoundTag(), null);
+        //?} else {
+        /*var saved = data.save(new CompoundTag());
+        *///?}
+        var restored = PlayerSaveData.load(saved);
+        saved.getCompound("brazier_pending_returns").remove("item");
+        assertEquals(expected, restored.brazierPendingReturns());
+        assertTrue(restored.hasReceivedBook());
+        assertFalse(restored.isDirty());
+        restored.setBrazierPendingReturns(null);
+        assertTrue(restored.isDirty());
+        assertFalse(restored.hasBrazierPendingReturns());
+        //? if >=1.21 {
+        restored.save(saved, null);
+        //?} else {
+        /*restored.save(saved);
+        *///?}
+        assertFalse(saved.contains("brazier_pending_returns"));
+        assertTrue(saved.getBoolean("received_book"));
+    }
+
+    @Test
+    void unrecognizedPendingPayloadSurvivesWithoutBeingTreatedAsDelivered() {
+        var saved = new CompoundTag();
+        saved.putString("brazier_pending_returns", "unrecognized future payload");
+        var data = PlayerSaveData.load(saved);
+        assertTrue(data.hasBrazierPendingReturns());
+        //? if >=1.21 {
+        var resaved = data.save(new CompoundTag(), null);
+        //?} else {
+        /*var resaved = data.save(new CompoundTag());
+        *///?}
+        resaved.remove("received_book");
+        assertEquals(saved, resaved);
+    }
 }

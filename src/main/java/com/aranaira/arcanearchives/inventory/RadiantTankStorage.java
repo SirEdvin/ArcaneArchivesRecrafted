@@ -134,8 +134,8 @@ public final class RadiantTankStorage
         /*FluidTank prepared = new FluidTank(Math.toIntExact(capacityFor(upgrades)));
         if (count > 0) {
             //? if forge {
-            prepared.readFromNBT(tag.getCompound("fluid"));
-            //?} else {
+            /^prepared.readFromNBT(tag.getCompound("fluid"));
+            ^///?} else {
             prepared.readFromNBT(registries, tag.getCompound("fluid"));
             //?}
         }

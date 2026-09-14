@@ -1,6 +1,6 @@
 # Amphora copied-item fluid boundary
 
-Status: required compatibility work remains unfinished on all targets. No approval is claimed to remove generic Amphora item-fluid integration. Explicit live player/Tank/world/dispenser paths are implemented; a direct remote item proxy is not registered.
+Status: deferred by explicit user direction to ignore this potential issue for now. Investigation is not a blocker for 0.0.2 or the remaining network/Tome implementation. Generic compatibility remains unfinished on all targets; the issue is neither repaired nor proven safe. Explicit live player/Tank/world/dispenser paths remain implemented; this deferral does not register a direct remote item proxy.
 
 ## Original behavior
 

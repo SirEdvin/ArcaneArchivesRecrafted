@@ -1,0 +1,44 @@
+{
+  "components": [
+    {
+      "type": "patchouli:item",
+      "item": "minecraft:cracked_stone_bricks",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "type": "patchouli:image",
+      "image": "arcanearchives:textures/gui/guidebook/next.png",
+      "width": 8,
+      "height": 16,
+      "texture_width": 8,
+      "texture_height": 16,
+      "scale": 1,
+      "x": 20,
+      "y": 0
+    },
+    {
+      "type": "patchouli:item",
+      "item": "minecraft:stone_bricks",
+      "x": 32,
+      "y": 0
+    },
+    {
+      "type": "patchouli:image",
+      "image": "arcanearchives:textures/gui/guidebook/next.png",
+      "width": 8,
+      "height": 16,
+      "texture_width": 8,
+      "texture_height": 16,
+      "scale": 1,
+      "x": 52,
+      "y": 0
+    },
+    {
+      "type": "patchouli:item",
+      "item": "minecraft:chiseled_stone_bricks",
+      "x": 64,
+      "y": 0
+    }
+  ]
+}

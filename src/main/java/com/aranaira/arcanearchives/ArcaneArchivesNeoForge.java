@@ -22,6 +22,10 @@ public final class ArcaneArchivesNeoForge {
                 (tank, side) -> tank.inventory()));
         ArcaneArchivesMod.initialize("NeoForge");
         bus.addListener((net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent event) ->
+            event.registerBlockEntity(net.neoforged.neoforge.capabilities.Capabilities.ItemHandler.BLOCK,
+                com.aranaira.arcanearchives.init.ContentRegistry.BRAZIER_ENTITY.get(),
+                (brazier, side) -> new com.aranaira.arcanearchives.inventory.BrazierItemAutomation(brazier)));
+        bus.addListener((net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent event) ->
             event.registerItem(net.neoforged.neoforge.capabilities.Capabilities.ItemHandler.ITEM,
                 (stack, context) -> new com.aranaira.arcanearchives.inventory.TroveItemStorage(stack),
                 com.aranaira.arcanearchives.init.ContentRegistry.RADIANT_TROVE_ITEM.get()));
@@ -47,7 +51,15 @@ public final class ArcaneArchivesNeoForge {
         bus.addListener(com.aranaira.arcanearchives.events.GemToggle::register);
         bus.addListener(com.aranaira.arcanearchives.events.OpenGemSocket::register);
         bus.addListener(com.aranaira.arcanearchives.events.ChestName::register);
+        bus.addListener(com.aranaira.arcanearchives.events.BrazierRadius::register);
         bus.addListener(com.aranaira.arcanearchives.events.GemSound::register);
+        bus.addListener(com.aranaira.arcanearchives.events.ManifestSnapshot::register);
+        bus.addListener(com.aranaira.arcanearchives.events.ManifestRequest::register);
+        bus.addListener(com.aranaira.arcanearchives.events.ManifestSelect::register);
+        bus.addListener(com.aranaira.arcanearchives.events.ManifestHover::register);
+        bus.addListener(com.aranaira.arcanearchives.events.PlayerPreferences::register);
+        bus.addListener(com.aranaira.arcanearchives.events.OpenManifest::register);
+        bus.addListener(com.aranaira.arcanearchives.events.ClearManifestTracking::register);
     }
 }
 *///?}

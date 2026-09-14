@@ -114,16 +114,26 @@ tasks.processResources {
         "pack_resource" to if (sc.current.parsed >= "1.21") 34 else 15,
         "pack_data" to if (sc.current.parsed >= "1.21") 48 else 15,
         "result_key" to if (sc.current.parsed >= "1.21") "id" else "item",
+        "brazier_fog" to if (sc.current.parsed >= "1.21") "fog_distance(Position, FogShape)" else "fog_distance(ModelViewMat, IViewRotMat * Position, FogShape)",
         "obj_loader" to "forge", // Ignored by vanilla JSON; the Fabric client supplies the OBJ adapter.
         "silk_predicate" to if (sc.current.parsed >= "1.21") """{"predicates":{"minecraft:enchantments":[{"enchantments":"minecraft:silk_touch","levels":{"min":1}}]}}"""
             else """{"enchantments":[{"enchantment":"minecraft:silk_touch","levels":{"min":1}}]}""",
     )
     inputs.properties(props)
+    filesMatching("assets/arcanearchives/shaders/core/brazier_fire.vsh") {
+        expand(props)
+    }
+    if (sc.current.parsed >= "1.21") filesMatching("assets/arcanearchives/shaders/core/brazier_fire.json") {
+        filter { line: String -> if (line.contains("IViewRotMat") || line.contains("\"blend\":")) "" else line }
+    }
     filesMatching(listOf("fabric.mod.json", "pack.mcmeta")) { expand(props) }
     filesMatching(listOf("arcanearchives.fabric.mixins.json", "arcanearchives.mixins.json")) { expand(props) }
     filesMatching("data/arcanearchives/recipe/*.json") { expand(props) }
     filesMatching("data/arcanearchives/advancement/*.json") { expand(props) }
     filesMatching("assets/arcanearchives/models/block/gemcutters_table.json") { expand(props) }
+    filesMatching("assets/arcanearchives/models/block/lectern_manifest.json") { expand(props) }
+    filesMatching("assets/arcanearchives/models/block/brazier_of_hoarding_fire.json") { expand(props) }
+    filesMatching("assets/arcanearchives/models/block/brazier_of_hoarding.json") { expand(props) }
     filesMatching("assets/arcanearchives/models/block/wonky_resonator.json") { expand(props) }
     filesMatching("assets/arcanearchives/models/block/celestial_lotus_engine.json") { expand(props) }
     filesMatching("assets/arcanearchives/models/block/matrix_reservoir.json") { expand(props) }
@@ -146,6 +156,7 @@ tasks.processResources {
                 .replace("data/arcanearchives/loot_table/", "data/arcanearchives/loot_tables/")
                 .replace("data/arcanearchives/advancement/", "data/arcanearchives/advancements/")
                 .replace("data/minecraft/tags/block/", "data/minecraft/tags/blocks/")
+                .replace("data/arcanearchives/tags/block/", "data/arcanearchives/tags/blocks/")
                 .replace("data/arcanearchives/tags/item/", "data/arcanearchives/tags/items/")
         }
     }

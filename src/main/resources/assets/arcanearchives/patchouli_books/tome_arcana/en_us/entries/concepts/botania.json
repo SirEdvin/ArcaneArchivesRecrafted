@@ -1,0 +1,22 @@
+{
+  "name": "Botania Compatibility",
+  "category": "arcanearchives:concepts",
+  "icon": "arcanearchives:rivertear",
+  "sortnum": 68,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Petal Apothecary Petal Apothecary"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "If you have a $(l:arcanearchives:gems/rivertear)Rivertear$(/l) somewhere in your inventory (or slotted in a $(l:arcanearchives:items/gemsocket)Gem Socket$(/l)), right clicking a Petal Apothecary will refill it with water.",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Arcane Arsenal is not enabled; some features for this section are not present.",
+      "flag": "arcanearchives:arsenal_disabled"
+    }
+  ]
+}

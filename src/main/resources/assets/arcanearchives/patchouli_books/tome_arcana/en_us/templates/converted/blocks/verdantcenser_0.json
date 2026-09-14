@@ -1,0 +1,10 @@
+{
+  "components": [
+    {
+      "type": "patchouli:item",
+      "item": "arcanearchives:verdant_censer",
+      "x": 0,
+      "y": 0
+    }
+  ]
+}

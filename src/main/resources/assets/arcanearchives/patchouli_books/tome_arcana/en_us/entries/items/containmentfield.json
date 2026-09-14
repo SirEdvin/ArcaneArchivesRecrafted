@@ -1,0 +1,22 @@
+{
+  "name": "Containment Field",
+  "category": "arcanearchives:items",
+  "icon": "arcanearchives:containment_field",
+  "sortnum": 38,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/items/containmentfield_0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Containment Field is a crafting component. Containment Fields are generally used in devices that need to keep something confined within an area.$(br2)Containment Fields can be used to upgrade $(l:arcanearchives:blocks/radianttank)Radiant Tanks$(/l).$(br2)Containment Fields can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l)."
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:containment_field"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "arcanearchives:containment_field": 0
+  }
+}

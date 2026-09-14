@@ -1,0 +1,6 @@
+{
+  "name": "Welcome",
+  "description": "$(l:arcanearchives:home/introduction)Welcome$(/l)",
+  "icon": "arcanearchives:tome_arcana",
+  "sortnum": 0
+}

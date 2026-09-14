@@ -1,5 +1,11 @@
 {
   "sources": [
+    {"type": "minecraft:single", "resource": "arcanearchives:item/radiant_amphora_fluidmask_fill"},
+    {"type": "minecraft:single", "resource": "arcanearchives:item/radiant_amphora_fluidmask_empty"},
+    {"type": "minecraft:single", "resource": "arcanearchives:blocks/brazier_charcoal"},
+    {"type": "minecraft:single", "resource": "arcanearchives:blocks/block_lecterngrate"},
+    {"type": "minecraft:single", "resource": "arcanearchives:transparent"},
+    {"type": "minecraft:single", "resource": "arcanearchives:items/item_manifest"},
     {"type": "minecraft:single", "resource": "arcanearchives:blocks/block_arcanearchives_master"},
     {"type": "minecraft:single", "resource": "arcanearchives:blocks/lotuscircle_simple"},
     {"type": "minecraft:single", "resource": "arcanearchives:blocks/lotuscircle"},

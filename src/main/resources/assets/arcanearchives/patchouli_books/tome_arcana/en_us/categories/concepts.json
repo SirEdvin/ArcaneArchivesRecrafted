@@ -1,0 +1,6 @@
+{
+  "name": "Concepts",
+  "description": "$(l:arcanearchives:concepts/networks)Concepts$(/l)",
+  "icon": "arcanearchives:tome_arcana",
+  "sortnum": 5
+}

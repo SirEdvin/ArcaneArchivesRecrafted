@@ -1,0 +1,10 @@
+{
+  "components": [
+    {
+      "type": "patchouli:item",
+      "item": "arcanearchives:storage_shaped_quartz",
+      "x": 0,
+      "y": 0
+    }
+  ]
+}

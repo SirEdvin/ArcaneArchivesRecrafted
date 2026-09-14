@@ -17,16 +17,25 @@ public final class ArcaneArchivesFabricClient implements ClientModInitializer {
         AmphoraClient.initialize();
         ResonatorLoopSound.initialize();
         GemSoundClient.initialize();
+        ManifestClient.initialize();
+        ManifestKey.initialize();
+        BrazierRanges.initialize();
+        TroveHud.initialize();
         net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.ITEM.register((stack, layer) ->
             EchoColor.color(stack, layer, (source, index) -> {
                 var provider = net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.ITEM.get(source.getItem());
                 return provider == null ? -1 : provider.getColor(source, index);
             }), ContentRegistry.ECHO.get());
         ArsenalClient.initialize();
+        net.fabricmc.fabric.api.client.rendering.v1.CoreShaderRegistrationCallback.EVENT.register(context ->
+            context.register(BrazierRenderType.id(), com.mojang.blaze3d.vertex.DefaultVertexFormat.NEW_ENTITY, BrazierRenderType::loaded));
         net.minecraft.client.renderer.blockentity.BlockEntityRenderers.register(ContentRegistry.RADIANT_TANK_ENTITY.get(), RadiantTankRenderer::new);
         net.minecraft.client.renderer.blockentity.BlockEntityRenderers.register(ContentRegistry.RADIANT_CHEST_ENTITY.get(), RadiantChestRenderer::new);
+        net.minecraft.client.renderer.blockentity.BlockEntityRenderers.register(ContentRegistry.BRAZIER_ENTITY.get(), BrazierRenderer::new);
         net.minecraft.client.gui.screens.MenuScreens.register(ContentRegistry.GEMCUTTERS_TABLE_MENU.get(), GemCuttersTableScreen::new);
         net.minecraft.client.gui.screens.MenuScreens.register(ContentRegistry.RADIANT_CHEST_MENU.get(), RadiantChestScreen::new);
+        net.minecraft.client.gui.screens.MenuScreens.register(ContentRegistry.MANIFEST_MENU.get(), ManifestScreen::new);
+        net.minecraft.client.gui.screens.MenuScreens.register(ContentRegistry.BRAZIER_MENU.get(), BrazierScreen::new);
         net.minecraft.client.gui.screens.MenuScreens.register(ContentRegistry.STORAGE_UPGRADE_MENU.get(), StorageUpgradeScreen::new);
         net.minecraft.client.gui.screens.MenuScreens.register(ContentRegistry.RADIANT_CRAFTING_TABLE_MENU.get(), RadiantCraftingScreen::new);
         net.minecraft.client.gui.screens.MenuScreens.register(ContentRegistry.DEVOURING_CHARM_MENU.get(), DevouringCharmScreen::new);
@@ -36,6 +45,8 @@ public final class ArcaneArchivesFabricClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ContentRegistry.RADIANT_TROVE.get(), RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ContentRegistry.RADIANT_TANK.get(), RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ContentRegistry.GEMCUTTERS_TABLE.get(), RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ContentRegistry.LECTERN_MANIFEST.get(), RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ContentRegistry.BRAZIER.get(), RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ContentRegistry.RADIANT_LANTERN.get(), RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ContentRegistry.RADIANT_RESONATOR.get(), RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ContentRegistry.WONKY_RESONATOR.get(), RenderType.cutout());
@@ -44,6 +55,9 @@ public final class ArcaneArchivesFabricClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ContentRegistry.ECHOING_REVERBERATION_CHAMBER.get(), RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ContentRegistry.QUARTZ_SLIVER.get(), RenderType.cutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ContentRegistry.RAW_QUARTZ_CLUSTER.get(), RenderType.cutout());
+        ModelLoadingPlugin.register(plugin -> plugin.addModels(
+            GemCutterFabricModel.location("arcanearchives:block/brazier_of_hoarding"),
+            GemCutterFabricModel.location("arcanearchives:block/brazier_of_hoarding_fire")));
         ModelLoadingPlugin.register(plugin -> plugin.modifyModelAfterBake().register((model, context) -> {
             if (model == null || model instanceof GemCutterFabricModel) return model;
             //? if >=1.21 {
@@ -60,6 +74,16 @@ public final class ArcaneArchivesFabricClient implements ClientModInitializer {
             boolean inventory = topLevel != null && topLevel.getVariant().equals("inventory")
                 && item.getNamespace().equals("arcanearchives") && item.getPath().equals("gemcutters_table");
             if (geometry || inventory) return new GemCutterFabricModel(model, context.settings(), context.textureGetter());
+            if (resource != null && resource.getNamespace().equals("arcanearchives")
+                    && resource.getPath().equals("block/brazier_of_hoarding_fire")) {
+                return new GemCutterFabricModel(model, context.settings(), context.textureGetter(),
+                    "brazier_of_hoarding_fire", "brazier_of_hoarding", false);
+            }
+            boolean lecternGeometry = resource != null && resource.getNamespace().equals("arcanearchives")
+                && (resource.getPath().equals("block/lectern_manifest") || resource.getPath().equals("item/lectern_manifest"));
+            boolean lecternInventory = topLevel != null && topLevel.getVariant().equals("inventory")
+                && item.getNamespace().equals("arcanearchives") && item.getPath().equals("lectern_manifest");
+            if (lecternGeometry || lecternInventory) return new GemCutterFabricModel(model, context.settings(), context.textureGetter(), "lectern_manifest");
             boolean chestGeometry = resource != null && resource.getNamespace().equals("arcanearchives")
                 && (resource.getPath().equals("block/radiant_chest") || resource.getPath().equals("item/radiant_chest"));
             boolean chestInventory = topLevel != null && topLevel.getVariant().equals("inventory")
@@ -90,7 +114,7 @@ public final class ArcaneArchivesFabricClient implements ClientModInitializer {
             boolean wonkyInventory = topLevel != null && topLevel.getVariant().equals("inventory")
                 && item.getNamespace().equals("arcanearchives") && item.getPath().equals("wonky_resonator");
             if (wonkyGeometry || wonkyInventory) return new GemCutterFabricModel(model, context.settings(), context.textureGetter(), "makeshift_resonator");
-            for (String name : new String[]{"verdant_censer", "echoing_conformance_chamber", "echoing_reverberation_chamber", "celestial_lotus_engine", "matrix_reservoir", "matrix_distillate"}) {
+            for (String name : new String[]{"verdant_censer", "echoing_conformance_chamber", "echoing_reverberation_chamber", "celestial_lotus_engine", "matrix_reservoir", "matrix_distillate", "brazier_of_hoarding"}) {
                 boolean deviceGeometry = resource != null && resource.getNamespace().equals("arcanearchives")
                     && (resource.getPath().equals("block/" + name) || resource.getPath().equals("item/" + name));
                 boolean deviceInventory = topLevel != null && topLevel.getVariant().equals("inventory")

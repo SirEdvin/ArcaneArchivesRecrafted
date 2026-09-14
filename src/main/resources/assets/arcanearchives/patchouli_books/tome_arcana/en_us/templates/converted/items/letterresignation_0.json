@@ -1,0 +1,10 @@
+{
+  "components": [
+    {
+      "type": "patchouli:item",
+      "item": "arcanearchives:letter_resignation",
+      "x": 0,
+      "y": 0
+    }
+  ]
+}

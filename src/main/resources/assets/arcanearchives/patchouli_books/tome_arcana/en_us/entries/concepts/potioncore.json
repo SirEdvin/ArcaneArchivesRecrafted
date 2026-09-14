@@ -1,0 +1,24 @@
+{
+  "name": "Potion Core Compatibility",
+  "category": "arcanearchives:concepts",
+  "icon": "minecraft:potion",
+  "sortnum": 69,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Effects",
+      "flag": "arcanearchives:ml_potioncore"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A $(l:arcanearchives:gems/cleansegleam)Cleansegleam$(/l) applies the Antidote effect when used.",
+      "flag": "&arcanearchives:ml_potioncore,arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Arcane Arsenal is not enabled; some features for this section are not present.",
+      "flag": "&arcanearchives:ml_potioncore,arcanearchives:arsenal_disabled"
+    }
+  ],
+  "flag": "arcanearchives:ml_potioncore"
+}

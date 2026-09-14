@@ -1,0 +1,6 @@
+{
+  "name": "Items",
+  "description": "$(l:arcanearchives:items/rawquartz)Items$(/l)",
+  "icon": "arcanearchives:tome_arcana",
+  "sortnum": 3
+}

@@ -97,6 +97,14 @@ public final class RadiantTroveBlockEntity extends BlockEntity {
         ItemStack reference = lockReference();
         return !optionals.isLocked() || reference.isEmpty() || ExtendedItemStackHandler.sameItemAndData(reference, stack);
     }
+    /** Original Trove-specific Brazier score; -1 leaves ordinary routing-weight fallback to the router. */
+    public int troveRoutingScore(ItemStack stack) {
+        ItemStack stored = inventory.getStackInSlot(0);
+        ItemStack reference = stored.isEmpty() && optionals.isLocked() ? lockReference() : stored;
+        if (stack.isEmpty() || reference.isEmpty() || !ExtendedItemStackHandler.sameItemAndData(stack, reference)) return -1;
+        if (!optionals.isVoiding()) return 4500;
+        return stored.getCount() < capacity(reference, upgrades.getUpgradesCount()) ? 4700 : 4000;
+    }
     public void setOwner(UUID value) { owner = value; setChanged(); }
     public UUID owner() { return owner; }
     public boolean isLiveServerStorage() {
@@ -185,7 +193,9 @@ public final class RadiantTroveBlockEntity extends BlockEntity {
         if (now - lastWithdrawal < 150_000_000L) return;
         lastWithdrawal = now;
         ItemStack stored = inventory.getStackInSlot(0);
-        ItemStack result = inventory.extractItem(0, player.isShiftKeyDown() ? 1 : stored.getMaxStackSize(), false);
+        int count = com.aranaira.arcanearchives.events.PlayerPreferences.get(player)
+            .withdrawalCount(stored.getMaxStackSize(), player.isShiftKeyDown());
+        ItemStack result = inventory.extractItem(0, count, false);
         if (!result.isEmpty()) {
             insertWithdrawal(player.getInventory().items, result);
             if (!result.isEmpty()) player.drop(result, false);
@@ -195,7 +205,7 @@ public final class RadiantTroveBlockEntity extends BlockEntity {
     }
 
     // Unlike Inventory.add, the original main-inventory handler never voids creative overflow.
-    static void insertWithdrawal(java.util.List<ItemStack> slots, ItemStack remainder) {
+    public static void insertWithdrawal(java.util.List<ItemStack> slots, ItemStack remainder) {
         for (ItemStack present : slots) {
             if (remainder.isEmpty()) return;
             if (present.isEmpty() || !ExtendedItemStackHandler.sameItemAndData(present, remainder)) continue;

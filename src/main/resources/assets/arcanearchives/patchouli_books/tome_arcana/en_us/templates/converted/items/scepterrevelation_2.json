@@ -1,0 +1,22 @@
+{
+  "components": [
+    {
+      "type": "patchouli:item",
+      "item": "arcanearchives:monitoring_crystal",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "type": "patchouli:item",
+      "item": "arcanearchives:radiant_chest",
+      "x": 20,
+      "y": 0
+    },
+    {
+      "type": "patchouli:item",
+      "item": "arcanearchives:radiant_crafting_table",
+      "x": 40,
+      "y": 0
+    }
+  ]
+}

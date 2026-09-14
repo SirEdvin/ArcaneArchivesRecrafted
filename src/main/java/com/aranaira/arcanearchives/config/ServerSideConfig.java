@@ -13,7 +13,15 @@ import java.util.Properties;
 public record ServerSideConfig(int resonatorLimit, int resonatorTickTime, int radiantMultiplier,
                                boolean bookFromBookshelf, boolean bookFromResonator,
                                int sliverClusterChance, int sliverSingleChance, int sliverMinimum, int sliverMaximum,
-                               boolean inWorldChestConversion, boolean useSounds, boolean resonatorComplete) {
+                               boolean inWorldChestConversion, boolean useSounds, boolean resonatorComplete, boolean brazierPickup) {
+    public ServerSideConfig(int resonatorLimit, int resonatorTickTime, int radiantMultiplier,
+                            boolean bookFromBookshelf, boolean bookFromResonator,
+                            int sliverClusterChance, int sliverSingleChance, int sliverMinimum, int sliverMaximum,
+                            boolean inWorldChestConversion, boolean useSounds, boolean resonatorComplete) {
+        this(resonatorLimit, resonatorTickTime, radiantMultiplier, bookFromBookshelf, bookFromResonator,
+            sliverClusterChance, sliverSingleChance, sliverMinimum, sliverMaximum,
+            inWorldChestConversion, useSounds, resonatorComplete, true);
+    }
     public ServerSideConfig(int resonatorLimit, int resonatorTickTime, int radiantMultiplier,
                             boolean bookFromBookshelf, boolean bookFromResonator,
                             int sliverClusterChance, int sliverSingleChance, int sliverMinimum, int sliverMaximum,
@@ -80,7 +88,8 @@ public record ServerSideConfig(int resonatorLimit, int resonatorTickTime, int ra
             Integer.parseInt(properties.getProperty("ChanceForSliverSingle", "40")),
             Integer.parseInt(properties.getProperty("AmountGeneratedOnSliverClusterMinimum", "8")),
             Integer.parseInt(properties.getProperty("AmountGeneratedOnSliverClusterMaximum", "24")),
-            bool(properties, "InWorldChestConversion"), bool(properties, "UseSounds"), bool(properties, "ResonatorComplete"));
+            bool(properties, "InWorldChestConversion"), bool(properties, "UseSounds"), bool(properties, "ResonatorComplete"),
+            bool(properties, "BrazierPickup"));
     }
 
     private static boolean bool(Properties properties, String key) {
@@ -101,6 +110,7 @@ public record ServerSideConfig(int resonatorLimit, int resonatorTickTime, int ra
         properties.setProperty("InWorldChestConversion", Boolean.toString(inWorldChestConversion));
         properties.setProperty("UseSounds", Boolean.toString(useSounds));
         properties.setProperty("ResonatorComplete", Boolean.toString(resonatorComplete));
+        properties.setProperty("BrazierPickup", Boolean.toString(brazierPickup));
         properties.setProperty("ChanceForSliverCluster", Integer.toString(sliverClusterChance));
         properties.setProperty("ChanceForSliverSingle", Integer.toString(sliverSingleChance));
         properties.setProperty("AmountGeneratedOnSliverClusterMinimum", Integer.toString(sliverMinimum));

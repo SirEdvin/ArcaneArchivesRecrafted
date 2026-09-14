@@ -1,0 +1,11 @@
+{
+  "loader": "${obj_loader}:obj",
+  "model": "arcanearchives:models/block/brazier_of_hoarding_fire.obj",
+  "flip_v": true,
+  "automatic_culling": false,
+  "ambientocclusion": false,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "minecraft:block/fire_0"
+  }
+}

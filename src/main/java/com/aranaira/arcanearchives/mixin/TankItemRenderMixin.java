@@ -26,5 +26,6 @@ public abstract class TankItemRenderMixin {
     private void arcanearchives$renderTankFluid(ItemStack stack, ItemDisplayContext context, boolean leftHand,
             PoseStack poses, MultiBufferSource buffers, int light, int overlay, BakedModel model, CallbackInfo ci) {
         RadiantTankRenderer.renderItem(stack, poses, buffers, light, overlay);
+        com.aranaira.arcanearchives.client.AmphoraRenderer.renderItem(stack, poses, buffers, light, overlay);
     }
 }

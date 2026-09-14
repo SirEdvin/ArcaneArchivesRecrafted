@@ -1,6 +1,6 @@
 # Tome of Arcana — conversion prerequisites and parity evidence
 
-This slice strengthens the conversion audit and traces the real tome routes. It does **not** register a tome, create a partial Patchouli book, or change gameplay. The approved external backend remains as implemented in [GUIDEBOOK_BACKEND.md](GUIDEBOOK_BACKEND.md). The migration remains unfinished.
+Current implementation: acquisition/bookshelf hooks and complete production Patchouli conversion are implemented. See [the current checkpoint](0.0.2-IMPLEMENTATION_CHECKPOINT.md) and `tome-conversion.json`: 98 audited source sections, 73 grouped entries, 415 native pages, 44 recipe displays, 25 illustrations and 317 validated source targets. Native/build/resource checks pass on all four targets; connected opening, layout/input and reload acceptance remain unverified. Explicitly unfinished original topics are identified rather than filled with invented instructions. The audit below is historical source evidence, not the current implementation inventory. The approved external backend remains as implemented in [GUIDEBOOK_BACKEND.md](GUIDEBOOK_BACKEND.md).
 
 ## Source and licensing
 

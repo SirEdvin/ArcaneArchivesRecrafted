@@ -1,0 +1,19 @@
+{
+  "name": "Obstruction Charm",
+  "category": "arcanearchives:items",
+  "icon": "arcanearchives:obstruction_charm",
+  "sortnum": 43,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/items/obstructioncharm_0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "TBD$(br2)Obstruction Charms can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l)."
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:obstruction_charm"
+    }
+  ]
+}

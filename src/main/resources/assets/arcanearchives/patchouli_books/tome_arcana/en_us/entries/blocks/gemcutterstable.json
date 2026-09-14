@@ -1,0 +1,26 @@
+{
+  "name": "Gem Cutter's Table",
+  "category": "arcanearchives:blocks",
+  "icon": "arcanearchives:gemcutters_table",
+  "sortnum": 9,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/blocks/gemcutterstable_0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Gem Cutter's Table is a crafting station used to refine Raw Radiant Quartz into Shaped Radiant Quartz. Items that require finesse to craft are generally made on a Gem Cutter's Table.$(br2)Unlike conventional crafting, there are no shape requirements for a Gem Cutter's Table recipe. After selecting the desired item you can simply remove it from the output slot if enough ingredients are present."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The internal inventory of a Gem Cutter's Table can be filled by a $(l:arcanearchives:blocks/brazierhoarding)Brazier of Hoarding$(/l). Slots with existing items will be filled, but new items will never be added to empty slots.$(br2)Gem Cutter's Tables can be crafted conventionally."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "arcanearchives:gemcutters_table"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "arcanearchives:gemcutters_table": 0
+  }
+}

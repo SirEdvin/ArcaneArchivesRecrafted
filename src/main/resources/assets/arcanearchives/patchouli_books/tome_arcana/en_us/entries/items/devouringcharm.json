@@ -1,0 +1,55 @@
+{
+  "name": "Devouring Charm",
+  "category": "arcanearchives:items",
+  "icon": "arcanearchives:devouring_charm",
+  "sortnum": 39,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/items/devouringcharm_0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Devouring Charm allows you to destroy items or empty fluids out of a bucket. Devouring Charms are also an optional upgrade component.$(br2)When used to upgrade a $(l:arcanearchives:blocks/radianttank)Radiant Tanks$(/l), any fluid inserted over the tank's maximum capacity is destroyed."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "When used to upgrade a $(l:arcanearchives:blocks/radianttrove)Radiant Trove$(/l), any items inserted beyond the Trove's maximum capacity are destroyed."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Placing a $(l:arcanearchives:gems/parchtear)Parchtear$(/l) into the fluid voiding slot of a Devouring Charm restores its charge.",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Devouring Charms can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l)."
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:devouring_charm"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$()$(italic) The Eternal University makes these simple charms available to all apprentices. Inside the mouth of the charm is a portal similar in many ways to a portal to the Nether, save that the connection is one-way. $()"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$()$(italic) Anything inserted into the charm will be gone forever, sent to some hellish void to be destroyed. It is standard University procedure to toss leftover food scraps, experimental waste, creatures you no longer have a need for, and other refuse into your Charm. $()"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$()$(italic) Though you have been given a handheld version for personal use, larger charms can be signed out for up to one day’s time with the permission of your Master. $()"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$()$(italic) If you find yourself with a case of an $()$(bold)$(italic)exceptionally$()$(italic) large mess, a room containing a Devouring Charm approximately eighty blocks in diameter can be signed out with a letter from your Master and the permission of at least two other Masters. $()$(br2)$()$(italic) Do show some discretion and at least $()try$()$(italic) not to let anything come to that. $()"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$()$(bold) The Apprentice's Panoply $()$(br2)...Form letter given to all Apprentices of the Eternal University"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "arcanearchives:devouring_charm": 0
+  }
+}

@@ -18,6 +18,7 @@ import net.minecraft.world.item.ItemStack;
 public final class RadiantChestMenu extends AbstractContainerMenu {
     public static final int MAX_NAME_LENGTH = 32; // Original GuiTextField default.
     private final RadiantChestBlockEntity chest;
+    private final DataSlot routingMode = DataSlot.standalone();
     private final DataSlot[] nameCharacters = new DataSlot[MAX_NAME_LENGTH];
     private final SimpleContainer display = new SimpleContainer(54);
     private final int[] counts = new int[54];
@@ -29,6 +30,7 @@ public final class RadiantChestMenu extends AbstractContainerMenu {
     public RadiantChestMenu(int id, Inventory inventory, RadiantChestBlockEntity chest) {
         super(ContentRegistry.RADIANT_CHEST_MENU.get(), id);
         this.chest = chest;
+        addDataSlot(routingMode);
         // Native menu data slots are 16-bit, exactly one UTF-16 code unit each.
         for (int index = 0; index < nameCharacters.length; index++)
             nameCharacters[index] = addDataSlot(DataSlot.standalone());
@@ -52,6 +54,16 @@ public final class RadiantChestMenu extends AbstractContainerMenu {
     }
 
     public int count(int slot) { return counts[slot]; }
+    public boolean noNewStacks() { return routingMode.get() == 1; }
+
+    @Override public boolean clickMenuButton(Player player, int button) {
+        if (button != 0 || chest == null || player.containerMenu != this || player.isSpectator()
+                || !chest.isLiveServerStorage() || !stillValid(player)
+                || !player.level().mayInteract(player, chest.getBlockPos())) return false;
+        if (!chest.toggleRoutingType()) return false;
+        broadcastChanges();
+        return true;
+    }
 
     public String chestName() {
         var result = new StringBuilder();
@@ -78,6 +90,7 @@ public final class RadiantChestMenu extends AbstractContainerMenu {
 
     private void updateDisplay() {
         if (chest == null) return;
+        routingMode.set(chest.noNewStacks() ? 1 : 0);
         String name = chest.chestName();
         for (int index = 0; index < nameCharacters.length; index++)
             nameCharacters[index].set(index < name.length() ? name.charAt(index) : 0);

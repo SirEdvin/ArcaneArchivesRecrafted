@@ -42,8 +42,18 @@ public final class RadiantChest extends Block implements EntityBlock {
 
     @Override public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
         super.setPlacedBy(level, pos, state, placer, stack);
-        if (!level.isClientSide && placer instanceof Player player && level.getBlockEntity(pos) instanceof RadiantChestBlockEntity chest)
+        if (!level.isClientSide && placer instanceof Player player && level.getBlockEntity(pos) instanceof RadiantChestBlockEntity chest) {
             chest.setOwner(player.getUUID());
+            //? if >=1.21 {
+            var data = stack.get(net.minecraft.core.component.DataComponents.BLOCK_ENTITY_DATA);
+            var saved = data == null ? null : data.copyTag();
+            //?} else {
+            /*var saved = net.minecraft.world.item.BlockItem.getBlockEntityData(stack);
+            *///?}
+            if ((saved == null || !saved.contains("routingType")) && !chest.noNewStacks()
+                    && com.aranaira.arcanearchives.events.PlayerPreferences.get(player).defaultRoutingNoNewItems())
+                chest.toggleRoutingType();
+        }
     }
 
     private void open(Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {

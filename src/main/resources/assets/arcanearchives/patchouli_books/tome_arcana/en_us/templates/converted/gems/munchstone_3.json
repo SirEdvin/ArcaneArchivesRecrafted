@@ -1,0 +1,21 @@
+{
+  "components": [
+    {
+      "type": "patchouli:image",
+      "image": "arcanearchives:textures/items/gems/oval/dun.png",
+      "width": 16,
+      "height": 16,
+      "texture_width": 16,
+      "texture_height": 16,
+      "scale": 1,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "type": "patchouli:text",
+      "text": "To recharge a dun Munchstone, activate the gem while you have bonemeal in your inventory. Five pieces of bonemeal are necessary to fully refill the gem, and if you have less than five pieces the gem will only be partially recharged. The bonemeal is consumed.",
+      "x": 0,
+      "y": 22
+    }
+  ]
+}

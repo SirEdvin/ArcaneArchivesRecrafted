@@ -1,0 +1,43 @@
+{
+  "name": "Arcane Gems",
+  "category": "arcanearchives:gems",
+  "icon": "arcanearchives:tome_arcana",
+  "sortnum": 49,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/gems/arcanegems_0",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Arcane Gems are specially cut pieces of Radiant Quartz, modified to only glow with a specific color of light. Each gem has unique magical properties described further on their individual pages.$(br2)$()$(bold)Please be aware that all Arcane Gem recipes are temporary.$() Arcane Gems will not be craftable on the $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l) in the future.",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The shape of an Arcane Gem is an indicator of the nature of its function.",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/gems/arcanegems_3",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/gems/arcanegems_4",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/gems/arcanegems_5",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/gems/arcanegems_6",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/gems/arcanegems_7",
+      "flag": "arcanearchives:arsenal_enabled"
+    }
+  ],
+  "flag": "arcanearchives:arsenal_enabled"
+}

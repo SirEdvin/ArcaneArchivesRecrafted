@@ -1,0 +1,49 @@
+{
+  "name": "Manifest",
+  "category": "arcanearchives:items",
+  "icon": "arcanearchives:manifest",
+  "sortnum": 35,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/items/manifest_0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Manifest lists all items stored within loaded Radiant Storage in one single list.$(br2)By hovering over a slot, you can get a list of each location that the item is stored at, including names of Radiant Chests. By clicking on the slot, you can track the locations of each of these items, drawing a line from your current position to the target inventories (as long as a target inventory is in the same dimension)."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Activating a tracked inventory container disables the line, as does hitting the “End Tracking” button at the bottom of the Manifest’s interface."
+    },
+    {
+      "type": "arcanearchives:converted/items/manifest_3"
+    },
+    {
+      "type": "arcanearchives:converted/items/manifest_4"
+    },
+    {
+      "type": "arcanearchives:converted/items/manifest_5"
+    },
+    {
+      "type": "arcanearchives:converted/items/manifest_6"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Items in non-Radiant storage can be added to the Manifest by attaching a $(l:arcanearchives:blocks/monitoringcrystal)Monitoring Crystal$(/l) to its storage container."
+    },
+    {
+      "type": "arcanearchives:converted/items/manifest_8"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Manifests can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l)."
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:manifest"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "arcanearchives:manifest": 0
+  }
+}

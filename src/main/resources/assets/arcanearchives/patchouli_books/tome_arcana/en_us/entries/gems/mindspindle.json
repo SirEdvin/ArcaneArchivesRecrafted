@@ -1,0 +1,40 @@
+{
+  "name": "Mindspindle",
+  "category": "arcanearchives:gems",
+  "icon": "arcanearchives:mindspindle",
+  "sortnum": 59,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/gems/mindspindle_0",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Mindspindle is an Arcane Gem formed from a green-spectrum piece of $(l:arcanearchives:items/shapedquartz)Shaped Radiant Quartz$(/l) in a pampel cut.$(br2)When held, a Mindspindle magnifies the amount of experience contained within experience globes by 50%. It loses one point of charge for each experience point amplified, and can affect an un-amplified total of 800xp before needing to be recharged.",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "If you come into contact with a very large number of experience globes while holding a Mindspindle, you can absorb their essence instantly, instead of needing to wait for each globe to be picked up in sequence.",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/gems/mindspindle_3",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Mindspindles can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l).",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:mindspindle",
+      "flag": "arcanearchives:arsenal_enabled"
+    }
+  ],
+  "flag": "arcanearchives:arsenal_enabled",
+  "extra_recipe_mappings": {
+    "arcanearchives:mindspindle": 0
+  }
+}

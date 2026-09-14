@@ -1,0 +1,40 @@
+{
+  "name": "Phoenixway",
+  "category": "arcanearchives:gems",
+  "icon": "arcanearchives:phoenixway",
+  "sortnum": 64,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/gems/phoenixway_0",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Phoenixway is an Arcane Gem formed from a orange-spectrum piece of $(l:arcanearchives:items/shapedquartz)Shaped Radiant Quartz$(/l) in a trillion cut.$(br2)When activated, a Phoenixway will light a fire at a distance of up to 40 blocks at the cost of one point of charge.",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "If you're about to take fire damage while holding a Phoenixway, it will block the damage and grant 30 seconds of Fire Resistance at the cost of twelve points of charge.",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/gems/phoenixway_3",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Phoenixways can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l).",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:phoenixway",
+      "flag": "arcanearchives:arsenal_enabled"
+    }
+  ],
+  "flag": "arcanearchives:arsenal_enabled",
+  "extra_recipe_mappings": {
+    "arcanearchives:phoenixway": 0
+  }
+}

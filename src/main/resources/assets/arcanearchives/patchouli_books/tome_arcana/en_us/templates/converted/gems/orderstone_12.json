@@ -1,0 +1,32 @@
+{
+  "components": [
+    {
+      "type": "patchouli:item",
+      "item": "minecraft:furnace",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "type": "patchouli:image",
+      "image": "arcanearchives:textures/gui/guidebook/next.png",
+      "width": 8,
+      "height": 16,
+      "texture_width": 8,
+      "texture_height": 16,
+      "scale": 1,
+      "x": 20,
+      "y": 0
+    },
+    {
+      "type": "patchouli:image",
+      "image": "minecraft:textures/block/furnace_front_on.png",
+      "width": 16,
+      "height": 16,
+      "texture_width": 16,
+      "texture_height": 16,
+      "scale": 1,
+      "x": 32,
+      "y": 0
+    }
+  ]
+}

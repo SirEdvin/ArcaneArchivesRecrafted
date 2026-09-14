@@ -1,0 +1,32 @@
+{
+  "components": [
+    {
+      "type": "patchouli:image",
+      "image": "arcanearchives:textures/gui/guidebook/home_arcana_faded.png",
+      "width": 163,
+      "height": 48,
+      "texture_width": 163,
+      "texture_height": 48,
+      "scale": 0.6503067484662577,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "type": "patchouli:image",
+      "image": "arcanearchives:textures/gui/guidebook/home_concepts.png",
+      "width": 163,
+      "height": 48,
+      "texture_width": 163,
+      "texture_height": 48,
+      "scale": 0.6503067484662577,
+      "x": 0,
+      "y": 35
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:tableofcontents/arcanegems)Arcane Gems$(/l) $(l:arcanearchives:tableofcontents/concepts)Concepts$(/l)",
+      "x": 0,
+      "y": 72
+    }
+  ]
+}

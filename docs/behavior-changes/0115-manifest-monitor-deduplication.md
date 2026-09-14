@@ -22,6 +22,6 @@ Approved explicitly by the user in response to the three network-migration decis
 
 ## Verification
 
-Decision recorded only; implementation and runtime verification remain pending.
+Server-side implementation and bounded native verification now pass under [0132](0132-manifest-inventory-aggregation.md). A real Fabric native regression failed before deduplication; the corrected aggregate passes repeated targets, opposite double-chest halves, distinct replacement barrels, target removal and current personal/Hive reads on all four loaders. Final full build exits 0 in 56s (`build/manifest-contents-final-20260912-061142.log`); all artifact pairs pass. The Manifest item/UI/packets, actual target unload and connected acceptance remain pending; this is not full feature completion.
 
 Required tests: repeated target, opposite double-chest halves, distinct inventories, target replacement/unload, and current personal/Hive visibility.

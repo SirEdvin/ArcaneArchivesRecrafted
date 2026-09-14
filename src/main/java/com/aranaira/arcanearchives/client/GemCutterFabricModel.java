@@ -29,14 +29,21 @@ import java.util.function.Function;
 public final class GemCutterFabricModel implements BakedModel {
     private final BakedModel delegate;
     private final List<BakedQuad> quads;
+    private final boolean ambientOcclusion;
 
     public GemCutterFabricModel(BakedModel delegate, ModelState state, Function<Material, TextureAtlasSprite> textures) {
         this(delegate, state, textures, "gemcutters_table");
     }
 
     public GemCutterFabricModel(BakedModel delegate, ModelState state, Function<Material, TextureAtlasSprite> textures, String name) {
+        this(delegate, state, textures, name, name, true);
+    }
+
+    public GemCutterFabricModel(BakedModel delegate, ModelState state, Function<Material, TextureAtlasSprite> textures,
+            String name, String materialName, boolean ambientOcclusion) {
         this.delegate = delegate;
-        this.quads = read(state, textures, name);
+        this.ambientOcclusion = ambientOcclusion;
+        this.quads = read(state, textures, name, materialName);
     }
 
     static ResourceLocation location(String name) {
@@ -52,13 +59,13 @@ public final class GemCutterFabricModel implements BakedModel {
             .getResourceOrThrow(location("arcanearchives:models/block/" + path)).openAsReader();
     }
 
-    private static List<BakedQuad> read(ModelState state, Function<Material, TextureAtlasSprite> textures, String name) {
+    private static List<BakedQuad> read(ModelState state, Function<Material, TextureAtlasSprite> textures, String name, String materialName) {
         List<Vector3f> positions = new ArrayList<>();
         List<float[]> coordinates = new ArrayList<>();
         List<Vector3f> normals = new ArrayList<>();
         Map<String, TextureAtlasSprite> materials = new HashMap<>();
         List<BakedQuad> result = new ArrayList<>();
-        try (BufferedReader reader = open(name + ".mtl")) {
+        try (BufferedReader reader = open(materialName + ".mtl")) {
             String material = null;
             for (String line; (line = reader.readLine()) != null;) {
                 String[] words = line.trim().split("\\s+");
@@ -143,7 +150,7 @@ public final class GemCutterFabricModel implements BakedModel {
         return side == null ? quads : List.of();
     }
 
-    @Override public boolean useAmbientOcclusion() { return true; }
+    @Override public boolean useAmbientOcclusion() { return ambientOcclusion; }
     @Override public boolean isGui3d() { return true; }
     @Override public boolean usesBlockLight() { return true; }
     @Override public boolean isCustomRenderer() { return false; }

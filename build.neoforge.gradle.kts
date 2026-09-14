@@ -13,6 +13,7 @@ val gameTest = sourceSets.create("gameTest") {
     runtimeClasspath += sourceSets.main.get().output
 }
 configurations[gameTest.runtimeOnlyConfigurationName].extendsFrom(configurations.runtimeOnly.get())
+configurations[gameTest.compileOnlyConfigurationName].extendsFrom(configurations.compileOnly.get())
 
 repositories {
     maven("https://api.modrinth.com/maven") { content { includeGroup("maven.modrinth") } }
@@ -108,11 +109,20 @@ tasks.processResources {
         "silk_predicate" to """{"predicates":{"minecraft:enchantments":[{"enchantments":"minecraft:silk_touch","levels":{"min":1}}]}}""",
     )
     inputs.properties(props)
+    filesMatching("assets/arcanearchives/shaders/core/brazier_fire.vsh") {
+        expand("brazier_fog" to "fog_distance(Position, FogShape)")
+    }
+    filesMatching("assets/arcanearchives/shaders/core/brazier_fire.json") {
+        filter { line: String -> if (line.contains("IViewRotMat") || line.contains("\"blend\":")) "" else line }
+    }
     filesMatching(listOf("META-INF/neoforge.mods.toml", "pack.mcmeta")) { expand(props) }
     filesMatching("arcanearchives.mixins.json") { expand(props) }
     filesMatching("data/arcanearchives/recipe/*.json") { expand(props) }
     filesMatching("data/arcanearchives/advancement/*.json") { expand(props) }
     filesMatching("assets/arcanearchives/models/block/gemcutters_table.json") { expand(props) }
+    filesMatching("assets/arcanearchives/models/block/lectern_manifest.json") { expand(props) }
+    filesMatching("assets/arcanearchives/models/block/brazier_of_hoarding_fire.json") { expand(props) }
+    filesMatching("assets/arcanearchives/models/block/brazier_of_hoarding.json") { expand(props) }
     filesMatching("assets/arcanearchives/models/block/wonky_resonator.json") { expand(props) }
     filesMatching("assets/arcanearchives/models/block/celestial_lotus_engine.json") { expand(props) }
     filesMatching("assets/arcanearchives/models/block/matrix_reservoir.json") { expand(props) }

@@ -9,10 +9,13 @@ import net.fabricmc.api.ModInitializer;
 public final class FabricRuntimeTests implements FabricGameTest, ModInitializer {
     @GameTest(template = FabricGameTest.EMPTY_STRUCTURE, timeoutTicks = 100)
     public static void deviceOwnership(GameTestHelper helper) {
+        GemCutterRoutingTransactions.run(helper);
+        BrazierRoutingTransactions.run(helper);
         DeviceOwnershipLifecycle.run(helper, RuntimeTestVersion.player(helper),
             net.fabricmc.fabric.api.entity.FakePlayer.get(helper.getLevel(),
                 new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(), "Ownership fixture")),
-            RuntimeTestVersion::saveEntity, RuntimeTestVersion::loadEntity, RuntimeTestVersion::itemEntityData);
+            RuntimeTestVersion::saveEntity, RuntimeTestVersion::loadEntity, RuntimeTestVersion::itemEntityData,
+            RuntimeTestVersion::lectern, GameTestHelper::makeMockServerPlayerInLevel);
     }
     @GameTest(template = FabricGameTest.EMPTY_STRUCTURE, timeoutTicks = 1200)
     public static void matrixDistillateLifecycle(GameTestHelper helper) {

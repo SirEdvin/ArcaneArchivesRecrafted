@@ -1,0 +1,6 @@
+{
+  "name": "Arcane Gems",
+  "description": "$(l:arcanearchives:gems/arcanegems)Arcane Gems$(/l)",
+  "icon": "arcanearchives:tome_arcana",
+  "sortnum": 4
+}

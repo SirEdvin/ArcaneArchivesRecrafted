@@ -1,0 +1,6 @@
+{
+  "name": "Blocks",
+  "description": "$(l:arcanearchives:blocks/radiantresonator)Blocks$(/l)",
+  "icon": "arcanearchives:tome_arcana",
+  "sortnum": 2
+}

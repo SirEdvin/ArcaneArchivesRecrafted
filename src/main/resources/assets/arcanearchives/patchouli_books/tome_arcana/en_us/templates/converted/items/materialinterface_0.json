@@ -1,0 +1,10 @@
+{
+  "components": [
+    {
+      "type": "patchouli:item",
+      "item": "arcanearchives:material_interface",
+      "x": 0,
+      "y": 0
+    }
+  ]
+}

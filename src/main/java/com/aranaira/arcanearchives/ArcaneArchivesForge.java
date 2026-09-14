@@ -11,7 +11,15 @@ public final class ArcaneArchivesForge {
         ArcaneArchivesMod.initialize("Forge");
         com.aranaira.arcanearchives.events.OpenGemSocket.initialize();
         com.aranaira.arcanearchives.events.ChestName.initialize();
+        com.aranaira.arcanearchives.events.BrazierRadius.initialize();
         com.aranaira.arcanearchives.events.GemSound.initialize();
+        com.aranaira.arcanearchives.events.ManifestSnapshot.initialize();
+        com.aranaira.arcanearchives.events.ManifestRequest.initialize();
+        com.aranaira.arcanearchives.events.ManifestSelect.initialize();
+        com.aranaira.arcanearchives.events.ManifestHover.initialize();
+        com.aranaira.arcanearchives.events.PlayerPreferences.initialize();
+        com.aranaira.arcanearchives.events.OpenManifest.initialize();
+        com.aranaira.arcanearchives.events.ClearManifestTracking.initialize();
         net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext.get().getModEventBus().addListener(
             (net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent event) ->
                 event.enqueueWork(com.aranaira.arcanearchives.items.WornGemSocket::initialize));

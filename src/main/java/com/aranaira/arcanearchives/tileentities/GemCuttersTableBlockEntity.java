@@ -32,6 +32,14 @@ public final class GemCuttersTableBlockEntity extends NetworkOwnedBlockEntity im
     }
 
     public ItemStack getOutput() { return crafting.getOutput(); }
+    public int routingWeight(ItemStack offered) {
+        if (offered.isEmpty()) return -1;
+        for (int slot = 0; slot < crafting.inputSlots(); slot++) {
+            ItemStack stored = crafting.getInput(slot);
+            if (!stored.isEmpty() && stored.is(offered.getItem())) return 5000;
+        }
+        return -1;
+    }
 
     public boolean stillValid(Player player) {
         if (level == null || isRemoved() || contentsDropped || player.level() != level
@@ -101,12 +109,45 @@ public final class GemCuttersTableBlockEntity extends NetworkOwnedBlockEntity im
         return remainder;
     }
 
+    /** Destination-side top-up only; the router must separately authorize its current network audience. */
+    public ItemStack acceptRoutingInput(ItemStack stack, boolean simulate) {
+        requireServer();
+        if (!level.hasChunkAt(worldPosition) || level.getBlockEntity(worldPosition) != this) return stack.copy();
+        ItemStack remainder = crafting.acceptRoutingInput(stack, simulate);
+        if (!simulate && remainder.getCount() != stack.getCount()) setChanged();
+        return remainder;
+    }
+
     public ItemStack extractInput(int slot, int amount, boolean simulate) {
         requireServer();
         ItemStack result = crafting.extractInput(slot, amount, simulate);
         if (!simulate && !result.isEmpty()) setChanged();
         return result;
     }
+
+    //? if fabric {
+    private final net.fabricmc.fabric.api.transfer.v1.transaction.base.SnapshotParticipant<java.util.List<ItemStack>> routingSnapshots =
+        new net.fabricmc.fabric.api.transfer.v1.transaction.base.SnapshotParticipant<>() {
+            @Override protected java.util.List<ItemStack> createSnapshot() {
+                return crafting.inputSnapshot().stream().map(ItemStack::copy).toList();
+            }
+            @Override protected void readSnapshot(java.util.List<ItemStack> inputs) {
+                for (int slot = 0; slot < inputs.size(); slot++) crafting.setInput(slot, inputs.get(slot));
+            }
+            @Override protected void onFinalCommit() { setChanged(); }
+        };
+
+    /** Transactional occupied-input top-up; network authorization remains the router's responsibility. */
+    public ItemStack acceptRoutingInputTransactional(ItemStack stack,
+            net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext transaction) {
+        requireServer();
+        if (!level.hasChunkAt(worldPosition) || level.getBlockEntity(worldPosition) != this) return stack.copy();
+        ItemStack simulated = crafting.acceptRoutingInput(stack, true);
+        if (simulated.getCount() == stack.getCount()) return simulated;
+        routingSnapshots.updateSnapshots(transaction);
+        return crafting.acceptRoutingInput(stack, false);
+    }
+    //?}
 
     private void requireServer() {
         if (level == null || level.isClientSide || isRemoved() || contentsDropped

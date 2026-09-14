@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 class StorageAdvancementsTest {
     @Test void allStorageAdvancementsDecodeWithNativeRegisteredItemsAndClosedParents() throws Exception {
-        var names = Set.of("monitoring_crystal", "amphora", "chest", "containment_field", "devouring_charm", "gemcutters_table",
+        var names = Set.of("bonfire", "manifest", "lectern", "monitoring_crystal", "amphora", "chest", "containment_field", "devouring_charm", "gemcutters_table",
             "material_interface", "matrix_brace", "raw_quartz", "raw_quartz_cluster", "resonator", "root",
             "scepter_manipulation", "scepter_revelation", "shaped_quartz_block", "slivers", "tank", "trove", "workbench");
         var ops = RegistryOps.create(JsonOps.INSTANCE, RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY));

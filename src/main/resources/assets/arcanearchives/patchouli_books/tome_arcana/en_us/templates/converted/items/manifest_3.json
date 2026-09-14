@@ -1,0 +1,21 @@
+{
+  "components": [
+    {
+      "type": "patchouli:image",
+      "image": "arcanearchives:textures/gui/guidebook/manifest_searchbar.png",
+      "width": 32,
+      "height": 16,
+      "texture_width": 24,
+      "texture_height": 12,
+      "scale": 1,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "type": "patchouli:text",
+      "text": "You can filter what items your Manifest displays by typing in the search bar. Right clicking the search bar clears the current term. You can also shift-click the search bar to copy your current JEI search term.",
+      "x": 0,
+      "y": 22
+    }
+  ]
+}

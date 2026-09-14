@@ -12,7 +12,15 @@ public final class ArcaneArchivesFabric implements ModInitializer {
         com.aranaira.arcanearchives.items.WornGemSocket.initialize();
         com.aranaira.arcanearchives.events.OpenGemSocket.initialize();
         com.aranaira.arcanearchives.events.ChestName.initialize();
+        com.aranaira.arcanearchives.events.BrazierRadius.initialize();
         com.aranaira.arcanearchives.events.GemSound.initialize();
+        com.aranaira.arcanearchives.events.ManifestSnapshot.initialize();
+        com.aranaira.arcanearchives.events.ManifestRequest.initialize();
+        com.aranaira.arcanearchives.events.ManifestSelect.initialize();
+        com.aranaira.arcanearchives.events.ManifestHover.initialize();
+        com.aranaira.arcanearchives.events.PlayerPreferences.initialize();
+        com.aranaira.arcanearchives.events.OpenManifest.initialize();
+        com.aranaira.arcanearchives.events.ClearManifestTracking.initialize();
         com.aranaira.arcanearchives.inventory.TroveItemStorage.ITEM.registerForItems(
             (stack, context) -> new com.aranaira.arcanearchives.inventory.TroveItemStorage(context),
             com.aranaira.arcanearchives.init.ContentRegistry.RADIANT_TROVE_ITEM.get());
@@ -20,6 +28,8 @@ public final class ArcaneArchivesFabric implements ModInitializer {
             (chest, side) -> chest.fabricStorage, com.aranaira.arcanearchives.init.ContentRegistry.RADIANT_CHEST_ENTITY.get());
         net.fabricmc.fabric.api.transfer.v1.item.ItemStorage.SIDED.registerForBlockEntity(
             (trove, side) -> trove.fabricStorage, com.aranaira.arcanearchives.init.ContentRegistry.RADIANT_TROVE_ENTITY.get());
+        net.fabricmc.fabric.api.transfer.v1.item.ItemStorage.SIDED.registerForBlockEntity(
+            (brazier, side) -> brazier.fabricStorage, com.aranaira.arcanearchives.init.ContentRegistry.BRAZIER_ENTITY.get());
         net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage.SIDED.registerForBlockEntity(
             (tank, side) -> tank.inventory(), com.aranaira.arcanearchives.init.ContentRegistry.RADIANT_TANK_ENTITY.get());
         net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage.ITEM.registerForItems(

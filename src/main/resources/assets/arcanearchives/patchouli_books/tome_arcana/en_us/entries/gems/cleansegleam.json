@@ -1,0 +1,40 @@
+{
+  "name": "Cleansegleam",
+  "category": "arcanearchives:gems",
+  "icon": "arcanearchives:cleansegleam",
+  "sortnum": 54,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/gems/cleansegleam_0",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Cleansegleam is an Arcane Gem formed from a blue-spectrum piece of $(l:arcanearchives:items/shapedquartz)Shaped Radiant Quartz$(/l) in an asscher cut.$(br2)When activated, a Cleansegleam will purge the user of Hunger, Nausea, and Poison at the cost of a point of charge.$(br2)If activated while sneaking, you can attempt to all targets within three blocks of you of these effects instead.",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Antidote Any target affected by a Cleansegleam will also be immunized from poison for 60 seconds. This functionality only occurs when Potion Core is installed.",
+      "flag": "&arcanearchives:arsenal_enabled,arcanearchives:ml_potioncore"
+    },
+    {
+      "type": "arcanearchives:converted/gems/cleansegleam_3",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Cleansegleams can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l).",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:cleansegleam",
+      "flag": "arcanearchives:arsenal_enabled"
+    }
+  ],
+  "flag": "arcanearchives:arsenal_enabled",
+  "extra_recipe_mappings": {
+    "arcanearchives:cleansegleam": 0
+  }
+}

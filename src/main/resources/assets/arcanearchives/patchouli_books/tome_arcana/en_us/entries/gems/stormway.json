@@ -1,0 +1,45 @@
+{
+  "name": "Stormway",
+  "category": "arcanearchives:gems",
+  "icon": "arcanearchives:stormway",
+  "sortnum": 65,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/gems/stormway_0",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Stormway is an Arcane Gem formed from a yellow-spectrum piece of $(l:arcanearchives:items/shapedquartz)Shaped Radiant Quartz$(/l) in a trillion cut.$(br2)When activated, a Stormway will call down a lightning strike at a point within 30 blocks at the cost of one point of charge.",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "If you're struck by lightning while holding a Stormway, you gain Speed, Night Vision, and Resistance for a short time. The gem loses six points of charge when it grants these effects.",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "While toggled on, if you are struck by a projectile attack, a lightning strike is called at the position of your attacker. The bolt is significantly more dangerous than a normal lightning strike, and the gem loses one point of charge to retaliate in this way.",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/gems/stormway_4",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Stormways can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l).",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:stormway",
+      "flag": "arcanearchives:arsenal_enabled"
+    }
+  ],
+  "flag": "arcanearchives:arsenal_enabled",
+  "extra_recipe_mappings": {
+    "arcanearchives:stormway": 0
+  }
+}

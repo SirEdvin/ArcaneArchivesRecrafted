@@ -1,0 +1,45 @@
+{
+  "name": "Monitoring Crystal",
+  "category": "arcanearchives:blocks",
+  "icon": "arcanearchives:monitoring_crystal",
+  "sortnum": 12,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/blocks/monitoringcrystal_0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Monitoring Crystal can be used to add the tracking capabilities of a Radiant storage container to a non-Arcane Archives inventory, such as a vanilla chest. It is also a light source."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The contents of inventories with an attached Monitoring Crystal can be seen and tracked with a $(l:arcanearchives:items/manifest)Manifest$(/l) as though they were a Radiant storage container. You cannot attach a Monitoring Crystal to $(l:arcanearchives:blocks/radiantchest)Radiant Chests$(/l), $(l:arcanearchives:blocks/radianttank)Tanks$(/l), or $(l:arcanearchives:blocks/radianttrove)Troves$(/l); these devices appear in your Manifest automatically. Attempting to do so will cause the Monitoring Crystal to pop off."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Using a $(l:arcanearchives:items/scepterrevelation)Scepter of Revelation$(/l) on a Monitoring Crystal will return what direction the Monitoring Crystal is pointing towards.$(br2)Monitoring Crystals can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l)."
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:monitoring_crystal"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$()$(bold)$(italic) The Creed of Branding $()$(br2)$()$(italic) The promise and distinction you have displayed have earned you the right to call yourself a Master of the Eternal University. As of this moment, you are born anew, free of the shackles of Apprenticeship. $()"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$()$(italic) Your forehead shall bear the Brand of Monitoring, and with it we shall watch you. Observation breeds honesty, and honesty breeds Temperance. $()$(br2)$()$(italic) Enlightenment is the right of the strong, and no strength can be found in intemperate acts. Trust in the judgment of the Quadrate, and the Magistocracy will trust in your works. $()"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$()$(italic) Bask in the light of your Enlightenment, Master, and walk ever on the path of Wisdom. $()"
+    },
+    {
+      "type": "arcanearchives:converted/blocks/monitoringcrystal_8"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "arcanearchives:monitoring_crystal": 0
+  }
+}

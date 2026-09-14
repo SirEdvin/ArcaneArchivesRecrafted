@@ -1,0 +1,10 @@
+{
+  "components": [
+    {
+      "type": "patchouli:item",
+      "item": "arcanearchives:celestial_lotus_engine",
+      "x": 0,
+      "y": 0
+    }
+  ]
+}

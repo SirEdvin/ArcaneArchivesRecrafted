@@ -1,0 +1,10 @@
+{
+  "components": [
+    {
+      "type": "patchouli:item",
+      "item": "arcanearchives:containment_field",
+      "x": 0,
+      "y": 0
+    }
+  ]
+}

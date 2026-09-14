@@ -1,0 +1,21 @@
+{
+  "components": [
+    {
+      "type": "patchouli:image",
+      "image": "arcanearchives:textures/gui/guidebook/manifest_jeisync.png",
+      "width": 32,
+      "height": 16,
+      "texture_width": 28,
+      "texture_height": 14,
+      "scale": 1,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The third button at the top of the Manifest toggles whether the search bar syncs with your JEI search term or not.",
+      "x": 0,
+      "y": 22
+    }
+  ]
+}

@@ -27,6 +27,7 @@ public final class RadiantChestBlockEntity extends BlockEntity implements MenuPr
     };
     private UUID owner;
     private String name = "";
+    private boolean noNewStacks;
     private ItemStack displayStack = ItemStack.EMPTY;
     private Direction displayFacing = Direction.NORTH;
     private boolean dropped;
@@ -61,6 +62,34 @@ public final class RadiantChestBlockEntity extends BlockEntity implements MenuPr
     public void setOwner(UUID value) { owner = value; setChanged(); }
     public void setName(String value) { name = value; setChanged(); }
     public String chestName() { return name; }
+    public boolean noNewStacks() { return noNewStacks; }
+
+    /** Original packed-item ranking, distinct from component-sensitive insertion acceptance. */
+    public int routingWeight(ItemStack offered) {
+        if (offered.isEmpty()) return -1;
+        int occupied = 0;
+        long matching = 0;
+        for (int slot = 0; slot < inventory.getSlots(); slot++) {
+            ItemStack stored = inventory.getStackInSlot(slot);
+            if (stored.isEmpty()) continue;
+            occupied++;
+            if (stored.is(offered.getItem())) matching += stored.getCount();
+        }
+        if (noNewStacks) return matching == 0 ? -1 : 4999;
+        if (matching == 0) return occupied;
+        int stackSize = offered.getMaxStackSize() == 1 ? 1 : offered.getMaxStackSize()
+            * com.aranaira.arcanearchives.config.ServerSideConfig.current().radiantMultiplier();
+        return (int) Math.ceil((double) matching / ((long) stackSize * inventory.getSlots()) * 1000 + 500);
+    }
+
+    /** Caller must authorize configuration access; this guard rejects detached/client mutation. */
+    public boolean toggleRoutingType() {
+        if (!isLiveServerStorage()) return false;
+        noNewStacks = !noNewStacks;
+        setChanged();
+        level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+        return true;
+    }
 
     public ItemStack displayStack() { return displayStack.copy(); }
     public Direction displayFacing() { return displayFacing; }
@@ -121,6 +150,7 @@ public final class RadiantChestBlockEntity extends BlockEntity implements MenuPr
     }
 
     private void writeVisualState(CompoundTag tag, HolderLookup.Provider registries) {
+        tag.putInt("routingType", noNewStacks ? 1 : 0);
         tag.putString("chestName", name);
         tag.putInt("displayFacing", displayFacing.get3DDataValue());
         if (!displayStack.isEmpty()) {
@@ -136,6 +166,7 @@ public final class RadiantChestBlockEntity extends BlockEntity implements MenuPr
         if (tag.contains("inventory")) inventory.deserializeNBT(registries, tag.getCompound("inventory"));
         owner = tag.hasUUID("owner") ? tag.getUUID("owner") : null;
         name = tag.getString("chestName");
+        noNewStacks = tag.getInt("routingType") == 1;
         displayFacing = tag.contains("displayFacing") ? Direction.from3DDataValue(tag.getInt("displayFacing")) : Direction.NORTH;
         //? if >=1.21 {
         displayStack = tag.contains("displayStack") ? ItemStack.parse(registries, tag.getCompound("displayStack")).orElse(ItemStack.EMPTY) : ItemStack.EMPTY;

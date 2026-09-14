@@ -1,5 +1,199 @@
 # Session handoff — Arcane Archives Recrafted
 
+## 0.0.2 GitHub testing release preparation
+
+The user explicitly authorized committing/pushing and publishing 0.0.2 on GitHub for testing. Version metadata is now 0.0.2; `verifyReleaseArtifacts --no-daemon` passed all four leaves and production/source checks (exit 0, 88 s, `build/release-002-verify-20260914-092627.log`). Release notes prominently retain unverified graphical/connected/restart acceptance. Earlier no-publication authorization and 0.0.1-metadata statements below are historical. Publication itself must be read back before claiming success; no other distribution platform is authorized.
+
+## Current 0.0.2 checkpoint — implementation ready for initial gameplay testing
+
+See [the consolidated checkpoint](migration/0.0.2-IMPLEMENTATION_CHECKPOINT.md) for current implementation, logs, artifact paths/checksums and deferred acceptance. The full production Tome, both Chest recipes, Manifest hovered-item tracking and both storage player preferences are implemented. Native four-target builds, separate clean/build, normalized Stonecutter round-trip restoration, production/source isolation and 25 Python tests pass. Canonical active state is restored; no project JVMs remain. Native suite totals are 7/8/7/7, not connected-player scenario counts.
+
+Do not resume the historical "pages absent" or "preferences absent" work below. Remaining work is the user-first gameplay test followed by graphical/connected/restart/optional-integration acceptance and release preparation. No new client campaign was run. Metadata is deliberately still 0.0.1 and the entire working tree remains uncommitted; no push/tag/publication was authorized. Original unfinished Tome topics and approved scope exclusions remain explicit rather than fabricated features.
+
+Two verification issues are documented rather than hidden: Loom requires separate clean/build invocations for its generated launch arguments here; the first Stonecutter round trip normalized inactive nested-branch comment markers in five files, while the subsequent full round trip restored the normalized canonical bytes exactly.
+
+## Historical handoff entries
+
+## 0.0.2 in progress — selected-target chunk availability
+
+Extended the native chunk-edge fixture to release the selected source chunk itself, assert actual unavailability, retain tracking without loading it through reconciliation, and resume missing-monitor revocation after explicit availability restoration. Held-ticket cleanup now runs in nested `finally`. No production change. Four-leaf build exit 0, 92s (`build/tracking-target-unavailable-20260912-130832.log`); native suites/artifact pairs pass (`build/tracking-target-unavailable-artifacts.log`). Target/attachment availability transitions are now covered; completed disk unload/reload, restart and connected rendering remain unverified. 0.0.2 is incomplete.
+
+## 0.0.2 in progress — native attachment-chunk availability
+
+New distant chunk-edge fixture selects a monitored barrel, removes its monitor, explicitly removes the neighboring chunk's temporary UNKNOWN ticket and ticks the native cache while holding the target chunk. It verifies unavailable-neighbor retention without reconciliation loading it, then explicit availability followed by revocation. Setup wakeup failures were fixed in the fixture, not production. Final four-leaf build exit 0, 79s (`build/tracking-chunk-boundary-tickets-20260912-130457.log`); all native suites/artifact pairs pass (`build/tracking-chunk-boundary-artifacts.log`). This proves adjacent chunk availability boundaries, not completed disk unload/reload, target-chunk persistence or connected visual invalidation. 0.0.2 remains incomplete.
+
+## 0.0.2 in progress — double-chest split grants
+
+Native regression now removes the opposite half supplying the sole personal monitor grant, verifies the selected half survives as SINGLE, and checks tracking clears without changing its inventory. No production change. Four-leaf build exit 0, 59s (`build/tracking-chest-split-20260912-125533.log`); native suites/artifact pairs pass (`build/tracking-chest-split-artifacts.log`). This is loaded split behavior, not unavailability/reload or connected rendering acceptance. 0.0.2 remains incomplete.
+
+## 0.0.2 in progress — Monitoring Crystal retargeting
+
+Removed the stale cached target from `MonitoringCrystalBlockEntity`; target lookup now derives from current facing for every consumer. Native rotation preserves the installed block entity and verifies new attachment, old-grant removal, no resurrection after facing restoration and explicit reselection. Approved 0143 correction; no new player interaction added. RED→GREEN, final four-leaf build exit 0, 109s (`build/monitor-retarget-20260912-125114.log`); all native suites/artifact pairs pass (`build/monitor-retarget-artifacts.log`). Dedicated unavailability/reload and connected rendered acceptance remain open. 0.0.2 is incomplete.
+
+## 0.0.2 in progress — current Monitoring Crystal grants
+
+External tracking now intersects captured owners with current authorized source grants, reusing `sourceOwners` once per player pass. Missing-monitor decisions defer unless all possible attachment chunks (including a double chest's other half) are available; membership revocation remains immediate. Arcane targets reduce grants to their current authorized owner. Native RED→GREEN verifies independent-grant retention after one monitor removal, clearing after last removal, no resurrection and successful reselection. Existing double-chest/Hive/removal cases pass. Four-leaf build exit 0, 89s (`build/tracking-monitor-20260912-124647.log`); native suites/artifact pairs pass (`build/tracking-monitor-artifacts.log`). Dedicated unavailable-chunk/reload and retargeting tests plus connected visual acceptance remain pending; 0.0.2 is incomplete.
+
+## 0.0.2 in progress — Arcane replacement ownership
+
+Loaded Arcane targets now need a current owner among captured tracking grants and the current audience. Same-owner replacement remains tracked; foreign-owner replacement clears only its marker, and ownership restoration does not resurrect it. Native RED→GREEN proved these cases. Four-leaf build exit 0, 86s (`build/tracking-replacement-20260912-124158.log`); all native suites and artifact pairs pass (`build/tracking-replacement-artifacts.log`). External/non-Arcane monitor-grant reconciliation, dedicated unavailability and connected rendering acceptance remain pending. 0143 and 0.0.2 are not complete.
+
+## 0.0.2 in progress — confirmed tracking-source removal
+
+Under approved 0143, `ManifestTracking.tick` now removes markers whose available loaded target no longer has a block entity. Missing dimensions/unavailable chunks are skipped; no inventory scan. Native RED→GREEN proves empty inventory retains tracking, loaded removal clears and recreation does not resurrect it. Four-leaf build exit 0, 86s (`build/tracking-source-removal-20260912-123801.log`); all native suites/artifact pairs pass. Full replacement/current-monitor-grant reconciliation, dedicated unavailability regression and connected visual invalidation remain pending. 0.0.2 is incomplete.
+
+## 0.0.2 in progress — native Trove HUD synchronization
+
+`TroveHudSync` now verifies actual native update-packet tags and detached replica deserialization for populated, empty LOCKed and refilled Troves, preserving counts/reference/upgrades and live count. A fixture-only missing-level registry-context failure was fixed. No production change. Final four-leaf build exit 0, 59s (`build/trove-hud-sync-final-20260912-121752.log`); native suites/artifact pairs pass (`build/trove-hud-sync-artifacts.log`). No remote client delivery or rendered HUD claim; 0.0.2 remains incomplete.
+
+## 0.0.2 in progress — original Trove HUD
+
+Added `TroveHud` and `TroveHudText`, native client registrations, original translations, format regression and artifact entries. Upstream RenderHUD is specifically a looked-at Trove display, not a Manifest marker panel. Existing synchronized inventory/LOCK/upgrades feed original item/name/count/upgrade geometry; decimal abbreviations are separate from the unchanged binary MathUtils contract. Four-leaf build exit 0, 92s (`build/trove-hud-20260912-120941.log`); native suites, formatter tests and artifacts pass. Four graphical startup smokes pass (exit 0, 95s, `build/trove-hud-client-smoke-20260912-121125.log`), all clients closed normally. Actual in-world HUD layout and synchronized updates remain unverified. See 0142; 0.0.2 remains incomplete.
+
+## 0.0.2 in progress — ray-state failure/revocation regression
+
+Native tracking tests now verify exact retained ray coordinates after revocation/stale replay, fail-closed ray and highlight projection after explicit snapshot failure, rejection of an older successful replay and recovery from a newer valid snapshot. No production change. Four-leaf build exit 0, 60s (`build/manifest-ray-revocation-20260912-120432.log`); all native suites and artifact pairs pass (`build/manifest-ray-revocation-artifacts.log`). These assertions exercise the production receiver/projection/matching code, not OpenGL output or remote delivery. 0.0.2 remains incomplete.
+
+## 0.0.2 in progress — world tracking rays
+
+Implemented `ManifestRays` projection/width policy and client-only `ManifestRayRenderer`, initialized through `ManifestKey`. Approved 0141 one-pixel minimum is active. Rays use confirmed current-dimension deduplicated coordinates, original player-plus-one to block-center endpoints, game-time color phase and through-wall drawing with render-state restoration. Four-leaf build exit 0, 93s (`build/manifest-rays-20260912-115828.log`), all native/width tests and artifact pairs pass. Four graphical startup smokes pass, exit 0, 99s (`build/manifest-rays-client-smoke-20260912-120031.log`); all clients close normally. No in-world ray draw was exercised: actual camera/occlusion/driver widths/render-state/connected behavior remains unverified. HUD, device reconciliation and wider 0.0.2 work remain unfinished. Earlier statements that world rays are absent are historical, not the current implementation state.
+
+## 0.0.2 in progress — native dimension-clear boundary
+
+Added native transfer coverage to `ManifestTrackingLifecycle`: a real selected personal source survives sneaking clear after transfer to the Nether; returning to the original dimension and clearing removes it. Return runs in `finally`. No production change. All four native suites and artifact pairs pass: build exit 0, 62s (`build/manifest-dimension-clear-20260912-105220.log`), verifier exit 0 (`build/manifest-dimension-clear-artifacts.log`). This proves foreign-dimension retention through native transfer, not simultaneous populated selections in both dimensions or connected client/key/rendering behavior. World HUD/lines and device reconciliation remain unfinished; 0.0.2 is incomplete.
+
+## 0.0.2 in progress — selected-item feedback
+
+Manifest grid rendering now highlights server-confirmed selected references using upstream's original eight-color, twelve-tick transitions. `ManifestHighlight` shares count-independent item/data matching with native tests; clearing snapshots removes the highlight predicate. Two color tests ran on each leaf, plus native identity/data/count/clear assertions. Four-leaf build exit 0, 90s (`build/manifest-highlight-20260912-104800.log`); final artifact verifier exit 0 (`build/manifest-highlight-artifacts-final.log`) after adding the new class to the explicit artifact contract. Actual pixel layering/GUI-scale/clipping and connected interaction checks remain pending. World HUD/lines and device reconciliation are still unfinished; 0.0.2 is incomplete. Older claims that selection feedback is absent refer to preceding checkpoints.
+
+## 0.0.2 in progress — tracking synchronization
+
+S2C tracking state is now implemented. `ManifestSnapshotReceiver` shares bounded/revision-aware assembly with menu listings; reserved snapshot context 0 carries reference items/positions independently of the open menu. `ManifestTracking` sends initial/changed/empty states without serializing ownership grants; `ManifestClient` routes and resets connection-scoped state and rejects callbacks from a different source connection. Unreleased Forge/NeoForge snapshot protocol is 3; no mod version bump/publication.
+
+All four native suites and artifact pairs pass: final build exit 0, 88s (`build/manifest-tracking-sync-final-20260912-102329.log`), artifacts exit 0 (`build/manifest-tracking-sync-artifacts.log`). Native tests verify reference/grant-omission encoding, stale revocation replay, context isolation and empty clearing; the server send path executes but remote packet delivery/counts and reconnect races are unverified. HUD/lines and selected-slot feedback are still absent, and device replacement reconciliation remains open. 0.0.2 is incomplete; older no-S2C statements below are historical.
+
+## 0.0.2 in progress — native selection-before-close handler
+
+The native tracking fixture now applies its decoded selection, calls the actual server container-close packet handler, verifies retained markers and rejects a decoded selection replay after close. No production code changed. Full build exit 0, 59s (`build/manifest-native-close-20260912-101341.log`); all four native suites/artifact pairs pass (`build/manifest-native-close-artifacts.log`). This is handler-level evidence, not real socket ordering/client input. S2C tracking state, HUD/lines and other documented release work remain unfinished; 0.0.2 is incomplete.
+
+## 0.0.2 in progress — original Shift-close preference
+
+`ManifestHoldShift=true` is restored in client config and Manifest left-click handling: default left-click sends selection then closes unless Shift is held; false reverses the Shift condition; right-click removal never closes. The upstream click predicate, not its contradictory config comment, defines behavior. Config/file-preservation and all click-policy combinations pass on all four targets, including native Forge JUnit. Full build exit 0, 85s (`build/manifest-shift-close-20260912-100901.log`); all four native suites/artifact pairs pass (`build/manifest-shift-close-artifacts.log`). Real input/packet ordering and visible tracking remain unverified; S2C tracking/HUD still unimplemented. 0.0.2 remains incomplete.
+
+## 0.0.2 in progress — sneaking clear shortcut
+
+`ManifestKey` now sends zero-field `ClearManifestTracking` when sneaking, after existing focus/presence guards. All loaders register it; `ManifestTracking.clearFromKey` validates the native sender and clears only its current dimension without opening a menu. Native guard/current-dimension clearing tests pass on all four targets; build exit 0, 85s (`build/manifest-clear-key-20260912-100410.log`), all artifact pairs pass (`build/manifest-clear-key-artifacts.log`). Real key delivery, retained other-dimension selections across transitions, client synchronization and HUD/lines remain open. No mod version bump/publication; 0.0.2 remains incomplete.
+
+## 0.0.2 in progress — tracking through Hive succession
+
+Added native three-owner active-tracking regression for founder resignation, promotion, continued remaining-member access and final Hive dissolution. With the Manifest closed, only departed owners' sources are pruned; personal tracking remains. No production change. Full four-leaf build exit 0, 59s (`build/manifest-tracking-succession-20260912-100030.log`); all native suites/artifact pairs pass (`build/manifest-tracking-succession-artifacts.log`). Client tracking synchronization/HUD and replacement reconciliation remain open; 0.0.2 is incomplete.
+
+## 0.0.2 in progress — opposite-half tracking grants
+
+Native double-chest tracking regression now verifies two owners monitoring opposite halves, a foreign-half descriptor retaining the viewer's independent grant, nonduplicated counts, retention after closed-menu Hive resignation and clear. No production behavior changed. Full build exit 0, 59s (`build/manifest-tracking-double-chest-20260912-095719.log`); all four native suites/artifact pairs pass (`build/manifest-tracking-double-chest-artifacts.log`). Split/replacement reconciliation, client tracking synchronization and HUD remain open; 0.0.2 is incomplete.
+
+## 0.0.2 in progress — native tracking tick dispatch
+
+Added delayed native event-dispatch verification: close Manifest, resign, drive scheduled native ticks, restore membership before querying, then require foreign markers already removed and personal markers retained. Embedded test connections require an explicit native listener tick to trigger player-tick events; no production hook changed. Final native player removal/disconnect is also followed by an empty-state query. Full build exit 0, 59s (`build/manifest-tracking-ticks-final-20260912-095321.log`); all four native suites/artifact pairs pass (`build/manifest-tracking-ticks-artifacts.log`). This improves native dispatch coverage, not real connection-loop/S2C/rendering acceptance. Client tracking synchronization and HUD remain unimplemented; 0.0.2 is incomplete.
+
+## 0.0.2 in progress — active server tracking
+
+`ManifestSelect` is registered on all loaders; grid left/right clicks and X clear send revision/index-bound commands to `ManifestTracking`. Server session markers survive menu close and prune revoked Hive grants without per-tick inventory/chunk scans. Native tests cover command codec/application, personal/Hive markers, resignation, personal-source retention, no automatic revival on rejoin, remove/clear and independent grants on a duplicate-monitored barrel. Full build exit 0, 84s (`build/manifest-tracking-state-checkpoint-20260912-094610.log`), all four native suites and artifact pairs pass (`build/manifest-tracking-state-artifacts.log`).
+
+No S2C marker state or invalidation is sent yet; there is no visible selection feedback/HUD. Device replacement/ownership reconciliation, shift-close, shortcuts, dimension/disconnect and connected acceptance remain open. Tick pruning assertions call the production tick method directly, not an observed automatic client/server event round-trip. See 0140 for exact scope and resolved fixture failures. 0.0.2 is not complete.
+
+## 0.0.2 in progress — native container-ID reuse
+
+Fixed stale selection acceptance when Minecraft wraps its native menu ID: snapshot revisions are now process-wide rather than restarting per menu. Native RED/GREEN opens menus until the original ID returns, rejects the old revision and accepts the current one. All four native suites pass: full build exit 0, 89s (`build/manifest-id-reuse-20260912-093130.log`); all artifact pairs pass (`build/manifest-id-reuse-artifacts.log`). No tracking packet/UI or marker lifecycle is implemented by this fix; 0.0.2 remains incomplete.
+
+## 0.0.2 in progress — interrupted Manifest refresh safety
+
+Native RED exposed stale published entries retained during a partial newer revision. `ManifestMenu.receive` now clears old entries and prior failure state at new assembly start, remaining not-ready until complete. Replacement/interleaved-fragment regression passes across all four native suites; full build exit 0, 86s (`build/manifest-interleave-20260912-091948.log`), all artifact pairs pass (`build/manifest-interleave-artifacts.log`). Tracking packet/UI, active markers and closed-screen invalidation are still unimplemented; 0140 approval remains valid.
+
+## 0.0.2 in progress — revision-bound Manifest snapshots
+
+`ManifestSnapshot` now carries a per-menu revision; `ManifestMenu` rejects older generations and requires the current revision for tracking selection resolution. Native transport/selection tests pass on all four leaves (exit 0, 87s, `build/manifest-revisions-20260912-091439.log`); all artifacts pass (`build/manifest-revisions-artifacts.log`). Forge/NeoForge Manifest snapshot protocol is `2`; no mod version bump or publication. Tracking packet/UI must bind clicks to a fully received snapshot. Selection wiring, active markers, closed-screen invalidation and HUD remain unimplemented; 0140 approval stands.
+
+## 0.0.2 in progress — server tracking-selection validation
+
+`ManifestMenu.trackingSelection` now resolves only current server-authorized selections from a retained published snapshot and fresh projection. Native tests cover selection bounds/identity, revoked/restored audience and throttling; same-dimension out-of-range selection is intentionally preserved from original `ContainerManifest.slotClick`. Full build exit 0, 86s (`build/tracking-selection-final-20260912-090914.log`); all artifacts pass (`build/tracking-selection-artifacts.log`). The resolver has native-test consumers only: tracking packet/screen wiring, stored markers, closed-screen invalidation and HUD remain open. 0140 approval stands; no further decision is needed on revocation behavior.
+
+## 0.0.2 in progress — shared current permissions for approved tracking
+
+0140 is approved: remove selected markers after access revocation even with the Manifest closed. Discovery and Manifest refresh now share `StorageNetworks.audience`; native permission/succession/disbanding/immutability checks pass. Initial refactor exposed immutable-set null handling for ownerless devices, now explicitly guarded. Full build exit 0, 87s (`build/network-audience-final-20260912-090051.log`); all artifacts pass (`build/network-audience-artifacts.log`). This is a prerequisite, not tracking implementation: selection, closed-screen watcher, invalidation transport and HUD/lines remain. No further approval is needed for the recorded revocation behavior. Brazier/Tome and consolidated acceptance also remain open.
+
+## 0.0.2 in progress — native enchanted-book search verification
+
+[0134 native follow-up](behavior-changes/0134-manifest-search-integration.md#native-item-verification) calls the same production method as the screen with command-created enchanted books/swords. Native tests verify stored-book matching, tool exclusion, wrong-level/mod-query rejection, empty books and unchanged input stacks. All four native suites pass (exit 0, 59s, `build/manifest-native-search-final-20260912-085147.log`); all artifact pairs pass (`build/manifest-native-search-artifacts.log`). Client language/reload/rendering is not proven. Tracking/HUD, Brazier, complete Tome and consolidated acceptance remain open. No commit/publication performed.
+
+## 0.0.2 in progress — enchanted-book search
+
+[0134 follow-up](behavior-changes/0134-manifest-search-integration.md#enchanted-book-search-follow-up) restores ordinary-query matching against stored enchantment names/levels, excluding mod queries and enchanted tools. Version-native APIs compile on all four leaves; nine search/session tests pass per leaf. Full build exit 0, 85s (`build/manifest-enchantment-search-20260912-084601.log`); all artifact pairs pass (`build/manifest-enchantment-search-artifacts.log`). New tests cover string predicates, not native enchanted-item or connected-screen execution. Tracking/HUD, Brazier, complete Tome and consolidated acceptance remain open. No commit/publication performed.
+
+## 0.0.2 in progress — Manifest registry search fallbacks
+
+[0134 follow-up](behavior-changes/0134-manifest-search-integration.md#registry-fallback-follow-up) restores item-path and `@` namespace matching without broadening item/mod query boundaries. Eight search/session tests pass on each leaf; Forge's explicit allowlist now includes this pure fixture, correcting earlier overbroad Forge test claims. Full build exit 0, 91s (`build/manifest-search-fallback-20260912-084143.log`); all artifacts pass (`build/manifest-search-fallback-artifacts.log`). Original enchanted-book enchantment-name search remains unported. Connected acceptance, tracking/HUD, Brazier and complete Tome remain open. No commit/publication performed.
+
+## 0.0.2 in progress — draggable Manifest scrollbar
+
+[0133 follow-up](behavior-changes/0133-manifest-browsing-route.md#draggable-scrollbar-follow-up) restores the original thumb/track, page clicks, six-pixel drag snapping and pretty/simple artwork, replacing temporary page buttons. Keyboard navigation remains. Four geometry regressions pass on each leaf; all native suites and artifact pairs pass (`build/manifest-scrollbar-20260912-083646.log`, exit 0, 86s; `build/manifest-scrollbar-artifacts.log`). Real mouse/rendering/narration acceptance remains open. Tracking/HUD, Brazier and complete Tome remain outstanding. No commit/publication performed.
+
+## 0.0.2 in progress — Manifest pixel scrolling
+
+[0133 follow-up](behavior-changes/0133-manifest-browsing-route.md#pixel-scrolling-and-keyboard-follow-up) restores six-pixel arrow/wheel movement, nine-row paging, clipped partial rows and matching tooltip hit geometry. Three geometry tests pass on all four leaves after adding the pure test to Forge's explicit allowlist. Full build exit 0, 62s (`build/manifest-scroll-final-20260912-083204.log`); all artifact pairs pass (`build/manifest-scroll-artifacts.log`). Actual keyboard/scissor/GUI-scale validation remains deferred. Tracking/HUD, Brazier and Tome remain outstanding. No commit/publication performed.
+
+## 0.0.2 in progress — bounded Manifest location tooltips
+
+[0133 follow-up](behavior-changes/0133-manifest-browsing-route.md#bounded-location-tooltip-follow-up) restores the original ten-location tooltip cap and overflow translation without truncating actual listing data. Four-target build/native suites pass (exit 0, 87s, `build/manifest-tooltip-20260912-082509.log`); all artifacts pass (`build/manifest-tooltip-artifacts.log`). No rendering acceptance claimed. Keyboard source tracing found upstream six-pixel arrow movement versus this port's whole-row scrolling; restore the original contract, not one-row arrows. Tracking/HUD, Brazier and Tome remain outstanding. No commit/publication performed.
+
+## 0.0.2 in progress — native advancement reload
+
+[0138 native reload follow-up](behavior-changes/0138-manifest-advancements.md#native-reload-follow-up) verifies disk reload of earned progress, timestamp preservation and restoration of pending lectern acquisition listeners. Completed progress also survives a second native reload with empty inventory. All four native suites pass (`build/manifest-reload-20260912-082110.log`, exit 0, 59s); all artifact pairs pass (`build/manifest-reload-artifacts.log`). No production change. Full resource reload/reconnect/process restart remain open. Tracking/HUD, Brazier and complete Tome implementation remain outstanding; no commit/publication performed.
+
+## 0.0.2 in progress — native advancement awards and disk saves
+
+The [0138 follow-up](behavior-changes/0138-manifest-advancements.md#native-acquisition-and-disk-save-follow-up) extends the 0139 native player fixture to exercise automatic inventory-change awards and read back the UUID-specific advancement file after native saves. Unrelated items do not trigger the branch; Manifest acquisition earns only its criterion, removal preserves its timestamp, and lectern acquisition completes both. All four native suites pass (exit 0, 59s, `build/manifest-awards-20260912-080944.log`); all artifacts pass (`build/manifest-awards-artifacts.log`). No production behavior changed. Actual survival pickup/crafting, client presentation, reload/reconnect and process restart remain unverified; continue tracking/HUD, Brazier and Tome implementation. No commit/publication performed.
+
+## 0.0.2 in progress — native Manifest server session
+
+[0139](behavior-changes/0139-manifest-server-session.md) adds a registered native `ServerPlayer` regression for actual server container opening, active/detached/closed-menu guards, initial requests, ten-tick refresh recovery and manual-refresh throttling. Forge needs a test EmbeddedChannel; NeoForge uses its supported `NetworkRegistry.configureMockConnection`. No production behavior changed. All four native suites pass (exit 0, 56s, `build/manifest-server-session-final-20260912-080244.log`), all artifact pairs pass (`build/manifest-server-session-artifacts.log`), and no project Java processes remain. These are native test transports, not real client/handshake/rendering evidence. Continue tracking/HUD, Brazier and complete Tome; consolidated connected acceptance remains open. No commit/publication performed.
+
+## 0.0.2 in progress — Manifest advancement branch
+
+[0138](behavior-changes/0138-manifest-advancements.md) restores `gemcutters_table -> manifest -> lectern`, retaining original inventory-acquisition criteria rather than inventing crafting-only triggers. Native NeoForge advancement decoding/parent checks pass; full matrix build/native suites pass (exit 0, 78s, `build/manifest-advancements-20260912-074743.log`) and all artifact pairs pass (`build/manifest-advancements-artifacts.log`). Connected awards/persistence remain unverified. Continue tracking/HUD, Brazier and complete Tome; this is not completion of all network/Tome advancements or 0.0.2. No commit/publication performed.
+
+## 0.0.2 in progress — Manifest Lectern world route
+
+[0137](behavior-changes/0137-manifest-lectern.md) adds the original two-high lectern, recipe/creative item/loot/axe tag, original OBJ/texture conversion and both-part server Manifest activation. It has no owner/entity and opens the interacting player's own listing. Preserve upstream air-only companion cleanup and ordinary piston reaction. Native tests pass for orientations/halves, ordinary single-item drops, blocked-placement payment conservation, activation dispatch and actual recipe/result-slot payment with oak/crimson planks. Full matrix build exits 0 in 88s (`build/manifest-lectern-final-20260912-074048.log`); all artifacts pass (`build/manifest-lectern-artifacts.log`) and 10 assets reproduce with `scripts/port_lectern_assets.py --check`. Actual connected opening/rendering, restart, pistons and interruption/cancellation acceptance remain open. Continue tracking/HUD, Brazier and complete Tome. Earlier lectern-missing statements are historical. No project Java processes remain; no commit/publication performed.
+
+## 0.0.2 in progress — Manifest hotkey opening
+
+[0136](behavior-changes/0136-manifest-hotkey-opening.md) adds the independent, unbound Manifest key, original `ManifestPresence=true` client preference and zero-field server opening request. Default presence checks only the main 36 inventory slots; explicit false intentionally allows the player's own read-only Manifest without the item, not access to other owners. Server opening refuses active containers, off-thread requests, spectators, sneaking and dead players. All four build/native/configuration suites pass (exit 0, 88s, `build/manifest-key-20260912-071714.log`); all artifact pairs pass (`build/manifest-key-artifacts.log`). Native tests cover main-slot presence/offhand exclusion and file preservation, NOT actual keyboard delivery or opening guards. Tracking/clear/under-cursor/HUD, lectern, Brazier, Tome and connected acceptance remain open. No project Java processes remain; no commit/publication performed.
+
+## 0.0.2 in progress — Manifest distance and grid
+
+[0135](behavior-changes/0135-manifest-range-and-grid.md) restores client-file distance/grid preferences and sends distance through a validated C2S request to the current server Manifest menu. Initial collection now waits for settings; subsequent manual/Hive refreshes retain them. Defaults are `ManifestMaxDistance=100` and `DisableManifestGrid=true`. Full matrix build/native/config/codec checks pass (exit 0, 84s, `build/manifest-range-20260912-065926.log`); all artifacts pass (`build/manifest-range-artifacts.log`). Large distance does not bypass Hive revocation. Initial connected opening/throttling, two-player settings and rendered grid acceptance remain unverified. Continue tracking/HUD/hotkey, remaining settings/controls, lectern, Brazier and Tome; older hard-coded-distance statements below are historical.
+
+## 0.0.2 in progress — Manifest search integration
+
+[0134](behavior-changes/0134-manifest-search-integration.md) connects the optional JEI runtime to the Manifest search field/toggle, Shift-click query copy and original conditional query restoration. `ManifestSearchTermPersistence` and `ManifestJeiSynchronise` in client.properties default false and preserve existing files. Seven production search-session regression cases pass on every leaf; Forge's cases are in the aggregate forge-runtime XML. Full build/native suites pass (exit 0, 85s, `build/manifest-search-20260912-064918.log`) and all artifact pairs pass (`build/manifest-search-artifacts.log`). Real JEI UI/reload acceptance is still deferred to the consolidated campaign. Continue tracking/hotkey/other settings, lectern, Brazier and complete Tome; the earlier JEI-search-missing statements below are historical. Preserve upstream's nonempty-query/enabled-on-close restoration conditions unless a change is approved.
+
+## 0.0.2 in progress — craftable Manifest browsing route
+
+[0133](behavior-changes/0133-manifest-browsing-route.md) adds the registered Manifest item, original Gem Cutter recipe/model/artwork, slotless native menu, bounded cross-loader S2C snapshot transport and browsing screen. Implemented controls include name/mod-name search, quantity/name ordering, scrolling, refresh and Shift location tooltips. Native tests prove exact acquisition/payment/extraction, item-data/long-count codec preservation, atomic fragmented assembly and rejected malformed/stale responses; this is not connected-client or visual evidence. Final four-leaf build/native suites pass (exit 0, 58s, `build/manifest-interface-final-20260912-063730.log`), all artifacts pass (`build/manifest-interface-artifacts.log`), and no task-owned game JVMs remain.
+
+Continue Manifest tracking lines/HUD/slot highlighting, hotkey/sneak clearing, JEI search integration, settings and lectern, then Brazier/Tome. Distance currently uses upstream's default 100; configuration and final UI parity remain unfinished. Hive-audience changes refresh the menu without per-tick inventory scans, but actual connected revocation/delivery still needs acceptance. The release plan defers the full visual/multiplayer campaign until nonvisual implementation is complete. The earlier server-projection-only checkpoint below is historical. No commit, version bump or publication performed.
+
+## 0.0.2 in progress — Manifest native inventory projection
+
+[0132](behavior-changes/0132-manifest-inventory-aggregation.md) connects `StorageNetworks` to live Manifest inventory reads: owned/Hive contents, data-sensitive long totals, detached icons, original source descriptions and strict range groups. Approved 0115 deduplication passes actual native repeated-target/double-chest/distinct-barrel scenarios after a genuine RED. Final four-leaf build/native suites pass (exit 0, 56s, `build/manifest-contents-final-20260912-061142.log`); all artifacts pass and no game JVMs remain. This is server projection only, not a registered/playable Manifest. Continue the actual Manifest item/menu/client transport/search/sort/tracking and lectern, then Brazier and Tome; avoid presenting another pure helper as completed gameplay. Remaining per-source listing, chunk/dimension/restart and connected acceptance are explicit in 0132.
+
+## 0.0.2 in progress — native network discovery
+
+Follow [the release implementation plan](plans/0.0.2-implementation-plan.md). [0131](behavior-changes/0131-network-device-discovery.md) implements native loaded-device indexing and current personal/Hive visibility, reusing existing ownership and inventories. Native regressions cover actual placement, ownerless/fake-player exclusion, Hive sharing/personal mode, succession/revocation, detached-copy isolation, removal/replacement and reinstallation. Final four-target build/native suites pass (exit 0, 76s, `build/network-discovery-final-20260912-055749.log`); all artifact pairs and new Forge selector guards pass. No surviving task-owned game processes. This is not a usable Manifest/Brazier or completed 0.0.2.
+
+Continue the integrated network milestone with Manifest/lectern listing and Brazier routing consumers; complete their upstream/master contract trace before coding. Do not expose every indexed device as an inventory or routing destination: the ordinary Radiant Crafting Table is a Manifest inventory upstream, not a Brazier destination. Discovery query results are snapshots, not lasting mutation authorization. Real chunk unload/dimension/process-restart and connected acceptance remain open. The user explicitly deferred the potential Amphora copied-item issue; do not block remaining work on it or re-ask that decision. No commit/push/publication authorization is implied.
+
 ## 0.0.1 release and publishing
 
 Current version is `0.0.1`; see [release notes](releases/0.0.1.md) and [publishing instructions](PUBLISHING.md). The user requested reuse of UnlimitedPeripheralWorks/modding-buildenv publishing. Direct buildenv application conflicts with the pinned Loom classpath, so `release.gradle.kts` adapts the same GitHub Release, CurseForgeGradle and Minotaur plugins. The Python upload transport is removed; a read-only preflight/checksum helper retains immutable GitHub release guards. All four build/native suites and artifact pairs pass (`build/release-0.0.1-verify.log`, exit 0, 80s), as do cold configuration, GitHub/Modrinth dry runs and read-only four-leaf publishing metadata assertions. CurseForge debug verification is blocked by HTTP 400 from game-version metadata; CurseForge/Modrinth project IDs and credentials remain operator inputs. No publication on those platforms is claimed. The RC section below is historical.

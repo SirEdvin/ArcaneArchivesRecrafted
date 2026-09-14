@@ -59,13 +59,16 @@ public final class StorageScepterItem extends Item {
         if (player == null || player.isSpectator() || !level.mayInteract(player, pos)) return false;
         var device = level.getBlockEntity(pos);
         if (!(device instanceof RadiantTroveBlockEntity || device instanceof RadiantTankBlockEntity
+                || manipulation && device instanceof com.aranaira.arcanearchives.tileentities.BrazierBlockEntity
                 || !manipulation && (device instanceof RadiantChestBlockEntity
                     || device instanceof RadiantCraftingTableBlockEntity
                     || device instanceof com.aranaira.arcanearchives.tileentities.MonitoringCrystalBlockEntity
                     || device instanceof com.aranaira.arcanearchives.tileentities.RadiantResonatorBlockEntity))) return false;
         if (level.isClientSide || !manipulation && hand != InteractionHand.MAIN_HAND) return true;
         if (device.isRemoved() || player.level() != level || player.distanceToSqr(pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5) > 64) return true;
-        if (device instanceof RadiantTroveBlockEntity trove && trove.canUse(player)) {
+        if (manipulation && device instanceof com.aranaira.arcanearchives.tileentities.BrazierBlockEntity brazier) {
+            com.aranaira.arcanearchives.inventory.BrazierMenu.open(player, brazier);
+        } else if (device instanceof RadiantTroveBlockEntity trove && trove.canUse(player)) {
             if (manipulation) StorageUpgradeMenu.open(player, trove.upgrades(), trove.optionals(), trove::canUse);
             else {
                 ItemStack stored = trove.inventory().getStackInSlot(0);

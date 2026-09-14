@@ -1,0 +1,35 @@
+{
+  "name": "Elixirspindle",
+  "category": "arcanearchives:gems",
+  "icon": "arcanearchives:elixirspindle",
+  "sortnum": 60,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/gems/elixirspindle_0",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "An Elixirspindle is an Arcane Gem formed from a purple-spectrum piece of $(l:arcanearchives:items/shapedquartz)Shaped Radiant Quartz$(/l) in a pampel cut.$(br2)When held, you can use potions, splash potions, and lingering potions without consuming them at the cost of one point of charge. Additionally, if you use a potion you do not need to drink it and instead benefit from its effects immediately.",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/gems/elixirspindle_2",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Elixirspindles can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l).",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:elixirspindle",
+      "flag": "arcanearchives:arsenal_enabled"
+    }
+  ],
+  "flag": "arcanearchives:arsenal_enabled",
+  "extra_recipe_mappings": {
+    "arcanearchives:elixirspindle": 0
+  }
+}

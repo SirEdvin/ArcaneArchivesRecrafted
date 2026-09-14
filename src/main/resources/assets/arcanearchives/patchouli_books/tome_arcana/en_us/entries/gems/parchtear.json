@@ -1,0 +1,40 @@
+{
+  "name": "Parchtear",
+  "category": "arcanearchives:gems",
+  "icon": "arcanearchives:parchtear",
+  "sortnum": 63,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/gems/parchtear_0",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Parchtear is an Arcane Gem formed from a black-spectrum piece of $(l:arcanearchives:items/shapedquartz)Shaped Radiant Quartz$(/l) in an pendeloque cut.$(br2)When activated, the Parchtear destroys a radius 1 cuboid area of fluid. If you are sneaking, it instead destroys a single block of fluid. Each fluid block destroyed consumes a point of charge.",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Once fluid has been destroyed, other fluid is blocked from flowing into the same space for ten seconds.",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/gems/parchtear_3",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Parchtear can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l).",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:parchtear",
+      "flag": "arcanearchives:arsenal_enabled"
+    }
+  ],
+  "flag": "arcanearchives:arsenal_enabled",
+  "extra_recipe_mappings": {
+    "arcanearchives:parchtear": 0
+  }
+}

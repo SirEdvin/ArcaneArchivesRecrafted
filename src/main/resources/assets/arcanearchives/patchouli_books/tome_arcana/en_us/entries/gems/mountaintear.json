@@ -1,0 +1,40 @@
+{
+  "name": "Mountaintear",
+  "category": "arcanearchives:gems",
+  "icon": "arcanearchives:mountaintear",
+  "sortnum": 61,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/gems/mountaintear_0",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Mountaintear is an Arcane Gem formed from an orange-spectrum piece of $(l:arcanearchives:items/shapedquartz)Shaped Radiant Quartz$(/l) in a pendeloque cut.$(br2)When activated, a Mountaintear will conjure a block of lava at a distance of up to 40 blocks at the cost of one point of charge.",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Astral Sorcery Lightwell When placed in a Lightwell with access to the sky, a Mountaintear generates lava at a slow rate. While it's possible for a Mountaintear to shatter, the chances of shattering are $()$(italic)astronomically$() unlikely. For all intents and purposes, a Mountaintear lasts indefinitely unless its Lightwell is broken.$(br2)Once placed in a Lightwell, a Mountaintear cannot be retrieved.",
+      "flag": "&arcanearchives:arsenal_enabled,arcanearchives:ml_astralsorcery"
+    },
+    {
+      "type": "arcanearchives:converted/gems/mountaintear_3",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Mountaintears can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l).",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:mountaintear",
+      "flag": "arcanearchives:arsenal_enabled"
+    }
+  ],
+  "flag": "arcanearchives:arsenal_enabled",
+  "extra_recipe_mappings": {
+    "arcanearchives:mountaintear": 0
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "display": {
+    "icon": {"${result_key}": "arcanearchives:brazier_of_hoarding"},
+    "title": {"translate": "advancement.arcanearchives.brazier"},
+    "description": {"translate": "advancement.arcanearchives.brazier.desc"}
+  },
+  "parent": "arcanearchives:gemcutters_table",
+  "criteria": {
+    "book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{"items": ["arcanearchives:brazier_of_hoarding"]}]
+      }
+    }
+  }
+}

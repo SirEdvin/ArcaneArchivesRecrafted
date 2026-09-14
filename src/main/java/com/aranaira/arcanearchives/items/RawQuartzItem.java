@@ -62,6 +62,8 @@ public final class RawQuartzItem extends Item {
             return InteractionResult.SUCCESS;
         }
         radiant.setOwner(player.getUUID());
+        if (com.aranaira.arcanearchives.events.PlayerPreferences.get(player).defaultRoutingNoNewItems())
+            radiant.toggleRoutingType();
         for (ItemStack stack : contents) {
             ItemStack remainder = radiant.inventory().insertItemStacked(stack, false);
             while (!remainder.isEmpty()) Block.popResource(level, pos.above(), remainder.split(remainder.getMaxStackSize()));

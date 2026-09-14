@@ -1,0 +1,36 @@
+{
+  "name": "Radiant Amphora",
+  "category": "arcanearchives:items",
+  "icon": "arcanearchives:radiant_amphora",
+  "sortnum": 44,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/items/radiantamphora_0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Radiant Amphora acts as a long distance connection to a specific $(l:arcanearchives:blocks/radianttank)Radiant Tank$(/l). You can bind a Radiant Amphora to a Radiant Tank by using the amphora on the desired tank while sneaking. The amphora will become colorized to signify that a connection was made."
+    },
+    {
+      "type": "arcanearchives:converted/items/radiantamphora_2"
+    },
+    {
+      "type": "arcanearchives:converted/items/radiantamphora_3"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "You can switch the Radiant Amphora's current mode by left clicking the air.$(br2)A Radiant Amphora placed in a Dispenser will attempt to place fluid from its linked tank if the speace in front of the Dispenser is empty. If the space in front of the Dispenser has a fluid block, the Amphora will instead attempt to pick it up and send it to its linked tank."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Radiant Amphorae can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l)."
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:radiant_amphora"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "arcanearchives:radiant_amphora": 0
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "components": [
+    {
+      "type": "patchouli:image",
+      "image": "arcanearchives:textures/items/gems/asscher/dun.png",
+      "width": 16,
+      "height": 16,
+      "texture_width": 16,
+      "texture_height": 16,
+      "scale": 1,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "type": "patchouli:text",
+      "text": "To recharge a dun Salvegleam, slaughter a passive animal while holding the gem. Doing so restores points of charge equal to half of the animal's maximum health.",
+      "x": 0,
+      "y": 22
+    }
+  ]
+}

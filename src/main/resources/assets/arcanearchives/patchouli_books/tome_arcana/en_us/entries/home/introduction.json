@@ -1,0 +1,25 @@
+{
+  "name": "Home",
+  "category": "arcanearchives:home",
+  "icon": "arcanearchives:tome_arcana",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/home/introduction_0"
+    },
+    {
+      "type": "arcanearchives:converted/home/introduction_1"
+    },
+    {
+      "type": "arcanearchives:converted/home/introduction_2",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/home/introduction_3",
+      "flag": "arcanearchives:arsenal_disabled"
+    },
+    {
+      "type": "arcanearchives:converted/home/introduction_4"
+    }
+  ]
+}

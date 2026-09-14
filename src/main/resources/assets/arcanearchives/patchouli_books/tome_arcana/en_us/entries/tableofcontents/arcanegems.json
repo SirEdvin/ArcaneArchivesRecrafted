@@ -1,0 +1,32 @@
+{
+  "name": "Arcane Gems",
+  "category": "arcanearchives:tableofcontents",
+  "icon": "arcanearchives:slaughtergleam",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/tableofcontents/arcanegems_0",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/tableofcontents/arcanegems_1",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:gems/slaughtergleam)Slaughtergleam$(/l)$(br2)$(l:arcanearchives:gems/murdergleam)Murdergleam$(/l)$(br2)$(l:arcanearchives:gems/agegleam)Agegleam$(/l)$(br2)$(l:arcanearchives:gems/cleansegleam)Cleansegleam$(/l)$(br2)$(l:arcanearchives:gems/switchgleam)Switchgleam$(/l)$(br2)$(l:arcanearchives:gems/salvegleam)Salvegleam$(/l)$(br2)$(l:arcanearchives:gems/munchstone)Munchstone$(/l)",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:gems/orderstone)Orderstone$(/l)$(br2)$(l:arcanearchives:gems/mindspindle)Mindspindle$(/l)$(br2)$(l:arcanearchives:gems/elixirspindle)Elixirspindle$(/l)$(br2)$(l:arcanearchives:gems/mountaintear)Mountaintear$(/l)$(br2)$(l:arcanearchives:gems/rivertear)Rivertear$(/l)$(br2)$(l:arcanearchives:gems/parchtear)Parchtear$(/l)$(br2)$(l:arcanearchives:gems/phoenixway)Phoenixway$(/l)",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:gems/stormway)Stormway$(/l)",
+      "flag": "arcanearchives:arsenal_enabled"
+    }
+  ],
+  "flag": "arcanearchives:arsenal_enabled"
+}

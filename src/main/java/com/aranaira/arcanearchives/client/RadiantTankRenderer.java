@@ -63,8 +63,8 @@ public final class RadiantTankRenderer implements BlockEntityRenderer<RadiantTan
         //?} else {
         /*var fluid = tank.inventory().getFluid();
         //? if forge {
-        var extension = net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions.of(fluid.getFluid());
-        //?} else {
+        /^var extension = net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions.of(fluid.getFluid());
+        ^///?} else {
         var extension = net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions.of(fluid.getFluid());
         //?}
         var still = extension.getStillTexture(fluid);

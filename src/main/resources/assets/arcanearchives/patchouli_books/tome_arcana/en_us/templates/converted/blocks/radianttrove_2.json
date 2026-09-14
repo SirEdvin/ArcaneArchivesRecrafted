@@ -1,0 +1,50 @@
+{
+  "components": [
+    {
+      "type": "patchouli:item",
+      "item": "arcanearchives:matrix_brace",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "type": "patchouli:image",
+      "image": "arcanearchives:textures/gui/guidebook/next.png",
+      "width": 8,
+      "height": 16,
+      "texture_width": 8,
+      "texture_height": 16,
+      "scale": 1,
+      "x": 20,
+      "y": 0
+    },
+    {
+      "type": "patchouli:item",
+      "item": "arcanearchives:material_interface",
+      "x": 32,
+      "y": 0
+    },
+    {
+      "type": "patchouli:image",
+      "image": "arcanearchives:textures/gui/guidebook/next.png",
+      "width": 8,
+      "height": 16,
+      "texture_width": 8,
+      "texture_height": 16,
+      "scale": 1,
+      "x": 52,
+      "y": 0
+    },
+    {
+      "type": "patchouli:item",
+      "item": "arcanearchives:storage_shaped_quartz",
+      "x": 64,
+      "y": 0
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Radiant Trove's storage capacity can be upgraded can be upgraded three times, using a $(l:arcanearchives:items/sceptermanipulation)Scepter of Manipulation$(/l). The first upgrade increases storage to 3x base capacity, the second to 6x base capacity, and the third to 10x base capacity.",
+      "x": 0,
+      "y": 22
+    }
+  ]
+}

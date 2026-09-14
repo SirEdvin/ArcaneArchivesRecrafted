@@ -114,6 +114,10 @@ public final class ContentRegistry {
     public static final Supplier<BlockEntityType<RadiantResonatorBlockEntity>> RADIANT_RESONATOR_ENTITY = resonatorEntity();
     public static final Supplier<SoundEvent> RESONATOR_COMPLETE = sound("resonator.complete");
     public static final Supplier<SoundEvent> RESONATOR_LOOP = sound("resonator.loop");
+    public static final Supplier<SoundEvent> BRAZIER_ABSORB = sound("brazier.absorb");
+    public static final Supplier<com.aranaira.arcanearchives.blocks.Brazier> BRAZIER = block("brazier_of_hoarding", com.aranaira.arcanearchives.blocks.Brazier::new);
+    public static final Supplier<BlockEntityType<com.aranaira.arcanearchives.tileentities.BrazierBlockEntity>> BRAZIER_ENTITY = brazierEntity();
+    public static final Supplier<BlockItem> BRAZIER_ITEM = item("brazier_of_hoarding", () -> new BlockItem(BRAZIER.get(), new Item.Properties()));
     public static final Supplier<GemCutterDataRecipe.Type> GEM_CUTTING_TYPE = gemCuttingType();
     public static final Supplier<GemCutterDataRecipe.Serializer> GEM_CUTTING_SERIALIZER = gemCuttingSerializer();
     public static final Supplier<StorageRawQuartz> STORAGE_RAW_QUARTZ = block("storage_raw_quartz", StorageRawQuartz::new);
@@ -127,6 +131,8 @@ public final class ContentRegistry {
     public static final Supplier<BlockItem> QUARTZ_SLIVER_ITEM = item("quartz_sliver", () -> new BlockItem(QUARTZ_SLIVER.get(), new Item.Properties()));
     public static final Supplier<BlockItem> RADIANT_LANTERN_ITEM = item("radiant_lantern", () -> new BlockItem(RADIANT_LANTERN.get(), new Item.Properties()));
     public static final Supplier<GemCuttersTable> GEMCUTTERS_TABLE = block("gemcutters_table", GemCuttersTable::new);
+    public static final Supplier<com.aranaira.arcanearchives.blocks.LecternManifest> LECTERN_MANIFEST = block("lectern_manifest", com.aranaira.arcanearchives.blocks.LecternManifest::new);
+    public static final Supplier<com.aranaira.arcanearchives.items.LecternManifestItem> LECTERN_MANIFEST_ITEM = item("lectern_manifest", () -> new com.aranaira.arcanearchives.items.LecternManifestItem(LECTERN_MANIFEST.get(), new Item.Properties()));
     public static final Supplier<BlockItem> GEMCUTTERS_TABLE_ITEM = item("gemcutters_table", () -> new BlockItem(GEMCUTTERS_TABLE.get(), new Item.Properties()));
     public static final Supplier<BlockEntityType<GemCuttersTableBlockEntity>> GEMCUTTERS_TABLE_ENTITY = gemCutterEntity();
     public static final Supplier<MenuType<GemCuttersTableMenu>> GEMCUTTERS_TABLE_MENU = gemCutterMenu();
@@ -134,6 +140,10 @@ public final class ContentRegistry {
     public static final Supplier<RawQuartzItem> RAW_QUARTZ = item("raw_quartz", RawQuartzItem::new);
     public static final Supplier<com.aranaira.arcanearchives.items.EchoItem> ECHO = item("echo", com.aranaira.arcanearchives.items.EchoItem::new);
     public static final Supplier<com.aranaira.arcanearchives.items.DebugOrbItem> DEBUG_ORB = item("debugorb", com.aranaira.arcanearchives.items.DebugOrbItem::new);
+    public static final Supplier<com.aranaira.arcanearchives.items.ManifestItem> MANIFEST = item("manifest", com.aranaira.arcanearchives.items.ManifestItem::new);
+    public static final Supplier<com.aranaira.arcanearchives.items.TomeOfArcanaItem> TOME_OF_ARCANA = item("tome_arcana", com.aranaira.arcanearchives.items.TomeOfArcanaItem::new);
+    public static final Supplier<MenuType<com.aranaira.arcanearchives.inventory.ManifestMenu>> MANIFEST_MENU = manifestMenu();
+    public static final Supplier<MenuType<com.aranaira.arcanearchives.inventory.BrazierMenu>> BRAZIER_MENU = brazierMenu();
     public static final Supplier<com.aranaira.arcanearchives.items.LetterOfInvitationItem> LETTER_INVITATION = item("letter_invitation", com.aranaira.arcanearchives.items.LetterOfInvitationItem::new);
     public static final Supplier<com.aranaira.arcanearchives.items.LetterOfResignationItem> LETTER_RESIGNATION = item("letter_resignation", com.aranaira.arcanearchives.items.LetterOfResignationItem::new);
     public static final Supplier<com.aranaira.arcanearchives.items.WritOfExpulsionItem> WRIT_EXPULSION = item("writ_expulsion", com.aranaira.arcanearchives.items.WritOfExpulsionItem::new);
@@ -185,8 +195,8 @@ public final class ContentRegistry {
 
     public static void initialize(IEventBus bus) {
         //? if neoforge {
-        com.aranaira.arcanearchives.items.EchoItem.registerComponents(bus);
-        //?}
+        /^com.aranaira.arcanearchives.items.EchoItem.registerComponents(bus);
+        ^///?}
         BLOCKS.register(bus);
         SOUNDS.register(bus);
         RECIPE_TYPES.register(bus);
@@ -282,6 +292,17 @@ public final class ContentRegistry {
         *///?}
     }
 
+    private static Supplier<BlockEntityType<com.aranaira.arcanearchives.tileentities.BrazierBlockEntity>> brazierEntity() {
+        Supplier<BlockEntityType<com.aranaira.arcanearchives.tileentities.BrazierBlockEntity>> factory = () -> BlockEntityType.Builder.of(
+            com.aranaira.arcanearchives.tileentities.BrazierBlockEntity::new, BRAZIER.get()).build(null);
+        //? if fabric {
+        var value = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, id("brazier_of_hoarding"), factory.get());
+        return () -> value;
+        //?} else {
+        /*return BLOCK_ENTITIES.register("brazier_of_hoarding", factory);
+        *///?}
+    }
+
     private static Supplier<BlockEntityType<com.aranaira.arcanearchives.tileentities.MonitoringCrystalBlockEntity>> monitoringCrystalEntity() {
         Supplier<BlockEntityType<com.aranaira.arcanearchives.tileentities.MonitoringCrystalBlockEntity>> factory = () -> BlockEntityType.Builder.of(
             com.aranaira.arcanearchives.tileentities.MonitoringCrystalBlockEntity::new, MONITORING_CRYSTAL.get()).build(null);
@@ -358,6 +379,28 @@ public final class ContentRegistry {
         *///?}
     }
 
+    private static Supplier<MenuType<com.aranaira.arcanearchives.inventory.ManifestMenu>> manifestMenu() {
+        Supplier<MenuType<com.aranaira.arcanearchives.inventory.ManifestMenu>> factory = () -> new MenuType<>(
+            com.aranaira.arcanearchives.inventory.ManifestMenu::new, FeatureFlags.VANILLA_SET);
+        //? if fabric {
+        var value = Registry.register(BuiltInRegistries.MENU, id("manifest"), factory.get());
+        return () -> value;
+        //?} else {
+        /*return MENUS.register("manifest", factory);
+        *///?}
+    }
+
+    private static Supplier<MenuType<com.aranaira.arcanearchives.inventory.BrazierMenu>> brazierMenu() {
+        Supplier<MenuType<com.aranaira.arcanearchives.inventory.BrazierMenu>> factory = () -> new MenuType<>(
+            com.aranaira.arcanearchives.inventory.BrazierMenu::new, FeatureFlags.VANILLA_SET);
+        //? if fabric {
+        var value = Registry.register(BuiltInRegistries.MENU, id("brazier"), factory.get());
+        return () -> value;
+        //?} else {
+        /*return MENUS.register("brazier", factory);
+        *///?}
+    }
+
     private static Supplier<MenuType<RadiantChestMenu>> chestMenu() {
         Supplier<MenuType<RadiantChestMenu>> factory = () -> new MenuType<>(RadiantChestMenu::new, FeatureFlags.VANILLA_SET);
         //? if fabric {
@@ -400,7 +443,10 @@ public final class ContentRegistry {
                 output.accept(RAW_QUARTZ.get());
                 output.accept(ECHO.get());
                 output.accept(DEBUG_ORB.get());
+                output.accept(MANIFEST.get());
+                output.accept(TOME_OF_ARCANA.get());
                 output.accept(MONITORING_CRYSTAL_ITEM.get());
+                output.accept(BRAZIER_ITEM.get());
                 output.accept(RADIANT_RESONATOR_ITEM.get());
                 output.accept(WONKY_RESONATOR_ITEM.get());
                 output.accept(VERDANT_CENSER_ITEM.get());
@@ -416,6 +462,7 @@ public final class ContentRegistry {
                 output.accept(RADIANT_TANK_ITEM.get());
                 output.accept(RADIANT_CRAFTING_TABLE_ITEM.get());
                 output.accept(GEMCUTTERS_TABLE_ITEM.get());
+                output.accept(LECTERN_MANIFEST_ITEM.get());
                 output.accept(RADIANT_LANTERN_ITEM.get());
                 output.accept(QUARTZ_SLIVER_ITEM.get());
                 output.accept(RAW_QUARTZ_CLUSTER_ITEM.get());

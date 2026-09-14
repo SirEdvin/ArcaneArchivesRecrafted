@@ -1,0 +1,42 @@
+{
+  "name": "Letter of Invitation",
+  "category": "arcanearchives:items",
+  "icon": "arcanearchives:letter_invitation",
+  "sortnum": 33,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/items/letterinvitation_0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "If another player uses a Letter of Invitation that you crafted, they are added to your $(l:arcanearchives:concepts/networks)Network$(/l).$(br2)When viewing a $(l:arcanearchives:items/manifest)Manifest$(/l), all placed Radiant Storage from any player in your network is visible.$(br2)Letters of Invitation can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l)."
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:letter_invitation"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$()$(italic) Journeyman Yailan: $()$(br2)$()$(italic) The Omencasters believe that a child with magical inclinations resides in a village called Brightmeadow. On behalf of the Ministry of Recruitment, you are charged to collect this child and bring it to the Eternal University for assessment. $()"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$()$(italic) According to their divinations, the child has begun performing magical workings beyond the scope of the hedge magic that the peasantry usually practices. See if you can convince the child to show you its workings. Feign interest, no matter how primitive its spellcraft is. $()"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$()$(italic) Your job will be easiest if you can convince the child and its parents to release it to us of their own choosing. Make sure to speak slowly and with simple words. Should the peasantry of Brightmeadow show resistance to giving up the child, offer some small magical enhancements to improve their lives in exchange; perhaps an iron golem or a water purifying charm. $()"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$()$(italic) If you cannot convince the village to willingly part, eliminate the child from their memories and take it anyway. Do not worry about resistance or traumatizing it, as its memories will be eliminated and replaced with more convenient ones. This method is to be considered a last resort, the additional work it will incur will significantly damage your standing with the Ministry of Recruitment. $()"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$()$(italic) Bask in the light of your Enlightenment, and walk ever on the path of Wisdom. $()$(br2)$()$(bold) Official recruitment charge, Ministry of Recruitment $()$(br2)...1627, Winter’s End"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "arcanearchives:letter_invitation": 0
+  }
+}

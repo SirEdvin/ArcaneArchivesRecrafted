@@ -1,0 +1,6 @@
+{
+  "name": "Table of Contents",
+  "description": "$(l:arcanearchives:tableofcontents/blocks)Table of Contents$(/l)",
+  "icon": "arcanearchives:tome_arcana",
+  "sortnum": 1
+}

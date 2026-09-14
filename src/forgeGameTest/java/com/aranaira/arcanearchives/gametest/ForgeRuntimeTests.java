@@ -23,11 +23,35 @@ import org.junit.platform.reporting.legacy.xml.LegacyXmlReportGeneratingListener
 public final class ForgeRuntimeTests {
     @GameTest(template = "empty", timeoutTicks = 100)
     public static void deviceOwnership(GameTestHelper helper) {
+        BrazierAutomationLifecycle.run(helper, helper.makeMockPlayer(), (brazier, side) -> {
+            var handler = brazier.getCapability(net.minecraftforge.common.capabilities.ForgeCapabilities.ITEM_HANDLER, side).orElse(null);
+            if (handler instanceof net.minecraftforge.items.IItemHandlerModifiable) throw new AssertionError("0146 modifiable setter exposed");
+            return (com.aranaira.arcanearchives.inventory.BrazierItemAutomation) handler;
+        });
         DeviceOwnershipLifecycle.run(helper, helper.makeMockPlayer(),
             net.minecraftforge.common.util.FakePlayerFactory.get(helper.getLevel(),
                 new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(), "Ownership fixture")),
             entity -> entity.saveWithFullMetadata(), (entity, tag) -> entity.load(tag),
-            (stack, tag) -> stack.getOrCreateTag().put("BlockEntityTag", tag.copy()));
+            (stack, tag) -> stack.getOrCreateTag().put("BlockEntityTag", tag.copy()), (test, player) -> {
+                var level = test.getLevel();
+                BrazierActivationLifecycle.run(test, player,
+                    (hit, hand) -> level.getBlockState(hit.getBlockPos()).use(level, player, hand, hit).consumesAction(),
+                    hit -> level.getBlockState(hit.getBlockPos()).use(level, player, net.minecraft.world.InteractionHand.MAIN_HAND, hit).consumesAction());
+                ManifestLecternLifecycle.run(test, player,
+                    matrix -> level.getRecipeManager().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, matrix, level)
+                        .orElseThrow().assemble(matrix, level.registryAccess()),
+                    hit -> level.getBlockState(hit.getBlockPos()).use(level, player, net.minecraft.world.InteractionHand.MAIN_HAND, hit).consumesAction());
+            }, ForgeRuntimeTests::manifestPlayer);
+    }
+    private static net.minecraft.server.level.ServerPlayer manifestPlayer(GameTestHelper helper) {
+        var level = helper.getLevel();
+        var player = new net.minecraft.server.level.ServerPlayer(level.getServer(), level,
+            new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(), "Manifest fixture"));
+        var connection = new net.minecraft.network.Connection(net.minecraft.network.protocol.PacketFlow.SERVERBOUND);
+        // The 1.20 vanilla helper has no channel; Forge login hooks require a real test pipeline.
+        new io.netty.channel.embedded.EmbeddedChannel(connection);
+        level.getServer().getPlayerList().placeNewPlayer(connection, player);
+        return player;
     }
     @GameTest(template = "empty", timeoutTicks = 1200)
     public static void matrixDistillateLifecycle(GameTestHelper helper) {

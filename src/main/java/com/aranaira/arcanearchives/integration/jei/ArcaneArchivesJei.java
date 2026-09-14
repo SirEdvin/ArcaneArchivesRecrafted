@@ -39,11 +39,26 @@ public final class ArcaneArchivesJei implements IModPlugin {
 
     @Override
     public void onRuntimeAvailable(IJeiRuntime runtime) {
+        var filter = runtime.getIngredientFilter();
+        com.aranaira.arcanearchives.client.ManifestSearch.bind(filter::getFilterText, filter::setFilterText);
+        com.aranaira.arcanearchives.client.ManifestKey.bindHovered(() -> {
+            var stack = runtime.getIngredientListOverlay().getIngredientUnderMouse(VanillaTypes.ITEM_STACK);
+            if (stack != null && !stack.isEmpty()) return stack;
+            var recipeStack = runtime.getRecipesGui().getIngredientUnderMouse(VanillaTypes.ITEM_STACK);
+            if (recipeStack.isPresent()) return recipeStack.get();
+            stack = runtime.getBookmarkOverlay().getIngredientUnderMouse(VanillaTypes.ITEM_STACK);
+            return stack == null ? ItemStack.EMPTY : stack;
+        });
         var hidden = ViewerHiddenItems.items(ArsenalConfig.current().enableArsenal());
         var ingredients = runtime.getIngredientManager();
         var removals = ingredients.getAllIngredients(VanillaTypes.ITEM_STACK).stream()
             .filter(stack -> hidden.contains(stack.getItem())).toList();
         if (!removals.isEmpty()) ingredients.removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, removals);
+    }
+
+    @Override public void onRuntimeUnavailable() {
+        com.aranaira.arcanearchives.client.ManifestSearch.unbind();
+        com.aranaira.arcanearchives.client.ManifestKey.bindHovered(() -> ItemStack.EMPTY);
     }
 
     @Override

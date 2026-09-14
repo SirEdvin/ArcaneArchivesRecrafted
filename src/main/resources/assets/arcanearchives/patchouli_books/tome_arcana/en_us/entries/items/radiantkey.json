@@ -1,0 +1,26 @@
+{
+  "name": "Radiant Key",
+  "category": "arcanearchives:items",
+  "icon": "arcanearchives:radiant_key",
+  "sortnum": 45,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/items/radiantkey_0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "When held in the main or off hand, you can open a Trapped Chest without the chest firing off a redstone signal.$(br2)When used to upgrade a $(l:arcanearchives:blocks/radianttrove)Radiant Trove$(/l), the item type held by the trove becomes fixed. Even if the Trove's internal storage is reduced to 0 items, it reserves its storage for that type of item only."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Radiant Keys can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l)."
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:radiant_key"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "arcanearchives:radiant_key": 0
+  }
+}

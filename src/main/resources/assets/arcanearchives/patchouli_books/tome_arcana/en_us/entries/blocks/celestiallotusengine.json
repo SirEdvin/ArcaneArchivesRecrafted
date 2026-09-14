@@ -1,0 +1,15 @@
+{
+  "name": "Celestial Lotus Engine",
+  "category": "arcanearchives:blocks",
+  "icon": "arcanearchives:celestial_lotus_engine",
+  "sortnum": 26,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/blocks/celestiallotusengine_0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The original Tome left this topic unfinished and supplies no operating instructions. This entry preserves its place in the archive; it does not imply a working or obtainable feature."
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "name": "Brazier of Hoarding",
+  "category": "arcanearchives:blocks",
+  "icon": "arcanearchives:brazier_of_hoarding",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/blocks/brazierhoarding_0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "A Brazier of Hoarding is an organization device that can act as a drop-off point to store items in your $(l:arcanearchives:concepts/networks)Network$(/l). Braziers of Hoarding are also a light source."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Any items used on, or dropped on top of, a Brazier of Hoarding will be transported to appropriate storage, starting with $(l:arcanearchives:blocks/radianttrove)Radiant Troves$(/l). If no appropriate Radiant Troves exist in your network, items will be placed in $(l:arcanearchives:blocks/radiantchest)Radiant Chests$(/l), starting with chests that already contain an instance of the item."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "If no storage can be found, items are ejected from the Brazier of Hoarding."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "If you right click a brazier with a $(l:arcanearchives:items/sceptermanipulation)Scepter of Manipulation$(/l), you can set the maximum radius in which it will search for Radiant storage to insert items into, as well as whether the Brazier will fill any located device in your network, or only devices that you placed personally. You can also enable an option to visualize the size of the insertion area."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "If you right click a shulker box onto a Brazier of Hoarding, its contents will be deposited into the Brazier instead."
+    },
+    {
+      "type": "arcanearchives:converted/blocks/brazierhoarding_6",
+      "flag": "arcanearchives:ml_quark"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Infusion Matrix Braziers of Hoarding can be used as an infusion stabilizer.",
+      "flag": "arcanearchives:ml_thaumcraft"
+    },
+    {
+      "type": "arcanearchives:converted/blocks/brazierhoarding_8"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Braziers of Hoarding can be crafted on a $(l:arcanearchives:blocks/gemcutterstable)Gem Cutter's Table$(/l)."
+    },
+    {
+      "type": "arcanearchives:gem_cutting_output",
+      "output": "arcanearchives:brazier_of_hoarding"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "arcanearchives:brazier_of_hoarding": 0
+  }
+}

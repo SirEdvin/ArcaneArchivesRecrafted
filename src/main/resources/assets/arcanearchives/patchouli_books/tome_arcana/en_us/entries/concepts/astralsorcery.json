@@ -1,0 +1,24 @@
+{
+  "name": "Astral Sorcery Compatibility",
+  "category": "arcanearchives:concepts",
+  "icon": "arcanearchives:raw_quartz",
+  "sortnum": 67,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Astral Sorcery Lightwell Lightwell$(br2)$(l:arcanearchives:items/rawquartz)Raw Radiant Quartz$(/l) generates Liquid Starlight. It is long lasting, but low production.$(br2)$(l:arcanearchives:items/shapedquartz)Shaped Radiant Quartz$(/l) also generates Liquid Starlight. It is a bit more efficient than Raw Radiant Quartz.",
+      "flag": "arcanearchives:ml_astralsorcery"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(l:arcanearchives:gems/rivertear)Rivertears$(/l) generates water at about 2 buckets per tick. It is effectively infinite, but due to technical limits there is a ridiculously small chance of shattering.$(br2)$(l:arcanearchives:gems/mountaintear)Mountaintears$(/l) generates lava at a moderate rate. It is effectively infinite, but due to technical limits there is a ridiculously small chance of shattering.",
+      "flag": "&arcanearchives:ml_astralsorcery,arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Arcane Arsenal is not enabled; some features for this section are not present.",
+      "flag": "&arcanearchives:ml_astralsorcery,arcanearchives:arsenal_disabled"
+    }
+  ],
+  "flag": "arcanearchives:ml_astralsorcery"
+}

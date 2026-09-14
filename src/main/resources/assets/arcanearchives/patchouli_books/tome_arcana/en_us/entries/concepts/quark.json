@@ -1,0 +1,23 @@
+{
+  "name": "Quark Compatibility",
+  "category": "arcanearchives:concepts",
+  "icon": "minecraft:chest",
+  "sortnum": 70,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Inventory Management$(br2)$(l:arcanearchives:blocks/radiantchest)Radiant Chests$(/l) make use of Quark's inventory search bar, and its Sort, Deposit, Merge, Extract, and Restock buttons.",
+      "flag": "arcanearchives:ml_quark"
+    },
+    {
+      "type": "arcanearchives:converted/concepts/quark_1",
+      "flag": "arcanearchives:ml_quark"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Items marked as favorites will not be deposited into a $(l:arcanearchives:blocks/brazierhoarding)Brazier of Hoarding$(/l) on right click. Favorited items can still be inserted into a Brazier of Hoarding when thrown.",
+      "flag": "arcanearchives:ml_quark"
+    }
+  ],
+  "flag": "arcanearchives:ml_quark"
+}

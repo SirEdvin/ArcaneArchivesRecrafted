@@ -1,0 +1,45 @@
+{
+  "name": "Recharging Arcane Gems",
+  "category": "arcanearchives:gems",
+  "icon": "arcanearchives:chromatic_powder",
+  "sortnum": 50,
+  "pages": [
+    {
+      "type": "arcanearchives:converted/gems/recharginggems_0",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Most Arcane Gems have an internal reservoir of light, called $()$(bold)charge$(). Once a gem's charge runs out, it becomes $()$(bold)dun$() and cannot be used until recharged. When a gem goes dun, you can attempt to recharge it, usually by activating the dun gem while holding it. Each gem has a unique method of recharging noted on its individual page.",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "In addition to their own unique recharging methods, Arcane Gems can be recharged by consuming a handful of $()$(bold)Chromatic Powder$() matching its color. In the case of gems that can consume specific items to recharge, the specific item will always be consumed before the Chromatic Powder.",
+      "flag": "&arcanearchives:arsenal_enabled,arcanearchives:false"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "In addition to Chromatic Powder matching a its color, any Arcane Gem can be recharged with $()$(bold)Full-Spectrum Chromatic Powder$(). An Arcane Gem will always try to consume single-color powder before consuming full-spectrum powder.",
+      "flag": "&arcanearchives:arsenal_enabled,arcanearchives:false"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Gems contained within a $(l:arcanearchives:items/gemsocket)Gem Socket$(/l) will attempt to recharge themselves once upon going dun.",
+      "flag": "arcanearchives:arsenal_enabled"
+    },
+    {
+      "type": "arcanearchives:converted/gems/recharginggems_5",
+      "flag": "arcanearchives:arsenal_disabled"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$()$(bold)Arcane Arsenal$() is disabled in config; these features are not available.",
+      "flag": "arcanearchives:arsenal_disabled"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "arcanearchives:chromatic_powder": 0,
+    "arcanearchives:full_spectrum_chromatic_powder": 0
+  }
+}

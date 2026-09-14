@@ -1,0 +1,21 @@
+{
+  "components": [
+    {
+      "type": "patchouli:image",
+      "image": "arcanearchives:textures/items/gems/asscher/dun.png",
+      "width": 16,
+      "height": 16,
+      "texture_width": 16,
+      "texture_height": 16,
+      "scale": 1,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "type": "patchouli:text",
+      "text": "To recharge a dun Cleansegleam, activate the gem while you have a bucket of milk in your inventory. The milk is conusmed, and the bucket is returned. Alternatively, if you have a $(l:arcanearchives:items/radiantamphora)Radiant Amphora$(/l) linked to a $(l:arcanearchives:blocks/radianttank)Radiant Tank$(/l) containing milk, the milk is deducted from the tank directly.",
+      "x": 0,
+      "y": 22
+    }
+  ]
+}

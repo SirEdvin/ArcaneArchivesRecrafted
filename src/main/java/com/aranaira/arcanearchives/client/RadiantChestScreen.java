@@ -12,6 +12,7 @@ import net.minecraft.world.entity.player.Inventory;
 public final class RadiantChestScreen extends AbstractContainerScreen<RadiantChestMenu> {
     private EditBox nameBox;
     private boolean receivingName;
+    private RoutingButton routingButton;
 
     public RadiantChestScreen(RadiantChestMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
@@ -30,10 +31,34 @@ public final class RadiantChestScreen extends AbstractContainerScreen<RadiantChe
             if (!receivingName) com.aranaira.arcanearchives.events.ChestName.send(menu.containerId, value);
         });
         addRenderableWidget(nameBox);
+        routingButton = addRenderableWidget(new RoutingButton(leftPos + 161, topPos + 236));
+        updateRoutingLabel();
+    }
+
+    private void updateRoutingLabel() {
+        String mode = menu.noNewStacks() ? "nonewitems" : "any";
+        Component label = Component.translatable("arcanearchives.tooltip.radiantchest.routingmode." + mode + "1")
+            .append(" ").append(Component.translatable("arcanearchives.tooltip.radiantchest.routingmode." + mode + "2"));
+        if (!label.equals(routingButton.getMessage())) {
+            routingButton.setMessage(label);
+            routingButton.setTooltip(net.minecraft.client.gui.components.Tooltip.create(label));
+        }
+    }
+
+    private final class RoutingButton extends net.minecraft.client.gui.components.Button {
+        private RoutingButton(int x, int y) {
+            super(x, y, 12, 12, Component.empty(), button -> {
+                if (minecraft.gameMode != null) minecraft.gameMode.handleInventoryButtonClick(menu.containerId, 0);
+            }, narration -> narration.get());
+        }
+        @Override public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+            if (isHoveredOrFocused()) graphics.renderOutline(getX(), getY(), width, height, 0xFFFFFFFF);
+        }
     }
 
     @Override protected void containerTick() {
         super.containerTick();
+        updateRoutingLabel();
         if (!nameBox.isFocused() && !nameBox.getValue().equals(menu.chestName())) {
             receivingName = true;
             try { nameBox.setValue(menu.chestName()); }
@@ -73,6 +98,10 @@ public final class RadiantChestScreen extends AbstractContainerScreen<RadiantChe
 
     @Override protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
         graphics.blit(GuiTextures.select("radiantchest"), leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
+        if (menu.noNewStacks()) {
+            graphics.blit(GuiTextures.select("radiantchest"), leftPos + 164, topPos + 239, 234, 0, 6, 6, 256, 256);
+            graphics.blit(GuiTextures.select("radiantchest"), leftPos + 176, topPos + 234, 240, 0, 16, 16, 256, 256);
+        }
     }
 
     @Override protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {

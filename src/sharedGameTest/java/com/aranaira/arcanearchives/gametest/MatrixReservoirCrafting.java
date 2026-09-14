@@ -136,7 +136,7 @@ public final class MatrixReservoirCrafting {
         helper.succeed();
     }
 
-    private static void selectRecipe(GemCuttersTableMenu menu, Player player, Item output, int recipeCount) {
+    static void selectRecipe(GemCuttersTableMenu menu, Player player, Item output, int recipeCount) {
         for (int page = 0; page <= recipeCount / 7; page++) {
             for (int slot = 55; slot <= 61; slot++) {
                 if (menu.getSlot(slot).getItem().is(output)) {

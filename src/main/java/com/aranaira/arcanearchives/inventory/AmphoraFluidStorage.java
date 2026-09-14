@@ -124,8 +124,8 @@ public final class AmphoraFluidStorage {
                 FluidStack planned = new FluidStack(state.getFluidState().getType(), 1000);
                 if (storage.fill(planned, IFluidHandler.FluidAction.SIMULATE) != 1000) return false;
                 //? if forge {
-                ItemStack bucket = pickup.pickupBlock(level, pos, state);
-                //?} else {
+                /^ItemStack bucket = pickup.pickupBlock(level, pos, state);
+                ^///?} else {
                 ItemStack bucket = pickup.pickupBlock(player, level, pos, state);
                 //?}
                 if (bucket.isEmpty()) return false;

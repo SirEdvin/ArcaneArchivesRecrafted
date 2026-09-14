@@ -11,6 +11,12 @@ import net.minecraft.world.level.block.Block;
 public final class RadiantResonatorItem extends BlockItem {
     public RadiantResonatorItem(Block block) { super(block, new Properties()); }
 
+    @Override public void onCraftedBy(net.minecraft.world.item.ItemStack stack, net.minecraft.world.level.Level level,
+            net.minecraft.world.entity.player.Player player) {
+        super.onCraftedBy(stack, level, player);
+        com.aranaira.arcanearchives.events.TomeAcquisition.crafted(player, stack);
+    }
+
     @Override
     public InteractionResult place(BlockPlaceContext context) {
         var player = context.getPlayer();

@@ -41,8 +41,70 @@ for minecraft, loader, entrypoint, major, metadata in TARGETS:
     directory = ROOT / "versions" / node / "build" / "libs"
     with ZipFile(directory / f"{basename}.jar") as jar:
         names = jar.namelist()
+        tome_inventory = json.loads((ROOT / "docs/migration/tome-conversion.json").read_text())
+        for resource in tome_inventory["files"]:
+            require(jar.read(resource) == (ROOT / "src/main/resources" / resource).read_bytes(),
+                    f"{node}: missing/stale complete Tome resource {resource}")
+        for recipe in ("radiant_chest1", "radiant_chest2"):
+            path = f"data/arcanearchives/recipe/{recipe}.json"
+            packaged = path.replace("/recipe/", "/recipes/") if minecraft == "1.20.1" else path
+            expected = (ROOT / "src/main/resources" / path).read_text().replace("${result_key}", "item" if minecraft == "1.20.1" else "id")
+            require(json.loads(jar.read(packaged)) == json.loads(expected), f"{node}: wrong Chest recipe {recipe}")
         require_no_test_content(names, node)
         require(len(names) == len(set(names)), f"{node}: duplicate ZIP entries")
+        sounds = json.loads(jar.read("assets/arcanearchives/sounds.json"))
+        shader_root = "assets/arcanearchives/shaders/core/brazier_fire"
+        shader = json.loads(jar.read(shader_root + ".json"))
+        require(shader.get("blend") == ({"func": "add", "srcrgb": "srcalpha", "dstrgb": "1-srcalpha"} if minecraft == "1.20.1" else None),
+                f"{node}: fire shader blend metadata differs from native entity cutout")
+        vertex = jar.read(shader_root + ".vsh").decode()
+        require(shader["vertex"] == "arcanearchives:brazier_fire"
+                and shader["fragment"] == "minecraft:rendertype_entity_cutout_no_cull",
+                f"{node}: wrong unlit fire shader stages")
+        require("vertexColor = Color;" in vertex and "lightMapColor = vec4(1.0);" in vertex
+                and "minecraft_mix_light" not in vertex and "${" not in vertex,
+                f"{node}: fire shader retains lighting or unexpanded placeholders")
+        fog = "fog_distance(ModelViewMat, IViewRotMat * Position, FogShape)" if minecraft == "1.20.1" else "fog_distance(Position, FogShape)"
+        require(fog in vertex and (any(u["name"] == "IViewRotMat" for u in shader["uniforms"]) == (minecraft == "1.20.1")),
+                f"{node}: wrong fire fog interface")
+        fire_path = "assets/arcanearchives/models/block/brazier_of_hoarding_fire.json"
+        require(json.loads(jar.read("assets/arcanearchives/blockstates/brazier_of_hoarding.json")) ==
+                {"variants": {"": {"model": "arcanearchives:block/brazier_of_hoarding"}}},
+                f"{node}: Brazier must have a single non-directional model variant")
+        for model_kind in ("block", "item"):
+            model_path = f"assets/arcanearchives/models/{model_kind}/brazier_of_hoarding.json"
+            model_source = (ROOT / "src/main/resources" / model_path).read_text().replace(
+                "${obj_loader}", "neoforge" if loader == "neoforge" else "forge")
+            require(json.loads(jar.read(model_path)) == json.loads(model_source),
+                    f"{node}: Brazier {model_kind} model expansion mismatch")
+        fire_source = (ROOT / "src/main/resources" / fire_path).read_text().replace(
+            "${obj_loader}", "neoforge" if loader == "neoforge" else "forge")
+        require(json.loads(jar.read(fire_path)) == json.loads(fire_source),
+                f"{node}: Brazier fire model expansion mismatch")
+        fire_mesh = "assets/arcanearchives/models/block/brazier_of_hoarding_fire.obj"
+        require(jar.read(fire_mesh) == (ROOT / "src/main/resources" / fire_mesh).read_bytes(),
+                f"{node}: changed packaged Brazier fire mesh")
+        atlas_sources = json.loads(jar.read("assets/minecraft/atlases/blocks.json"))["sources"]
+        atlas_sprites = {source["resource"] for source in atlas_sources if source["type"] == "minecraft:single"}
+        material = jar.read("assets/arcanearchives/models/block/brazier_of_hoarding.mtl").decode()
+        for line in material.splitlines():
+            if not line.startswith("map_Kd "):
+                continue
+            texture = line.split()[1]
+            if texture.startswith("arcanearchives:"):
+                require(texture in atlas_sprites, f"{node}: missing Brazier atlas sprite {texture}")
+                path = "assets/arcanearchives/textures/" + texture.split(":", 1)[1] + ".png"
+                require(jar.read(path) == (ROOT / "src/main/resources" / path).read_bytes(),
+                        f"{node}: changed packaged Brazier texture {texture}")
+            else:
+                require(texture in {"minecraft:block/fire_0", "minecraft:block/fire_1"},
+                        f"{node}: unresolved vanilla Brazier material {texture}")
+        require(sounds["brazier.absorb"]["sounds"] == [f"arcanearchives:brazier_absorb{i}" for i in (1, 2, 3)],
+                f"{node}: Brazier absorption sound variants changed")
+        for index in (1, 2, 3):
+            sound_path = f"assets/arcanearchives/sounds/brazier_absorb{index}.ogg"
+            require(jar.read(sound_path) == (ROOT / "src/main/resources" / sound_path).read_bytes(),
+                    f"{node}: packaged Brazier sound differs from recovered source")
         require(hashlib.sha256(jar.read("assets/arcanearchives/textures/gui/jei/radiant_resonator.png")).hexdigest()
                 == "f4998ffbe729d418d94b890ef2902d573d4ab4c068f24215c4cb34412677e5de",
                 f"{node}: changed pinned Resonator viewer artwork")
@@ -174,6 +236,7 @@ for minecraft, loader, entrypoint, major, metadata in TARGETS:
             "ArcaneArchivesJade", "ArcaneArchivesJade$Provider"))
         expected_classes.update(PACKAGE + name + ".class" for name in (
             "integration/patchouli/GemCutterBookRecipes", "client/GemCutterBookComponent"))
+        expected_classes.add(PACKAGE + "integration/patchouli/TomeConditions.class")
         expected_classes.add(PACKAGE + "items/RadiantTroveItem.class")
         expected_classes.update(PACKAGE + name + ".class" for name in ("items/WritOfExpulsionItem", "mixin/WritAnvilMixin"))
         expected_classes.update(PACKAGE + name + ".class" for name in (
@@ -187,14 +250,17 @@ for minecraft, loader, entrypoint, major, metadata in TARGETS:
             "blocks/UnimplementedDeviceBlock", "blocks/CelestialLotusEngine",
             "tileentities/RadiantChestBlockEntity", "tileentities/RadiantChestBlockEntity$1",
             "inventory/RadiantChestMenu", "inventory/RadiantChestMenu$1", "client/RadiantChestScreen",
+            "client/RadiantChestScreen$RoutingButton",
             "client/RadiantChestRenderer", "client/RadiantChestRenderer$1",
+            "client/BrazierRenderer",
+            "client/BrazierRenderType",
             "blocks/RadiantTrove", "blocks/RadiantTank", "items/StorageUpgradeBlockItem",
             "tileentities/RadiantTroveBlockEntity", "tileentities/RadiantTroveBlockEntity$1", "tileentities/RadiantTroveBlockEntity$2",
             "tileentities/RadiantTankBlockEntity", "tileentities/RadiantTankBlockEntity$1",
             "inventory/RadiantTankStorage", "client/RadiantTankRenderer", "mixin/TankItemRenderMixin",
             "inventory/StorageUpgradeMenu", "inventory/StorageUpgradeMenu$1", "inventory/StorageUpgradeMenu$2",
             "inventory/StorageUpgradeMenu$SizeUpgradeSlot", "inventory/StorageUpgradeMenu$OptionalUpgradeSlot",
-            "inventory/handlers/StorageOptionalUpgrades", "inventory/TroveItemAutomation",
+            "inventory/handlers/StorageOptionalUpgrades", "inventory/TroveItemAutomation", "inventory/BrazierItemAutomation",
             "items/RadiantKeyItem",
             "items/ArcaneGemItem", "items/GemRecharge", "items/ChromaticPowderItem", "items/ParchtearItem", "blocks/FakeAir", "tileentities/FakeAirBlockEntity",
             "config/ArsenalConfig", "client/ArsenalClient", "config/ClientConfig", "client/GuiTextures",
@@ -280,10 +346,38 @@ for minecraft, loader, entrypoint, major, metadata in TARGETS:
         expected_classes.update(PACKAGE + name + ".class" for name in (
             "blocks/GemCuttersTable", "tileentities/GemCuttersTableBlockEntity",
             "tileentities/NetworkOwnedBlockEntity",
+            "data/StorageNetworks", "mixin/StorageNetworkChunkMixin",
+            "data/ManifestContents", "data/ManifestContents$Entry", "data/ManifestContents$Location",
+            "data/BrazierRoutes",
+            "data/ManifestContents$Range", "data/ManifestContents$Group",
+            "data/BrazierRouteCache", "data/BrazierRouteCache$Entry",
+            "blocks/Brazier", "tileentities/BrazierBlockEntity",
+            "tileentities/BrazierPlayerSelection", "tileentities/BrazierPlayerSelection$Selection",
+            "client/AmphoraRenderer",
+            "client/BrazierRangeRenderer",
+            "client/BrazierRanges$ClientHooks",
+            "client/BrazierRanges",
+            "client/BrazierRangeState",
+            "client/BrazierScreen", "client/BrazierScreen$Control",
+            "events/BrazierRadius",
+            "inventory/BrazierMenu",
+            "events/ManifestSelect", "events/ManifestHover", "events/PlayerPreferences", "mixin/ManifestHoveredSlot", "mixin/ManifestKeyboardMixin",
+            "data/ManifestTracking", "data/ManifestTracking$Marker",
+            "events/ManifestSnapshotReceiver",
+            "events/ClearManifestTracking",
+            "blocks/LecternManifest", "items/LecternManifestItem",
+            "events/ManifestRequest",
+            "events/OpenManifest", "client/ManifestKey",
+            "client/ManifestSearch", "client/ManifestSearch$Filter", "client/ManifestScroll", "client/ManifestHighlight",
+            "client/ManifestRays", "client/ManifestRayRenderer",
+            "client/TroveHud", "client/TroveHudText",
+            "items/ManifestItem", "inventory/ManifestMenu", "events/ManifestSnapshot",
+            "client/ManifestClient", "client/ManifestScreen",
             "items/EmpoweredQuartzItem",
             "items/ScintillatingInlayItem",
             "recipe/gct/HiveCraftingConditions",
             "items/RadiantDustItem",
+            "items/TomeOfArcanaItem", "events/TomeAcquisition",
             "recipe/gct/GCTRecipeList",
             "recipe/gct/GCTRecipe",
             "recipe/CraftingCreator",
@@ -295,10 +389,13 @@ for minecraft, loader, entrypoint, major, metadata in TARGETS:
             "types/BlockPosDimension",
             "recipe/IngredientAllocation", "recipe/IngredientStack", "recipe/IngredientsMatcher",
         ))
+        if loader == "fabric":
+            expected_classes.add("com/aranaira/arcanearchives/tileentities/GemCuttersTableBlockEntity$1.class")
+            expected_classes.add("com/aranaira/arcanearchives/inventory/BrazierFabricStorage.class")
         classes = {name for name in names if name.endswith(".class")}
         require(classes == expected_classes,
                 f"{node}: extra classes {classes - expected_classes}; missing classes {expected_classes - classes}")
-        for name in ("radiantchest", "radiant_upgrades", "radiantcraftingtable", "gemcutterstable", "devouring_charm", "player_inv"):
+        for name in ("radiantchest", "radiant_upgrades", "radiantcraftingtable", "gemcutterstable", "devouring_charm", "player_inv", "manifest_base", "buttons"):
             for variant in ("", "simple/"):
                 resource = f"assets/arcanearchives/textures/gui/{variant}{name}.png"
                 require(jar.read(resource) == (ROOT / "src/main/resources" / resource).read_bytes(),
@@ -306,6 +403,27 @@ for minecraft, loader, entrypoint, major, metadata in TARGETS:
         for name in classes:
             require(struct.unpack(">H", jar.read(name)[6:8])[0] == major, f"{node}: incorrect Java target")
         invitation_recipe = "recipes" if minecraft == "1.20.1" else "recipe"
+        block_tags = "blocks" if minecraft == "1.20.1" else "block"
+        require(json.loads(jar.read(f"data/arcanearchives/tags/{block_tags}/tome_bookshelves.json")) ==
+                {"replace": False, "values": ["minecraft:bookshelf"]},
+                f"{node}: missing or broadened Tome bookshelf tag")
+        for resource in ("assets/arcanearchives/models/item/tome_arcana.json",
+                         "assets/arcanearchives/textures/item/item_tomeofarcana.png"):
+            require(jar.read(resource) == (ROOT / "src/main/resources" / resource).read_bytes(),
+                    f"{node}: missing or changed Tome artwork {resource}")
+        tome_recipe = (ROOT / "src/main/resources/data/arcanearchives/recipe/tome_arcana.json").read_text()
+        require(json.loads(jar.read(f"data/arcanearchives/{invitation_recipe}/tome_arcana.json")) ==
+                json.loads(tome_recipe.replace("${result_key}", "item" if minecraft == "1.20.1" else "id")),
+                f"{node}: changed Tome acquisition recipe or versioned result")
+        for resource in ("assets/arcanearchives/models/item/manifest.json",
+                         "assets/arcanearchives/textures/items/item_manifest.png"):
+            require(jar.read(resource) == (ROOT / "src/main/resources" / resource).read_bytes(),
+                    f"{node}: missing or changed Manifest artwork {resource}")
+        require(json.loads(jar.read(f"data/arcanearchives/{invitation_recipe}/manifest.json")) ==
+                json.loads((ROOT / "src/main/resources/data/arcanearchives/recipe/manifest.json").read_text()),
+                f"{node}: changed Manifest acquisition recipe")
+        require({"type": "minecraft:single", "resource": "arcanearchives:items/item_manifest"} in
+                json.loads(jar.read("assets/minecraft/atlases/blocks.json"))["sources"], f"{node}: missing Manifest atlas entry")
         for resource in ("assets/arcanearchives/models/item/writ_expulsion.json",
                          "assets/arcanearchives/textures/items/item_writofexpulsion.png"):
             require(jar.read(resource) == (ROOT / "src/main/resources" / resource).read_bytes(),
@@ -317,6 +435,14 @@ for minecraft, loader, entrypoint, major, metadata in TARGETS:
                 json.loads(jar.read("assets/minecraft/atlases/blocks.json"))["sources"], f"{node}: missing writ atlas entry")
         writ_mixins = "arcanearchives.forge.mixins.json" if loader == "forge" else "arcanearchives.mixins.json"
         require("WritAnvilMixin" in json.loads(jar.read(writ_mixins))["mixins"], f"{node}: missing writ anvil hook")
+        require("StorageNetworkChunkMixin" in json.loads(jar.read(writ_mixins))["mixins"],
+                f"{node}: missing storage network lifecycle hooks")
+        if loader == "forge":
+            network_mappings = json.loads(jar.read("arcanearchives.refmap.json"))["mappings"].get(
+                "com/aranaira/arcanearchives/mixin/StorageNetworkChunkMixin", {})
+            require(all(";m_" in network_mappings.get(method, "") for method in (
+                "setBlockEntity", "removeBlockEntity", "registerAllBlockEntitiesAfterLevelLoad", "clearAllBlockEntities")),
+                f"{node}: missing reobfuscated storage network lifecycle selectors")
         for resource in ("assets/arcanearchives/models/item/letter_resignation.json",
                          "assets/arcanearchives/textures/items/item_letterofresignation.png"):
             require(jar.read(resource) == (ROOT / "src/main/resources" / resource).read_bytes(),
@@ -342,6 +468,23 @@ for minecraft, loader, entrypoint, major, metadata in TARGETS:
             require(jar.read(resource) == (ROOT / "src/main/resources" / resource).read_bytes(),
                     f"{node}: missing or changed Echo artwork {resource}")
         atlas = json.loads(jar.read("assets/minecraft/atlases/blocks.json"))
+        for asset in ("models/block/lectern_manifest.obj", "models/block/lectern_manifest.mtl",
+                      "models/block/lectern_manifest_accessor.json", "models/item/lectern_manifest.json",
+                      "blockstates/lectern_manifest.json", "textures/blocks/block_lecterngrate.png", "textures/transparent.png"):
+            resource = "assets/arcanearchives/" + asset
+            require(jar.read(resource) == (ROOT / "src/main/resources" / resource).read_bytes(),
+                    f"{node}: missing or changed Manifest Lectern resource {resource}")
+        resource = "assets/arcanearchives/models/block/lectern_manifest.json"
+        lectern_loader = "neoforge" if "neoforge" in node else "forge"
+        require(json.loads(jar.read(resource)) == json.loads((ROOT / "src/main/resources" / resource).read_text().replace("${obj_loader}", lectern_loader)),
+                f"{node}: incorrect Manifest Lectern OBJ loader/model")
+        for sprite in ("arcanearchives:blocks/block_lecterngrate", "arcanearchives:transparent", "arcanearchives:items/item_manifest"):
+            require({"type": "minecraft:single", "resource": sprite} in atlas["sources"], f"{node}: missing lectern atlas sprite {sprite}")
+        recipe_folder = "recipes" if minecraft == "1.20.1" else "recipe"
+        lectern_recipe = (ROOT / "src/main/resources/data/arcanearchives/recipe/lectern_manifest.json").read_text()
+        require(json.loads(jar.read(f"data/arcanearchives/{recipe_folder}/lectern_manifest.json"))
+                == json.loads(lectern_recipe.replace("${result_key}", "item" if minecraft == "1.20.1" else "id")),
+                f"{node}: incorrect native lectern recipe schema")
         for asset in ("models/block/monitoring_crystal.obj", "models/block/monitoring_crystal.mtl",
                       "models/item/monitoring_crystal.json", "blockstates/monitoring_crystal.json"):
             resource = "assets/arcanearchives/" + asset
@@ -362,6 +505,7 @@ for minecraft, loader, entrypoint, major, metadata in TARGETS:
                 f"{node}: missing Debug Orb atlas entry")
         advancement_folder = "advancements" if minecraft == "1.20.1" else "advancement"
         advancement_names = {
+            "manifest", "lectern",
             "monitoring_crystal",
             "amphora", "chest", "containment_field", "devouring_charm", "gemcutters_table",
             "material_interface", "matrix_brace", "raw_quartz", "raw_quartz_cluster", "resonator", "root",
@@ -473,6 +617,30 @@ for minecraft, loader, entrypoint, major, metadata in TARGETS:
         for name in ("init/ContentRegistry", "items/ShapedQuartzItem", "blocks/StorageShapedQuartz", "config/ServerSideConfig", "data/PlayerSaveData",
                      "blocks/GemCuttersTable", "tileentities/GemCuttersTableBlockEntity",
                      "tileentities/NetworkOwnedBlockEntity",
+                     "data/StorageNetworks", "mixin/StorageNetworkChunkMixin",
+                     "data/ManifestContents",
+                     "data/BrazierRoutes",
+                     "events/ManifestSelect", "data/ManifestTracking",
+                     "data/BrazierRouteCache",
+                     "blocks/Brazier", "tileentities/BrazierBlockEntity",
+                     "tileentities/BrazierPlayerSelection", "inventory/BrazierItemAutomation",
+                     "client/AmphoraRenderer",
+                     "client/BrazierRangeRenderer",
+                     "client/BrazierRanges",
+                     "client/BrazierRangeState",
+                     "client/BrazierScreen",
+                     "events/BrazierRadius",
+                     "inventory/BrazierMenu",
+                     "events/ManifestSnapshotReceiver",
+                     "events/ClearManifestTracking",
+                     "blocks/LecternManifest", "items/LecternManifestItem",
+                     "events/ManifestRequest",
+                     "events/OpenManifest", "client/ManifestKey",
+                     "client/ManifestSearch", "client/ManifestScroll", "client/ManifestHighlight",
+                     "client/ManifestRays", "client/ManifestRayRenderer",
+                     "client/TroveHud", "client/TroveHudText",
+                     "items/ManifestItem", "inventory/ManifestMenu", "events/ManifestSnapshot",
+                     "client/ManifestClient", "client/ManifestScreen",
                      "items/EmpoweredQuartzItem",
                      "items/ScintillatingInlayItem",
                      "recipe/gct/HiveCraftingConditions",
@@ -482,6 +650,7 @@ for minecraft, loader, entrypoint, major, metadata in TARGETS:
                      "recipe/CraftingCreator",
                      "inventory/handlers/GemCutterInputHandler",
                      "inventory/handlers/ExtendedItemStackHandler", "inventory/handlers/SizeUpgradeItemHandler",
+                     "items/TomeOfArcanaItem", "events/TomeAcquisition",
                      "inventory/handlers/OptionalUpgradesHandler", "types/enums/UpgradeType",
                      "types/BlockPosDimension",
                      "recipe/IngredientAllocation", "recipe/IngredientStack", "recipe/IngredientsMatcher"):

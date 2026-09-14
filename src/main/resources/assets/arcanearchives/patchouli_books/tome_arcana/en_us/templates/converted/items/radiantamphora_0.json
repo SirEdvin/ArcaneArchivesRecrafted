@@ -1,0 +1,10 @@
+{
+  "components": [
+    {
+      "type": "patchouli:item",
+      "item": "arcanearchives:radiant_amphora",
+      "x": 0,
+      "y": 0
+    }
+  ]
+}
