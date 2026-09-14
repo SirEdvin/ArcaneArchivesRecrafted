@@ -53,9 +53,10 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
     // These fixtures do not load Minecraft classes. All shared fixtures also run in the GameTest server.
-    // SliverSmashingTest needs Forge's loader even though it only calls the roll helper.
+    // SliverSmashingTest and PlayerSaveDataTest need Forge's transformed runtime.
+    // PlayerSaveData now references Player; plain JUnit verifies signatures on remapped IForgePlayer.
     include("**/MathUtilsTest.class", "**/IngredientAllocationTest.class", "**/ClientConfigTest.class",
-        "**/ServerSideConfigTest.class", "**/PlayerSaveDataTest.class", "**/HiveCraftingConditionsTest.class",
+        "**/ServerSideConfigTest.class", "**/HiveCraftingConditionsTest.class",
         "**/ManifestScrollTest.class", "**/ManifestSearchTest.class", "**/ManifestHighlightTest.class", "**/ManifestRaysTest.class",
         "**/TroveHudTextTest.class")
 }
